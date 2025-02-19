@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Queries.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.sociometric</a> &gt; <span class="el_source">Queries.java</span></div><h1>Queries.java</h1><pre class="source lang-java linenums">package com.group8.phase1.sociometric;
+
+<span class="fc" id="L3">public enum Queries {</span>
+    
+    // ------- Closest Start/End stop queries ----
+
+<span class="fc" id="L7">    DELETE_FROM_START_STOPS(</span>
+        &quot;DELETE FROM StartStops;&quot;
+    ),
+<span class="fc" id="L10">    CREATE_TEMP_START_STOP_TABLE(</span>
+        &quot;CREATE TEMP TABLE IF NOT EXISTS StartStops (&quot; +
+        &quot;   stop_id TEXT &quot; +
+        &quot;);&quot;
+    ),
+<span class="fc" id="L15">    CREATE_START_STOP_IDX(</span>
+        &quot;CREATE INDEX IF NOT EXISTS idx_stop_id_start_stops &quot; +
+        &quot;ON StartStops(stop_id);&quot;
+    ),
+    // 1st position - Search position latitude
+    // 2nd position - Search position longitude
+    // 3rd position - Limit on number of stops stored
+<span class="fc" id="L22">    POPULATE_NEAREST_START_STOPS(</span>
+        &quot;INSERT INTO StartStops(stop_id) &quot; +
+        &quot;SELECT stop_id &quot; +
+        &quot;   FROM (SELECT stop_id &quot; +
+        &quot;         FROM Stops &quot; +
+        &quot;         ORDER BY abs(Stops.stop_lat - ?) + abs(Stops.stop_lon - ?) ASC &quot; +
+        &quot;         LIMIT ?)&quot;
+    ),
+<span class="fc" id="L30">    DELETE_FROM_END_STOPS(</span>
+        &quot;DELETE FROM EndStops;&quot;
+    ),
+<span class="fc" id="L33">    CREATE_TEMP_END_STOP_TABLE(</span>
+        &quot;CREATE TEMP TABLE IF NOT EXISTS EndStops (&quot; +
+        &quot;   stop_id TEXT &quot; +
+        &quot;);&quot;
+    ),
+<span class="fc" id="L38">    CREATE_END_STOP_IDX(</span>
+        &quot;CREATE INDEX IF NOT EXISTS idx_stop_id_end_stops &quot; +
+        &quot;ON EndStops(stop_id);&quot;
+    ),
+    // 1 position - Limit on number of stops stored
+<span class="fc" id="L43">    POPULATE_NEAREST_END_STOPS(</span>
+        &quot;INSERT INTO EndStops(stop_id) &quot; +
+        &quot;SELECT stop_id &quot; +
+        &quot;   FROM (SELECT stop_id &quot; +
+        &quot;         FROM Stops &quot; +
+        &quot;         ORDER BY abs(Stops.stop_lat - ?) + abs(Stops.stop_lon - ?) ASC &quot; +
+        &quot;         LIMIT ?)&quot;
+    ),
+<span class="fc" id="L51">    GET_START_STOPS(</span>
+        &quot;SELECT * FROM Stops, StartStops &quot; +
+        &quot;WHERE Stops.stop_id = StartStops.stop_id;&quot;
+    ),
+<span class="fc" id="L55">    GET_END_STOPS(</span>
+        &quot;SELECT * FROM Stops, EndStops &quot; +
+        &quot;WHERE Stops.stop_id = StartStops.stop_id;&quot;
+    ),
+
+    // --------------------------------
+
+    // ------ Queries for finding all possible trips ----------
+<span class="fc" id="L63">    DELETE_FROM_MATCHING_TRIPS(</span>
+        &quot;DELETE FROM MatchingTrips;&quot;
+    ),
+<span class="fc" id="L66">    CREATE_TEMP_MATCHING_TRIP_TABLE(</span>
+        &quot;CREATE TEMP TABLE IF NOT EXISTS MatchingTrips ( &quot; +
+        &quot;   trip_id TEXT, &quot; +
+        &quot;   route_id TEXT, &quot; +
+        &quot;   service_id TEXT, &quot; +
+        &quot;   trip_headsign TEXT, &quot; +
+        &quot;   trip_short_name TEXT, &quot; +
+        &quot;   trip_long_name TEXT, &quot; +
+        &quot;   direction_id INTEGER, &quot; +
+        &quot;   block_id TEXT, &quot; +
+        &quot;   shape_id TEXT, &quot; +
+        &quot;   wheelchair_accessible INTEGER, &quot; +
+        &quot;   bikes_allowed INTEGER, &quot; +
+        &quot;   start_stop_id STRING, &quot; +
+        &quot;   end_stop_id STRING, &quot; +
+        &quot;   start_stop_departure_time STRING,&quot; +
+        &quot;   start_stop_sequence INTEGER, &quot; +
+        &quot;   end_stop_arrival_time STRING,&quot; +
+        &quot;   total_travel_time INTEGER &quot; +
+        &quot;);&quot;
+    ),
+<span class="fc" id="L87">    CREATE_MATCHING_TRIP_IDS_IDX(</span>
+        &quot;CREATE INDEX IF NOT EXISTS idx_matching_trips_ids &quot; +
+        &quot;ON MatchingTrips(trip_id, direction_id,);&quot;
+    ),
+<span class="fc" id="L91">    CREATE_MATCHING_TRIP_TIMES_IDX(</span>
+        &quot;CREATE INDEX IF NOT EXISTS idx_matching_trips_times &quot; +
+        &quot;ON MatchingTrips(start_stop_departure_time);&quot;
+    ),
+<span class="fc" id="L95">    FIND_ALL_MATCHING_TRIPS(</span>
+        &quot;WITH start_stop AS ( &quot; +
+        &quot;    SELECT trip_id, StartStops.stop_id AS start_stop_id, startTimes.departure_time AS start_stop_departure_time, startTimes.stop_sequence AS stop_sequence &quot; +
+        &quot;    FROM StopTimes AS startTimes &quot; +
+        &quot;    JOIN StartStops ON startTimes.stop_id = StartStops.stop_id &quot; +
+        &quot;    ORDER BY &quot; +
+        &quot;       startTimes.stop_sequence ASC &quot; +
+        &quot;), &quot; +
+        &quot;end_stop AS ( &quot; +
+        &quot;    SELECT trip_id, EndStops.stop_id AS end_stop_id, endTimes.arrival_time AS end_stop_arrival_time &quot; +
+        &quot;    FROM StopTimes AS endTimes &quot; +
+        &quot;    JOIN EndStops ON endTimes.stop_id = EndStops.stop_id &quot; +
+        &quot;    ORDER BY &quot; +
+        &quot;       endTimes.stop_sequence ASC &quot; +
+        &quot;) &quot; +
+        &quot;INSERT INTO MatchingTrips (trip_id, route_id, service_id, trip_headsign, trip_short_name, trip_long_name, direction_id, block_id, shape_id, wheelchair_accessible, bikes_allowed, start_stop_id, end_stop_id, start_stop_departure_time, start_stop_sequence, end_stop_arrival_time) &quot; +
+        &quot;SELECT DISTINCT &quot; +
+        &quot;    Trips.trip_id, &quot; +
+        &quot;    Trips.route_id, &quot; +
+        &quot;    Trips.service_id, &quot; +
+        &quot;    Trips.trip_headsign, &quot; +
+        &quot;    Trips.trip_short_name, &quot; +
+        &quot;    Trips.trip_long_name, &quot; +
+        &quot;    Trips.direction_id, &quot; +
+        &quot;    Trips.block_id, &quot; +
+        &quot;    Trips.shape_id, &quot; +
+        &quot;    Trips.wheelchair_accessible, &quot; +
+        &quot;    Trips.bikes_allowed, &quot; +
+        &quot;    start_stop.start_stop_id, &quot; +
+        &quot;    end_stop.end_stop_id, &quot; +
+        &quot;    start_stop.start_stop_departure_time, &quot; +
+        &quot;    start_stop.stop_sequence, &quot; +
+        &quot;    end_stop.end_stop_arrival_time &quot; +
+        &quot;FROM Trips &quot; +
+        &quot;JOIN start_stop ON Trips.trip_id = start_stop.trip_id &quot; +
+        &quot;JOIN end_stop ON Trips.trip_id = end_stop.trip_id &quot; +
+        &quot;WHERE start_stop.start_stop_id IS NOT NULL &quot; +
+        &quot;AND end_stop.end_stop_id IS NOT NULL &quot; +
+        &quot;AND start_stop.start_stop_departure_time &lt; end_stop.end_stop_arrival_time &quot; +
+        &quot;GROUP BY Trips.trip_id &quot; +
+        //&quot;ORDER BY start_stop.stop_sequence ASC, &quot; +
+        &quot;ORDER BY start_stop_departure_time ASC &quot; + 
+        &quot;LIMIT 900;&quot;
+    ),
+    
+    // ----------------------------------------------------------------
+
+    // ------ Queries for filtering the trips on certain criteria ----------
+
+<span class="fc" id="L144">    FILTER_BIKES_NOT_ALLOWED(</span>
+        &quot;DELETE FROM MatchingTrips &quot; +
+        &quot;WHERE MatchingTrips.bikes_allowed = 0;&quot;
+    ),
+<span class="fc" id="L148">    FILTER_NOT_WHEELCHAIR_ACCESSIBLE(</span>
+        &quot;DELETE FROM MatchingTrips &quot; +
+        &quot;WHERE MatchingTrips.wheelchair_accessible = 0;&quot;
+    ),
+    // 1 position - date for which to filter
+<span class="fc" id="L153">    FILTER_NOT_RUNNING(</span>
+        &quot;DELETE FROM MatchingTrips &quot; +
+        &quot;WHERE MatchingTrips.service_id NOT IN ( &quot;+
+        &quot;   SELECT service_id FROM CalendarDates &quot; +
+        &quot;   WHERE date = ? AND exception_type = 1 &quot; +
+        &quot;)&quot;
+    ),
+    // 1 position - the time for which to remove past trips
+<span class="fc" id="L161">    FILTER_EARLY_DEPARTURES(</span>
+        &quot;DELETE FROM MatchingTrips &quot; +
+        &quot;WHERE start_stop_departure_time &lt; ?;&quot;
+    ),
+    
+    // -------------------------------------------------------------------------
+
+    // -------- Queries for calculating travel time for each remaining trip --------------------------------
+
+<span class="fc" id="L170">    GET_MATCHING_TRIPS_ALL(</span>
+        &quot;SELECT * FROM MatchingTrips;&quot;
+    ),
+    // 1st position - trip ID
+    // 2nd position - Start stop ID
+    // 3rd position - End stop ID
+<span class="fc" id="L176">    SELECT_TIMES(</span>
+        &quot;WITH trip AS ( &quot; +
+        &quot;   SELECT ? AS trip_id&quot; +
+        &quot;), &quot; +
+        &quot;start_stop_sequence AS ( &quot; +
+        &quot;   SELECT stop_sequence FROM StopTimes WHERE trip_id = (SELECT trip_id FROM trip) AND stop_id = ?&quot; +
+        &quot;), &quot; +
+        &quot;end_stop_sequence AS ( &quot; +
+        &quot;   SELECT stop_sequence FROM StopTimes WHERE trip_id = (SELECT trip_id FROM trip) AND stop_id = ?&quot; +
+        &quot;) &quot; +
+        &quot;SELECT departure_time, arrival_time &quot; +
+        &quot;FROM StopTimes &quot; +
+        &quot;WHERE trip_id = (SELECT trip_id FROM trip)&quot; +
+        &quot;  AND stop_sequence &gt;= (SELECT stop_sequence FROM start_stop_sequence) &quot; +
+        &quot;  AND stop_sequence &lt;= (SELECT stop_sequence FROM end_stop_sequence) &quot; +
+        &quot;ORDER BY stop_sequence ASC;&quot;
+    ),
+<span class="fc" id="L193">    INSERT_TRAVEL_TIME(</span>
+        &quot;UPDATE MatchingTrips &quot; +
+        &quot;SET total_travel_time = ? &quot; +
+        &quot;WHERE trip_id = ? AND start_stop_id = ?;&quot;
+    ),
+
+    // ----------------------------------------------------------------
+
+<span class="fc" id="L201">    GET_POSSIBLE_TRIP_COUNT(</span>
+        &quot;SELECT COUNT(*) FROM MatchingTrips;&quot;
+    ),
+
+    // ----------------------------------------------------------------
+
+    // ------ Queries for populating travel advice object --------------------------------
+
+    // 1st position - limit on rows returned
+<span class="fc" id="L210">    GET_MATCHING_TRIPS_ORDERED(</span>
+        &quot;SELECT DISTINCT * FROM MatchingTrips &quot; +
+        &quot;ORDER BY start_stop_departure_time ASC &quot; +
+        &quot;LIMIT ?;&quot;
+    ),
+    // 1st position - trip ID
+    // 2nd position - Start stop ID
+    // 3rd position - Start stop ID
+    // 4th position - End stop ID
+    // 5th position - End stop ID
+<span class="fc" id="L220">    GET_SHAPES_FOR_TRIP(</span>
+        &quot;WITH current_trip AS ( &quot; +
+        &quot;    SELECT ? AS trip_id&quot; +
+        &quot;), &quot; +
+        &quot;trip_shape_id AS ( &quot; +
+        &quot;   SELECT shape_id FROM Trips WHERE Trips.trip_id = (SELECT trip_id FROM current_trip) &quot; +
+        &quot;), &quot; +
+        &quot;start_shape_pt AS ( &quot; +
+        &quot;   SELECT Shapes.shape_pt_sequence FROM Shapes WHERE Shapes.shape_id = (SELECT shape_id FROM trip_shape_id) &quot; +
+        &quot;   ORDER BY ABS(Shapes.shape_pt_lat - (SELECT stop_lat FROM Stops WHERE Stops.stop_id = ?)) + ABS(Shapes.shape_pt_lon - (SELECT stop_lon FROM Stops WHERE Stops.stop_id = ?)) ASC &quot; +
+        &quot;   LIMIT 1&quot; +
+        &quot;), &quot; +
+        &quot;end_shape_pt AS ( &quot; +
+        &quot;   SELECT Shapes.shape_pt_sequence FROM Shapes WHERE Shapes.shape_id = (SELECT shape_id FROM trip_shape_id) &quot; +
+        &quot;   ORDER BY ABS(Shapes.shape_pt_lat - (SELECT stop_lat FROM Stops WHERE Stops.stop_id = ?)) + ABS(Shapes.shape_pt_lon - (SELECT stop_lon FROM Stops WHERE Stops.stop_id = ?)) ASC &quot; +
+        &quot;   LIMIT 1&quot; +
+        &quot;) &quot; +
+        &quot;SELECT shape_pt_sequence, shape_pt_lat, shape_pt_lon FROM Shapes &quot; +
+        &quot;WHERE &quot; +
+        &quot;   Shapes.shape_pt_sequence &gt;= (SELECT shape_pt_sequence FROM start_shape_pt) &quot; +
+        &quot;   AND Shapes.shape_pt_sequence &lt;= (SELECT shape_pt_sequence FROM end_shape_pt) &quot; +
+        &quot;   AND Shapes.shape_id = (SELECT shape_id FROM trip_shape_id) &quot; +
+        &quot;ORDER BY Shapes.shape_pt_sequence ASC;&quot;
+    ),
+<span class="fc" id="L244">    GET_STOPS_FOR_TRIP(</span>
+        &quot;WITH current_trip_id AS ( &quot; +
+        &quot;    SELECT ? AS trip_id &quot; +
+        &quot;), &quot; +
+        &quot;start_stop_sq AS ( &quot; +
+        &quot;    SELECT MAX(StopTimes.stop_sequence) AS stop_sequence FROM StopTimes WHERE StopTimes.trip_id = (SELECT trip_id FROM current_trip_id) AND StopTimes.stop_id = ? &quot; +
+        &quot;), &quot; +
+        &quot;end_stop_sq AS ( &quot; +
+        &quot;    SELECT MIN(StopTimes.stop_sequence) AS stop_sequence FROM StopTimes WHERE StopTimes.trip_id = (SELECT trip_id FROM current_trip_id) AND StopTimes.stop_id = ?&quot; +
+        &quot;) &quot; +
+        &quot;SELECT DISTINCT Stops.*, (SELECT stop_sequence FROM end_stop_sq) - (SELECT stop_sequence FROM start_stop_sq) AS stop_count FROM StopTimes AS StopTimes1 &quot; +
+        &quot;INNER JOIN StopTimes AS StopTimes2 ON StopTimes1.trip_id = StopTimes2.trip_id &quot; +
+        &quot;INNER JOIN Stops ON StopTimes1.stop_id = Stops.stop_id &quot; +
+        &quot;WHERE StopTimes1.trip_id = (SELECT trip_id FROM current_trip_id) &quot; +
+        &quot;AND StopTimes1.stop_sequence &gt;= (SELECT stop_sequence FROM start_stop_sq) &quot; +
+        &quot;AND StopTimes1.stop_sequence &lt;= (SELECT stop_sequence FROM end_stop_sq) &quot; +
+        &quot;ORDER BY StopTimes1.stop_sequence ASC;&quot;
+    ),
+<span class="fc" id="L262">    GET_ROUTE_FOR_TRIP(</span>
+        &quot;SELECT * FROM Routes &quot; +
+        &quot;WHERE Routes.route_id = (SELECT Trips.route_id FROM Trips WHERE Trips.trip_id = ?) &quot;
+    ),
+<span class="fc" id="L266">    GET_COUNT_NEAREST_STOPS(</span>
+                    &quot;SELECT stop_id ,stop_lat, stop_lon &quot; +
+                    &quot;FROM (SELECT stop_id ,stop_lat, stop_lon &quot; +
+                    &quot;      FROM Stops &quot; +
+                    &quot;      WHERE (6371000 * acos(cos(radians(?)) * cos(radians(stop_lat)) * cos(radians(stop_lon) - radians(?)) + sin(radians(?)) * sin(radians(stop_lat)))) &lt;= ? &quot; +
+                    &quot;      ORDER BY (6371000 * acos(cos(radians(?)) * cos(radians(stop_lat)) * cos(radians(stop_lon) - radians(?)) + sin(radians(?)) * sin(radians(stop_lat)))) ASC);&quot;
+    ),
+<span class="fc" id="L273">    GET_BUS_ROUTE_BY_STOP_ID(</span>
+            &quot;WITH RouteInfo AS ( &quot; +
+                    &quot;    SELECT DISTINCT Trips.route_id &quot; +
+                    &quot;    FROM StopTimes &quot; +
+                    &quot;    JOIN Trips ON StopTimes.trip_id = Trips.trip_id &quot; +
+                    &quot;    WHERE StopTimes.stop_id = ? &quot; +
+                    &quot;), &quot; +
+                    &quot;TripStops AS ( &quot; +
+                    &quot;    SELECT StopTimes.stop_id, Stops.stop_name, Stops.stop_lat, Stops.stop_lon, Trips.route_id, StopTimes.stop_sequence &quot; +
+                    &quot;    FROM StopTimes &quot; +
+                    &quot;    JOIN Stops ON StopTimes.stop_id = Stops.stop_id &quot; +
+                    &quot;    JOIN Trips ON StopTimes.trip_id = Trips.trip_id &quot; +
+                    &quot;    WHERE Trips.route_id = (SELECT route_id FROM RouteInfo) &quot; +
+                    &quot;    ORDER BY StopTimes.stop_sequence &quot; +
+                    &quot;) &quot; +
+                    &quot;SELECT DISTINCT route_id FROM TripStops;&quot;
+    ),
+<span class="fc" id="L290">    GET_ROUTE_COLOR_BY_ROUTE_ID(</span>
+        &quot;SELECT DISTINCT route_color &quot; +
+                &quot;FROM Routes &quot; +
+                &quot;WHERE route_id = ?;&quot;
+    ),
+<span class="fc" id="L295">    GET_SHAPES_BY_ROUTE_ID(</span>
+            &quot;SELECT Shapes.shape_pt_lat, Shapes.shape_pt_lon, Shapes.shape_pt_sequence &quot; +
+                    &quot;FROM Shapes &quot; +
+                    &quot;JOIN Trips ON Shapes.shape_id = Trips.shape_id &quot; +
+                    &quot;WHERE Trips.route_id = ? &quot; +
+                    &quot;ORDER BY Shapes.shape_pt_sequence&quot;
+    );
+
+    private final String query;
+
+<span class="fc" id="L305">    Queries(String query){</span>
+<span class="fc" id="L306">        this.query = query;</span>
+<span class="fc" id="L307">    }</span>
+
+    public String getQuery() {
+<span class="fc" id="L310">        return query;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

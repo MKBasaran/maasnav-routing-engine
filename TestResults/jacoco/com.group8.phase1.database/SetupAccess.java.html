@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SetupAccess.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.database</a> &gt; <span class="el_source">SetupAccess.java</span></div><h1>SetupAccess.java</h1><pre class="source lang-java linenums">package com.group8.phase1.database;
+
+import com.group8.phase1.initialdataloader.ProgressPanel;
+import com.group8.phase1.logger.LoggerService;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+<span class="fc" id="L11">public enum SetupAccess {</span>
+    ;
+<span class="fc" id="L13">    private static final LoggerService loggerService = LoggerService.getInstance();</span>
+
+    public static void setupAccess(ProgressPanel progressViewer){
+<span class="fc" id="L16">        progressViewer.setStatus(&quot;Creating databases...&quot;);</span>
+<span class="fc" id="L17">        progressViewer.setProgress(0.5);</span>
+<span class="fc" id="L18">        createNewDatabase();</span>
+<span class="fc" id="L19">        progressViewer.setProgress(0.75);</span>
+<span class="fc" id="L20">        createTables();</span>
+<span class="fc" id="L21">        progressViewer.setProgress(1.0);</span>
+<span class="fc" id="L22">    }</span>
+    public static void createNewDatabase(){
+<span class="fc" id="L24">        try (Connection conn = ConnectionGrabber.getInstance().connectJSON()) {</span>
+<span class="pc bpc" id="L25" title="1 of 2 branches missed.">            if (conn != null) {</span>
+<span class="fc" id="L26">                loggerService.info(&quot;OSM Database was created.&quot;);</span>
+            }
+
+<span class="nc" id="L29">        } catch (SQLException e) {</span>
+<span class="nc" id="L30">            loggerService.error(&quot;Couldn't create OSM database.&quot;);</span>
+<span class="fc" id="L31">        }</span>
+<span class="fc" id="L32">    }</span>
+
+    public static void createMultiplierTable(Connection connection) throws SQLException{
+<span class="fc" id="L35">        Statement statement = connection.createStatement();</span>
+<span class="fc" id="L36">        statement.executeUpdate(&quot;CREATE TABLE IF NOT EXISTS multiplier(\n&quot; +</span>
+                &quot;\tsuperType TEXT PRIMARY KEY,\n&quot; +
+                &quot;\tbonus INT NOT NULL\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L40">    }</span>
+    public static void createScoreTable(Connection connection) throws SQLException {
+<span class="fc" id="L42">        Statement statement = connection.createStatement();</span>
+<span class="fc" id="L43">        statement.executeUpdate(&quot;CREATE TABLE IF NOT EXISTS score (\n&quot; +</span>
+                &quot;\ttype TEXT PRIMARY KEY,\n&quot; +
+                &quot;\tsuperType TEXT,\n&quot; +
+                &quot;\tscore INT NOT NULL,\n&quot; +
+                &quot;\tFOREIGN KEY (superType) REFERENCES multiplier(superType)\n&quot; +
+                &quot;\tON DELETE CASCADE\n&quot; +
+                &quot;\tON UPDATE CASCADE\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L51">    }</span>
+    public static void createAmenitiesTable(Connection connection) throws SQLException{
+<span class="fc" id="L53">        Statement statement = connection.createStatement();</span>
+<span class="fc" id="L54">        statement.executeUpdate(&quot;CREATE TABLE IF NOT EXISTS amenities (\n&quot; +</span>
+                &quot;    landmark_id INTEGER PRIMARY KEY AUTOINCREMENT,\n&quot; +
+                &quot;    amenity_type TEXT,\n&quot; +
+                &quot;    name TEXT,\n&quot; +
+                &quot;    lat REAL NOT NULL,\n&quot; +
+                &quot;    long REAL NOT NULL,\n&quot; +
+                &quot;    amenityScore INT DEFAULT 0,\n&quot; +
+                &quot;    FOREIGN KEY (amenity_type) \n&quot; +
+                &quot;    REFERENCES score(type)\n&quot; +
+                &quot;    ON UPDATE CASCADE\n&quot; +
+                &quot;    ON DELETE CASCADE\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L66">        Statement rtreeStatement = connection.createStatement();</span>
+<span class="fc" id="L67">        rtreeStatement.executeUpdate(&quot;CREATE VIRTUAL TABLE IF NOT EXISTS rtree_amenities USING rtree(\n&quot; +</span>
+                &quot;    id,\n&quot; +
+                &quot;    minX, maxX,\n&quot; +
+                &quot;    minY, maxY\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L72">    }</span>
+    public static void createShopTable(Connection connection) throws SQLException{
+<span class="fc" id="L74">        Statement statement = connection.createStatement();</span>
+<span class="fc" id="L75">        statement.executeUpdate(&quot;CREATE TABLE IF NOT EXISTS shops (\n&quot; +</span>
+                &quot;    landmark_id INTEGER PRIMARY KEY AUTOINCREMENT,\n&quot; +
+                &quot;    shop_type TEXT,\n&quot; +
+                &quot;    name TEXT,\n&quot; +
+                &quot;    lat REAL NOT NULL,\n&quot; +
+                &quot;    long REAL NOT NULL,\n&quot; +
+                &quot;    shopScore INT DEFAULT 0,\n&quot; +
+                &quot;    FOREIGN KEY (shop_type) \n&quot; +
+                &quot;    REFERENCES score(type)\n&quot; +
+                &quot;    ON UPDATE CASCADE\n&quot; +
+                &quot;    ON DELETE CASCADE\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L87">        Statement rtreeShops = connection.createStatement();</span>
+<span class="fc" id="L88">        rtreeShops.executeUpdate(&quot;CREATE VIRTUAL TABLE IF NOT EXISTS rtree_shops USING rtree(\n&quot; +</span>
+                &quot;    id,\n&quot; +
+                &quot;    minX, maxX,\n&quot; +
+                &quot;    minY, maxY\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L93">    }</span>
+    public static void createTourismTable(Connection connection) throws SQLException{
+<span class="fc" id="L95">        Statement statement = connection.createStatement();</span>
+<span class="fc" id="L96">        statement.executeUpdate(&quot;CREATE TABLE IF NOT EXISTS tourism (\n&quot; +</span>
+                &quot;    landmark_id INTEGER PRIMARY KEY AUTOINCREMENT,\n&quot; +
+                &quot;    tourism_type TEXT,\n&quot; +
+                &quot;    name TEXT,\n&quot; +
+                &quot;    lat REAL NOT NULL,\n&quot; +
+                &quot;    long REAL NOT NULL,\n&quot; +
+                &quot;    tourismScore INT DEFAULT 0,\n&quot; +
+                &quot;    FOREIGN KEY (tourism_type) \n&quot; +
+                &quot;    REFERENCES score(type)\n&quot; +
+                &quot;    ON UPDATE CASCADE\n&quot; +
+                &quot;    ON DELETE CASCADE\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L108">        Statement rtreeTourism = connection.createStatement();</span>
+<span class="fc" id="L109">        rtreeTourism.executeUpdate(&quot;CREATE VIRTUAL TABLE IF NOT EXISTS rtree_tourism USING rtree(\n&quot; +</span>
+                &quot;    id,\n&quot; +
+                &quot;    minX, maxX,\n&quot; +
+                &quot;    minY, maxY\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L114">    }</span>
+    public static void createCodeToAgeTable(Connection connection) throws SQLException{
+<span class="fc" id="L116">        Statement statement = connection.createStatement();</span>
+<span class="fc" id="L117">        statement.executeUpdate(&quot;CREATE TABLE CodeToAge (\n&quot; +</span>
+                &quot;\tpostalCode CHAR(6) PRIMARY KEY NOT NULL,\n&quot; +
+                &quot;\tAgeCategory CHAR(1) NOT NULL\n&quot; +
+                &quot;);&quot;);
+<span class="fc" id="L121">    }</span>
+    public static void createScoreTriggers(Connection connection) throws SQLException {
+
+<span class="pc bpc" id="L124" title="1 of 2 branches missed.">        if (!checkTriggerExistence(&quot;handleInsertScore&quot;,connection)) {</span>
+<span class="fc" id="L125">            Statement statement = connection.createStatement();</span>
+<span class="fc" id="L126">            statement.executeUpdate(&quot;CREATE TRIGGER handleInsertScore AFTER INSERT ON score\n&quot; +</span>
+                    &quot;FOR EACH ROW BEGIN\n&quot; +
+                    &quot;\tUPDATE score SET score = (SELECT m.bonus FROM multiplier m WHERE m.superType = NEW.superType)\n&quot; +
+                    &quot;\tWHERE type = NEW.type;\n&quot; +
+                    &quot;END;\n&quot;);
+        }
+
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        if (!checkTriggerExistence(&quot;handleScoreShops&quot;, connection)) {</span>
+<span class="fc" id="L134">            Statement statementShops = connection.createStatement();</span>
+<span class="fc" id="L135">            statementShops.executeUpdate(&quot;CREATE TRIGGER handleScoreShops AFTER INSERT ON shops\n&quot; +</span>
+                    &quot;FOR EACH ROW BEGIN\n&quot; +
+                    &quot;\tUPDATE shops SET shopScore = (SELECT s.score FROM score s WHERE s.type = NEW.shop_type)\n&quot; +
+                    &quot;\tWHERE landmark_id = NEW.landmark_id;\n&quot; +
+                    &quot;END;\n&quot;);
+        }
+
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        if (!checkTriggerExistence(&quot;handleScoreAmenity&quot;, connection)) {</span>
+<span class="fc" id="L143">            Statement statementAmenities = connection.createStatement();</span>
+<span class="fc" id="L144">            statementAmenities.executeUpdate(&quot;CREATE TRIGGER handleScoreAmenity AFTER INSERT ON amenities\n&quot; +</span>
+                    &quot;FOR EACH ROW BEGIN\n&quot; +
+                    &quot;\tUPDATE amenities SET amenityScore = (SELECT s.score FROM score s WHERE s.type = NEW.amenity_type)\n&quot; +
+                    &quot;\tWHERE landmark_id = NEW.landmark_id;\n&quot; +
+                    &quot;END;\n&quot;);
+        }
+
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        if (!checkTriggerExistence(&quot;handleScoreTourism&quot;, connection)) {</span>
+<span class="fc" id="L152">            Statement statementTourism = connection.createStatement();</span>
+<span class="fc" id="L153">            statementTourism.executeUpdate(&quot;CREATE TRIGGER handleScoreTourism AFTER INSERT ON tourism\n&quot; +</span>
+                    &quot;FOR EACH ROW BEGIN\n&quot; +
+                    &quot;\tUPDATE tourism SET tourismScore = (SELECT s.score FROM score s WHERE s.type = NEW.tourism_type)\n&quot; +
+                    &quot;\tWHERE landmark_id = NEW.landmark_id;\n&quot; +
+                    &quot;END;\n&quot;);
+        }
+<span class="fc" id="L159">    }</span>
+    public static boolean checkTriggerExistence(String triggerName, Connection connection){
+<span class="fc" id="L161">        String checkTrigger = &quot;SELECT name FROM sqlite_master WHERE type='trigger' AND name='&quot; + triggerName + &quot;';&quot;;</span>
+        try {
+<span class="fc" id="L163">            Statement statement = connection.createStatement();</span>
+<span class="fc" id="L164">            ResultSet resultSet = statement.executeQuery(checkTrigger);</span>
+<span class="fc" id="L165">            return resultSet.next();</span>
+<span class="nc" id="L166">        } catch (SQLException e) {</span>
+<span class="nc" id="L167">            throw new RuntimeException(e);</span>
+        }
+    }
+    public static void createTables() {
+        try {
+<span class="fc" id="L172">            Connection conn = ConnectionGrabber.getInstance().getConnectionJSON();</span>
+<span class="fc" id="L173">            createMultiplierTable(conn);</span>
+<span class="fc" id="L174">            createScoreTable(conn);</span>
+<span class="fc" id="L175">            createAmenitiesTable(conn);</span>
+<span class="fc" id="L176">            createShopTable(conn);</span>
+<span class="fc" id="L177">            createTourismTable(conn);</span>
+<span class="fc" id="L178">            createScoreTriggers(conn);</span>
+<span class="fc" id="L179">            createCodeToAgeTable(conn);</span>
+<span class="nc" id="L180">        } catch (SQLException e) {</span>
+<span class="nc" id="L181">            loggerService.error(&quot;Couldn't create OSM tables&quot;);</span>
+<span class="fc" id="L182">        }</span>
+<span class="fc" id="L183">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

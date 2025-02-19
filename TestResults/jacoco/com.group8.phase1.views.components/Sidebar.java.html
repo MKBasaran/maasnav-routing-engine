@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Sidebar.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.views.components</a> &gt; <span class="el_source">Sidebar.java</span></div><h1>Sidebar.java</h1><pre class="source lang-java linenums">package com.group8.phase1.views.components;
+
+import com.group8.phase1.ErrorUI.ErrorShower;
+import com.group8.phase1.api.WebInteraction;
+import com.group8.phase1.database.functional.GetNearestNode;
+import com.group8.phase1.imageutil.Resize;
+import com.group8.phase1.initialdataloader.RoutingDataManager;
+import com.group8.phase1.map.Painter;
+import com.group8.phase1.pathfinding.Path;
+import com.group8.phase1.pathfinding.RoutingEngine;
+import com.group8.phase1.structures.map.Node;
+import com.group8.phase1.views.handlers.BusRouteHandler;
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.viewer.GeoPosition;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+public class Sidebar extends JPanel {
+
+<span class="fc" id="L32">    private final BusRouteHandler busRouteHandler = new BusRouteHandler(this);</span>
+    // Routing
+    Painter painter;
+    JXMapViewer mapViewer;
+    private BufferedImage walkingManImage;
+    private BufferedImage bicycleImage;
+    private BufferedImage busImage;
+
+    private BufferedImage startPointImage;
+    private BufferedImage dotsImage;
+    private BufferedImage toPointImage;
+    private BufferedImage circleImage;
+    private BusRoutingViewer busRoutingViewer;
+
+    private JLabel distanceLabel;
+    private JLabel timeLabel;
+    private JPanel sideBar2;
+
+<span class="fc" id="L50">    public Sidebar(JXMapViewer mapViewer) {</span>
+<span class="fc" id="L51">        this.mapViewer = mapViewer;</span>
+<span class="fc" id="L52">        this.setLayout(new BorderLayout());</span>
+<span class="fc" id="L53">        int top = 10, left = 10, bottom = 10, right = 10;</span>
+<span class="fc" id="L54">        this.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));</span>
+
+<span class="fc" id="L56">        resizeAndLoadPhotos();</span>
+<span class="fc" id="L57">        initComponents();</span>
+<span class="fc" id="L58">    }</span>
+
+    // Format seconds into &quot;x hours x minutes x seconds&quot; format
+    public static String formatSeconds(int seconds) {
+<span class="fc" id="L62">        int hours = seconds / 3600;</span>
+<span class="fc" id="L63">        int remainder = seconds % 3600;</span>
+<span class="fc" id="L64">        int minutes = remainder / 60;</span>
+<span class="fc" id="L65">        int secs = remainder % 60;</span>
+
+<span class="fc" id="L67">        return String.format(&quot;%d hours %d minutes %d seconds&quot;, hours, minutes, secs);</span>
+
+    }
+
+    /**
+     * Adds custom focus listeners to text fields so that on mouse hover, the text from them disappears
+     *
+     * @param textField text field to add focus listener to
+     * @param promtText text which should be displayed in the text field while not in focus
+     */
+
+    void deleteOnClick(JTextField textField, String promtText) {
+<span class="fc" id="L79">        textField.addFocusListener(new FocusListener() {</span>
+
+            @Override
+            public void focusGained(FocusEvent e) {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">                if (textField.getText().equals(promtText)) {</span>
+<span class="fc" id="L84">                    textField.setText(&quot;&quot;);</span>
+                }
+<span class="fc" id="L86">            }</span>
+
+            @Override
+            public void focusLost(FocusEvent e) {
+<span class="fc bfc" id="L90" title="All 2 branches covered.">                if (textField.getText().trim().equals(&quot;&quot;)) {</span>
+<span class="fc" id="L91">                    textField.setText(promtText);</span>
+                }
+<span class="fc" id="L93">            }</span>
+
+        });
+<span class="fc" id="L96">    }</span>
+
+    // Initialize UI components
+    private void initComponents() {
+<span class="fc" id="L100">        JPanel inputPanel = new JPanel();</span>
+<span class="fc" id="L101">        GridBagLayout layout = new GridBagLayout();</span>
+
+<span class="fc" id="L103">        inputPanel.setLayout(layout);</span>
+<span class="fc" id="L104">        GridBagConstraints gbc = new GridBagConstraints();</span>
+
+<span class="fc" id="L106">        JToggleButton toggleButton = new JToggleButton(&quot;Social Economic Details&quot;);</span>
+<span class="fc" id="L107">        toggleButton.setName(&quot;toMetricButton&quot;);</span>
+<span class="fc" id="L108">        JLabel startInputPhoto = new JLabel();</span>
+<span class="fc" id="L109">        startInputPhoto.setIcon(new ImageIcon(startPointImage));</span>
+<span class="fc" id="L110">        JLabel toInputPhoto = new JLabel();</span>
+<span class="fc" id="L111">        toInputPhoto.setIcon(new ImageIcon(toPointImage));</span>
+
+
+<span class="fc" id="L114">        JTextField startInputField = new RoundTextField(&quot;Enter starting postal code:&quot;);</span>
+<span class="fc" id="L115">        startInputField.setName(&quot;startInputField&quot;);</span>
+
+<span class="fc" id="L117">        deleteOnClick(startInputField, &quot;Enter starting postal code:&quot;);</span>
+<span class="fc" id="L118">        JTextField toInputField = new RoundTextField(&quot;Enter destination postal code:&quot;);</span>
+<span class="fc" id="L119">        toInputField.setName(&quot;toInputField&quot;);</span>
+
+<span class="fc" id="L121">        deleteOnClick(toInputField, &quot;Enter destination postal code:&quot;);</span>
+<span class="fc" id="L122">        JLabel middleDotsPhoto = new JLabel();</span>
+<span class="fc" id="L123">        middleDotsPhoto.setIcon(new ImageIcon(dotsImage));</span>
+
+
+<span class="fc" id="L126">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L127">        gbc.gridx = 0;</span>
+<span class="fc" id="L128">        gbc.gridy = 0;</span>
+<span class="fc" id="L129">        gbc.ipady = 5;</span>
+<span class="fc" id="L130">        gbc.ipadx = 5;</span>
+<span class="fc" id="L131">        inputPanel.add(startInputPhoto, gbc);</span>
+
+<span class="fc" id="L133">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L134">        gbc.gridx = 1;</span>
+<span class="fc" id="L135">        gbc.gridy = 0;</span>
+<span class="fc" id="L136">        gbc.ipady = 20;</span>
+<span class="fc" id="L137">        gbc.ipadx = 50;</span>
+<span class="fc" id="L138">        inputPanel.add(startInputField, gbc);</span>
+
+<span class="fc" id="L140">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L141">        gbc.gridx = 0;</span>
+<span class="fc" id="L142">        gbc.gridy = 1;</span>
+<span class="fc" id="L143">        gbc.ipady = 5;</span>
+<span class="fc" id="L144">        gbc.ipadx = 0;</span>
+<span class="fc" id="L145">        inputPanel.add(middleDotsPhoto, gbc);</span>
+
+<span class="fc" id="L147">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L148">        gbc.gridx = 0;</span>
+<span class="fc" id="L149">        gbc.gridy = 2;</span>
+<span class="fc" id="L150">        gbc.ipady = 5;</span>
+<span class="fc" id="L151">        gbc.ipadx = 5;</span>
+<span class="fc" id="L152">        inputPanel.add(toInputPhoto, gbc);</span>
+
+<span class="fc" id="L154">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L155">        gbc.gridx = 1;</span>
+<span class="fc" id="L156">        gbc.gridy = 2;</span>
+<span class="fc" id="L157">        gbc.ipady = 20;</span>
+<span class="fc" id="L158">        gbc.ipadx = 220;</span>
+<span class="fc" id="L159">        inputPanel.add(toInputField, gbc);</span>
+
+<span class="fc" id="L161">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L162">        gbc.gridx = 1;</span>
+<span class="fc" id="L163">        gbc.gridy = 4;</span>
+<span class="fc" id="L164">        gbc.ipadx = 5;</span>
+<span class="fc" id="L165">        gbc.ipady = 0;</span>
+<span class="fc" id="L166">        inputPanel.add(toggleButton, gbc);</span>
+<span class="fc" id="L167">        inputPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));</span>
+<span class="fc" id="L168">        inputPanel.setPreferredSize(new Dimension(320, 150));</span>
+<span class="fc" id="L169">        this.add(inputPanel);</span>
+
+<span class="fc" id="L171">        JPanel buttonsPanel = new JPanel();</span>
+<span class="fc" id="L172">        GridLayout gridLayout = new GridLayout(1, 3);</span>
+<span class="fc" id="L173">        gridLayout.setHgap(5);</span>
+<span class="fc" id="L174">        buttonsPanel.setLayout(gridLayout);</span>
+
+<span class="fc" id="L176">        JButton walkingButton = new JButton();</span>
+<span class="fc" id="L177">        walkingButton.setName(&quot;walkingButton&quot;);</span>
+<span class="fc" id="L178">        walkingButton.setBackground(Color.white);</span>
+<span class="fc" id="L179">        walkingButton.setIcon(new ImageIcon(walkingManImage));</span>
+<span class="fc" id="L180">        walkingButton.setToolTipText(&quot;Generate walking route.&quot;);</span>
+<span class="fc" id="L181">        walkingButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L184">                startRouting(&quot;Walking&quot;, startInputField.getText(), toInputField.getText());</span>
+<span class="fc" id="L185">            }</span>
+        });
+
+<span class="fc" id="L188">        JButton bicycleButton = new JButton();</span>
+<span class="fc" id="L189">        bicycleButton.setName(&quot;bikeButton&quot;);</span>
+<span class="fc" id="L190">        bicycleButton.setBackground(Color.white);</span>
+<span class="fc" id="L191">        bicycleButton.setIcon(new ImageIcon(bicycleImage));</span>
+<span class="fc" id="L192">        bicycleButton.setToolTipText(&quot;Generate bicycle route.&quot;);</span>
+<span class="fc" id="L193">        bicycleButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L196">                startRouting(&quot;Bicycle&quot;, startInputField.getText(), toInputField.getText());</span>
+<span class="fc" id="L197">            }</span>
+        });
+
+<span class="fc" id="L200">        JButton busButton = new JButton();</span>
+<span class="fc" id="L201">        busButton.setName(&quot;busButton&quot;);</span>
+<span class="fc" id="L202">        busButton.setBackground(Color.white);</span>
+<span class="fc" id="L203">        busButton.setIcon(new ImageIcon(busImage));</span>
+<span class="fc" id="L204">        busButton.setToolTipText(&quot;Generate bus route.&quot;);</span>
+<span class="fc" id="L205">        busButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L208">                startRouting(&quot;Bus&quot;, startInputField.getText(), toInputField.getText());</span>
+<span class="fc" id="L209">            }</span>
+        });
+
+
+<span class="fc" id="L213">        toggleButton.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="pc bpc" id="L216" title="1 of 2 branches missed.">                if(toggleButton.isSelected()){</span>
+<span class="fc" id="L217">                    switchToSidebar2();</span>
+                } else {
+<span class="nc" id="L219">                    switchToSidebar();</span>
+                }
+<span class="fc" id="L221">            }</span>
+        });
+
+<span class="fc" id="L224">        buttonsPanel.add(walkingButton);</span>
+<span class="fc" id="L225">        buttonsPanel.add(bicycleButton);</span>
+<span class="fc" id="L226">        buttonsPanel.add(busButton);</span>
+<span class="fc" id="L227">        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));</span>
+
+<span class="fc" id="L229">        JPanel infoPanel = new JPanel();</span>
+<span class="fc" id="L230">        JLabel distanceToDestination = new JLabel(&quot;Distance: &quot;);</span>
+<span class="fc" id="L231">        distanceLabel = distanceToDestination;</span>
+<span class="fc" id="L232">        distanceLabel.setVisible(false);</span>
+<span class="fc" id="L233">        JLabel timeToDestination = new JLabel(&quot;Time: &quot;);</span>
+<span class="fc" id="L234">        timeLabel = timeToDestination;</span>
+<span class="fc" id="L235">        timeLabel.setVisible(false);</span>
+<span class="fc" id="L236">        infoPanel.add(distanceToDestination);</span>
+<span class="fc" id="L237">        infoPanel.add(timeToDestination);</span>
+<span class="fc" id="L238">        infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.GRAY));</span>
+
+<span class="fc" id="L240">        JPanel interactionPanel = new JPanel();</span>
+<span class="fc" id="L241">        interactionPanel.setLayout(new BoxLayout(interactionPanel, BoxLayout.Y_AXIS));</span>
+<span class="fc" id="L242">        interactionPanel.add(inputPanel);</span>
+<span class="fc" id="L243">        interactionPanel.add(buttonsPanel);</span>
+<span class="fc" id="L244">        interactionPanel.add(infoPanel);</span>
+<span class="fc" id="L245">        busRoutingViewer = new BusRoutingViewer();</span>
+<span class="fc" id="L246">        busRoutingViewer.setVisible(false);</span>
+<span class="fc" id="L247">        interactionPanel.add(busRoutingViewer);</span>
+
+<span class="fc" id="L249">        this.add(interactionPanel, BorderLayout.NORTH);</span>
+
+<span class="fc" id="L251">        JPanel spacer = new JPanel();</span>
+<span class="fc" id="L252">        spacer.setPreferredSize(new Dimension(100, 400));</span>
+<span class="fc" id="L253">    }</span>
+
+    private void resizeAndLoadPhotos() {
+        try {
+            // Route selection images
+<span class="fc" id="L258">            URL imageUrl = getClass().getResource(&quot;startPointIcon.png&quot;);</span>
+<span class="pc bpc" id="L259" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L260">                startPointImage = Resize.resize(ImageIO.read(imageUrl), 20, 20);</span>
+            }
+<span class="fc" id="L262">            imageUrl = getClass().getResource(&quot;dotsIcon.png&quot;);</span>
+<span class="pc bpc" id="L263" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L264">                dotsImage = Resize.resize(ImageIO.read(imageUrl), 20, 20);</span>
+            }
+<span class="fc" id="L266">            imageUrl = getClass().getResource(&quot;destinationPointIcon.png&quot;);</span>
+<span class="pc bpc" id="L267" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L268">                toPointImage = Resize.resize(ImageIO.read(imageUrl), 24, 24);</span>
+            }
+
+            // Button images
+<span class="fc" id="L272">            imageUrl = getClass().getResource(&quot;circle.png&quot;);</span>
+<span class="pc bpc" id="L273" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L274">                circleImage = Resize.resize(ImageIO.read(imageUrl), 45, 45);</span>
+            }
+
+<span class="fc" id="L277">            imageUrl = getClass().getResource(&quot;man_walking.png&quot;);</span>
+<span class="pc bpc" id="L278" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L279">                walkingManImage = Resize.resize(ImageIO.read(imageUrl), 30, 30);</span>
+            }
+<span class="fc" id="L281">            imageUrl = getClass().getResource(&quot;man_on_bicycle.png&quot;);</span>
+<span class="pc bpc" id="L282" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L283">                bicycleImage = Resize.resize(ImageIO.read(imageUrl), 30, 30);</span>
+            }
+<span class="fc" id="L285">            imageUrl = getClass().getResource(&quot;busIcon.jpg&quot;);</span>
+<span class="pc bpc" id="L286" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L287">                busImage = Resize.resize(ImageIO.read(imageUrl), 30, 30);</span>
+            }
+<span class="nc" id="L289">        } catch (IOException e) {</span>
+<span class="nc" id="L290">            System.out.println(e.getMessage());</span>
+<span class="fc" id="L291">        }</span>
+<span class="fc" id="L292">    }</span>
+
+    private void switchToSidebar2() {
+<span class="fc" id="L295">        removeAll();</span>
+<span class="fc" id="L296">        sideBar2 = new SideBar2(this);</span>
+<span class="fc" id="L297">        sideBar2.setName(&quot;sidebar2&quot;);</span>
+<span class="fc" id="L298">        add(sideBar2);</span>
+<span class="fc" id="L299">        revalidate();</span>
+<span class="fc" id="L300">        repaint();</span>
+<span class="fc" id="L301">    }</span>
+
+    void switchToSidebar() {
+<span class="fc" id="L304">        removeAll();</span>
+<span class="fc" id="L305">        initComponents();</span>
+<span class="fc" id="L306">        revalidate();</span>
+<span class="fc" id="L307">        repaint();</span>
+<span class="fc" id="L308">    }</span>
+
+    /**
+     * Handles loading the route between two postal codes for walking and biking, including the visualization, time and distance
+     *
+     * @param startPostalCode          {@link Node} representing the start postal code
+     * @param destinationPostalCode    {@link Node} representing the destination postal code
+     * @param nearestStartNodeId       {@link Long} ID representing the nearest node to the start postal code that is available in the OSM node dataset
+     * @param nearestDestinationNodeId {@link Long} ID representing the nearest node to the destination postal code that is available in the OSM node dataset
+     * @param mode                     {@link String} indicating the routing mode: &quot;Walking&quot; or &quot;Bicycle&quot;
+     */
+    private void loadRoute(Node startPostalCode, Node destinationPostalCode, Long nearestStartNodeId, Long nearestDestinationNodeId, String mode) {
+<span class="fc" id="L320">        RoutingEngine routingEngine = new RoutingEngine(RoutingDataManager.routingGraph);</span>
+<span class="fc" id="L321">        Path path = routingEngine.getShortestPath(nearestStartNodeId, nearestDestinationNodeId);</span>
+<span class="fc" id="L322">        java.util.List&lt;Long&gt; shortestPath = path.getNodes();</span>
+<span class="fc" id="L323">        List&lt;Node&gt; shortPathNodes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L324">        shortPathNodes.add(startPostalCode);</span>
+
+<span class="fc bfc" id="L326" title="All 2 branches covered.">        for (int i = 0; i &lt; shortestPath.size() - 1; i++) {</span>
+<span class="fc" id="L327">            Node startNode = RoutingDataManager.nodesMap.get(shortestPath.get(i));</span>
+<span class="pc bpc" id="L328" title="1 of 2 branches missed.">            if (startNode == null) {</span>
+<span class="nc" id="L329">                System.out.println(shortestPath.get(i));</span>
+            }
+<span class="fc" id="L331">            shortPathNodes.add(startNode);</span>
+        }
+
+<span class="fc" id="L334">        distanceLabel.setText(&quot;Distance: &quot; + Math.floor((path.getDistance() / 1000)*100)/100 + &quot; km&quot;);</span>
+
+<span class="fc" id="L336">        int timeTaken = 0;</span>
+<span class="fc bfc" id="L337" title="All 2 branches covered.">        if (mode == &quot;Walking&quot;) timeTaken = (int) (path.getDistance() / 1000 / 5.0 * 3600);</span>
+<span class="pc bpc" id="L338" title="1 of 2 branches missed.">        else if (mode == &quot;Bicycle&quot;) timeTaken = (int) (path.getDistance() / 1000 / 15.0 * 3600);</span>
+
+<span class="fc" id="L340">        String timeText = formatSeconds(timeTaken);</span>
+<span class="fc" id="L341">        timeLabel.setText(&quot;Time: &quot; + timeText);</span>
+
+<span class="fc" id="L343">        busRoutingViewer.setVisible(false);</span>
+<span class="fc" id="L344">        shortPathNodes.add(destinationPostalCode);</span>
+<span class="fc" id="L345">        visualizePath(shortPathNodes, startPostalCode, destinationPostalCode);</span>
+
+<span class="fc" id="L347">    }</span>
+
+    /**
+     * Displays the walking/biking path on the map
+     *
+     * @param shortestPath          {@link List&lt;Node&gt;} containing the route nodes in order
+     * @param startPostalCode       {@link Node} representing the starting postal code
+     * @param destinationPostalCode {@link Node} representing the destination postal code
+     */
+    public void visualizePath(List&lt;Node&gt; shortestPath, Node startPostalCode, Node destinationPostalCode) {
+<span class="fc" id="L357">        List&lt;GeoPosition&gt; track = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L358" title="All 2 branches covered.">        for (Node node : shortestPath) {</span>
+<span class="fc" id="L359">            track.add(new GeoPosition(node.getLatitude(), node.getLongitude()));</span>
+<span class="fc" id="L360">        }</span>
+<span class="fc" id="L361">        painter = new Painter(track, startPostalCode, destinationPostalCode);</span>
+<span class="fc" id="L362">        mapViewer.setCenterPosition(track.get(0));</span>
+<span class="fc" id="L363">        mapViewer.setOverlayPainter(painter);</span>
+<span class="fc" id="L364">        mapViewer.repaint();</span>
+
+<span class="fc" id="L366">        distanceLabel.setVisible(true);</span>
+<span class="fc" id="L367">        timeLabel.setVisible(true);</span>
+<span class="fc" id="L368">    }</span>
+
+
+    /**
+     * Displays the bus route on the map, delegating the call to the {@code BusRouteHandler} class
+     *
+     * @param fromPostalCode {@link Node} representing the starting postal code
+     * @param toPostalCode   {@link Node} representing the destination postal code
+     */
+    public void visualizeBusRoute(Node fromPostalCode, Node toPostalCode) {
+<span class="fc" id="L378">        busRouteHandler.visualizeBusRoute(fromPostalCode, toPostalCode);</span>
+<span class="fc" id="L379">    }</span>
+
+
+    /**
+     * Method to prepare routing between two postal codes. This retrieves the geographical information for given postal codes
+     * using {@code RoutingDataManager}, and {@code WebInteraction} from the internet if required. Handles non-existant postal code errors.
+     *
+     * @param mode                  {@link String} specifying the routing mode: &quot;Walking&quot;, &quot;Bicycle&quot; or &quot;Bus&quot;
+     * @param startPostalCode       {@link String} starting postal code retrieved from the input fields
+     * @param destinationPostalCode {@link String} ending postal code retrieved from the input fields
+     */
+    public void startRouting(String mode, String startPostalCode, String destinationPostalCode) {
+
+<span class="fc" id="L392">        boolean showError = false;</span>
+<span class="fc" id="L393">        boolean startError = false;</span>
+<span class="fc" id="L394">        boolean endError = false;</span>
+
+<span class="fc" id="L396">        Node startPostalNode = RoutingDataManager.postalCodeParser.postalCodes.get(startPostalCode);</span>
+<span class="fc" id="L397">        Node destinationPostalNode = RoutingDataManager.postalCodeParser.postalCodes.get(destinationPostalCode);</span>
+
+<span class="pc bpc" id="L399" title="1 of 4 branches missed.">        if (startPostalNode == null &amp;&amp; RoutingDataManager.apiRateLimiter.allowRequest()) {</span>
+<span class="fc" id="L400">            startPostalNode = WebInteraction.retrievePostalCodeData(startPostalCode);</span>
+<span class="pc bpc" id="L401" title="1 of 2 branches missed.">            if (startPostalNode == null) {</span>
+<span class="fc" id="L402">                showError = true;</span>
+<span class="fc" id="L403">                startError = true;</span>
+            }
+        }
+<span class="pc bpc" id="L406" title="1 of 4 branches missed.">        if (destinationPostalNode == null &amp;&amp; RoutingDataManager.apiRateLimiter.allowRequest()) {</span>
+<span class="nc" id="L407">            destinationPostalNode = WebInteraction.retrievePostalCodeData(destinationPostalCode);</span>
+<span class="nc bnc" id="L408" title="All 2 branches missed.">            if (destinationPostalNode == null) {</span>
+<span class="nc" id="L409">                showError = true;</span>
+<span class="nc" id="L410">                endError = true;</span>
+            }
+        }
+
+<span class="fc bfc" id="L414" title="All 2 branches covered.">        if (showError) {</span>
+<span class="fc" id="L415">            showError(startError, endError, startPostalCode, destinationPostalCode);</span>
+<span class="pc bpc" id="L416" title="2 of 8 branches missed.">        } else if (startPostalNode != null &amp;&amp; destinationPostalNode != null &amp;&amp; (Objects.equals(mode, &quot;Walking&quot;) || Objects.equals(mode, &quot;Bicycle&quot;))) {</span>
+<span class="fc" id="L417">            loadRoute(startPostalNode, destinationPostalNode, GetNearestNode.get(startPostalNode.getLatitude(), startPostalNode.getLongitude()), GetNearestNode.get(destinationPostalNode.getLatitude(), destinationPostalNode.getLongitude()), mode);</span>
+<span class="pc bpc" id="L418" title="3 of 6 branches missed.">        } else if (startPostalNode != null &amp;&amp; destinationPostalNode != null &amp;&amp; Objects.equals(mode, &quot;Bus&quot;)) {</span>
+<span class="fc" id="L419">            visualizeBusRoute(startPostalNode, destinationPostalNode);</span>
+        }
+
+<span class="fc" id="L422">    }</span>
+
+
+    /**
+     * Method to display an error message to the user incase of incorrect postal code inputs. Uses {@link ErrorShower} to display the error message
+     *
+     * @param startPostal     {@link boolean} specifying whether to show error for starting postal code (true) or not (false)
+     * @param endPostal       {@link boolean} specifying whether to show error for ending postal code (true) or not (false)
+     * @param startPostalCode {@link String} starting postal code input from the user
+     * @param endPostalCode   {@link String} destination postal code input from the user
+     */
+    public void showError(boolean startPostal, boolean endPostal, String startPostalCode, String endPostalCode) {
+<span class="fc" id="L434">        String postalError = &quot;The following postal codes do no exist in Maastricht: &quot;;</span>
+<span class="pc bpc" id="L435" title="1 of 2 branches missed.">        if (startPostal) {</span>
+<span class="fc" id="L436">            postalError += startPostalCode + &quot;, &quot;;</span>
+        }
+<span class="pc bpc" id="L438" title="1 of 2 branches missed.">        if (endPostal) {</span>
+<span class="nc" id="L439">            postalError += endPostalCode + &quot;, &quot;;</span>
+        }
+<span class="fc" id="L441">        new ErrorShower(postalError.substring(0, postalError.length() - 2));</span>
+<span class="fc" id="L442">    }</span>
+
+
+    public JXMapViewer getMapViewer() {
+<span class="fc" id="L446">        return mapViewer;</span>
+    }
+
+    public BusRoutingViewer getBusRoutingViewer() {
+<span class="fc" id="L450">        return busRoutingViewer;</span>
+    }
+
+    public JLabel getDistanceLabel() {
+<span class="fc" id="L454">        return distanceLabel;</span>
+    }
+
+    public JLabel getTimeLabel() {
+<span class="fc" id="L458">        return timeLabel;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

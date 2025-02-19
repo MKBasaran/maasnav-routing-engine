@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Dijkstra.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.TransferRouting</a> &gt; <span class="el_source">Dijkstra.java</span></div><h1>Dijkstra.java</h1><pre class="source lang-java linenums">package com.group8.phase1.TransferRouting;
+
+
+import com.group8.phase1.structures.map.Graph;
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.database.functional.GetNearestNode;
+import com.group8.phase1.osm.LoadRoutingGraph;
+import com.group8.phase1.pathfinding.Path;
+import com.group8.phase1.pathfinding.RoutingEngine;
+
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
+
+<span class="pc" id="L17">public class Dijkstra {</span>
+    private static Graph OSMGraph;
+    private static RoutingEngine routingEngine;
+    private static final double TRIP_CHANGE_PENALTY = 5000; // 10 minutes penalty for switching trips
+    private static final double WALKING_SPEED = 5.0 / 3600; // 5 km/h in km/min
+
+
+
+    static List&lt;TravelNode&gt; formatPath(List&lt;Vertex&gt; path, double[] startCoordinates, double[] endCoordinates) {
+<span class="fc" id="L26">        List&lt;TravelNode&gt; formattedPath = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L27" title="2 of 4 branches missed.">        if (path == null || path.isEmpty()) {</span>
+<span class="nc" id="L28">            return formattedPath;</span>
+        }
+
+
+<span class="fc" id="L32">        Vertex start = path.get(0);</span>
+<span class="fc" id="L33">        String currentTripId = start.getTrip_id();</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if (currentTripId == null) {</span>
+<span class="fc" id="L35">            currentTripId = &quot;walking&quot;;</span>
+<span class="fc" id="L36">            start.setTrip_id(&quot;walking&quot;);</span>
+        }
+<span class="fc" id="L38">        Vertex segmentStart = start;</span>
+
+<span class="fc" id="L40">        formattedPath.add(new TravelNode(startCoordinates[0], startCoordinates[1], start.getLat(), start.getLon(), Long.parseLong(start.getId()), -1));</span>
+
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (int i = 1; i &lt; path.size(); i++) {</span>
+<span class="fc" id="L43">            Vertex current = path.get(i);</span>
+<span class="pc bpc" id="L44" title="1 of 4 branches missed.">            if (Objects.equals(current.getTrip_id(), &quot;walking&quot;) || current.getTrip_id() == null) {</span>
+<span class="fc" id="L45">                System.out.println(&quot;Added Walking Edge: &quot; + current.fromLat + &quot; &quot; + current.fromLon + &quot; to &quot; + current.getLat() + &quot; &quot; + current.getLon());</span>
+<span class="fc" id="L46">                formattedPath.add(new TravelNode(path.get(i - 1).getLat(), path.get(i - 1).getLon(), current.getLat(), current.getLon(), -1, -1));</span>
+            } else {
+
+<span class="fc" id="L49">                formattedPath.add(new TravelNode(current.getTrip_id(), Long.parseLong(path.get(i - 1).getId()), Long.parseLong(current.getId())));</span>
+<span class="fc" id="L50">                System.out.println(&quot;Added bus edge: &quot; + current.getTrip_id() + &quot; &quot; + current.getLat() + &quot; &quot;);</span>
+            }
+        }
+
+
+<span class="fc" id="L55">        Vertex end = path.get(path.size() - 1);</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (Objects.equals(currentTripId, &quot;walking&quot;))</span>
+<span class="fc" id="L57">            formattedPath.add(new TravelNode(end.getLat(), end.getLon(), endCoordinates[0], endCoordinates[1], -1, Long.parseLong(end.getId())));</span>
+        else
+<span class="nc" id="L59">            formattedPath.add(new TravelNode(currentTripId, Long.parseLong(segmentStart.getId()), Long.parseLong(path.get(path.size() - 1).getId())));</span>
+
+<span class="fc" id="L61">        return formattedPath;</span>
+    }
+
+
+
+    public static TravelResults run(double[] startCoordinates, double[] endCoordinates, String departureTime) {
+<span class="fc" id="L67">        OSMGraph = LoadRoutingGraph.loadGraph();</span>
+<span class="fc" id="L68">        routingEngine = new RoutingEngine(OSMGraph);</span>
+
+<span class="fc" id="L70">        GTFSGraph graph = ImportGTFSData.constructGraph();</span>
+
+
+<span class="fc" id="L73">        List&lt;Vertex&gt; nearestNodesToStart = getNearestStops(graph, startCoordinates[0], startCoordinates[1], 1000);</span>
+<span class="fc" id="L74">        List&lt;Vertex&gt; nearestNodesToDestination = getNearestStops(graph, endCoordinates[0], endCoordinates[1], 1000);</span>
+
+
+<span class="fc" id="L77">        Result bestResult = new Result(null, Long.MAX_VALUE);</span>
+
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (Vertex startStop : nearestNodesToStart) {</span>
+<span class="fc" id="L80">            int initialPenalty = (int) (haversine(startStop.getLat(), startStop.getLon(), startCoordinates[0], startCoordinates[1]) / WALKING_SPEED);</span>
+
+<span class="fc bfc" id="L82" title="All 2 branches covered.">            for (Vertex endStop : nearestNodesToDestination) {</span>
+<span class="fc" id="L83">                int endPenalty = (int) (haversine(endStop.getLat(), endStop.getLon(), endCoordinates[0], endCoordinates[1]) / WALKING_SPEED);</span>
+<span class="fc" id="L84">                Result result = dijkstraSearch(graph, startStop, endStop, departureTime + initialPenalty, initialPenalty, endPenalty);</span>
+
+
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">                assert result != null;</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">                if (bestResult.totalTime &gt; result.totalTime) {</span>
+<span class="fc" id="L89">                    bestResult = result;</span>
+
+                }
+
+<span class="fc" id="L93">            }</span>
+<span class="fc" id="L94">        }</span>
+
+<span class="fc" id="L96">        boolean isWalkRoute = true;</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        for(Vertex vertex : bestResult.getPath()){</span>
+<span class="fc bfc" id="L98" title="All 4 branches covered.">            if (vertex.getTrip_id() != null &amp;&amp; !vertex.getTrip_id().equals(&quot;walking&quot;)) {</span>
+<span class="fc" id="L99">                isWalkRoute = false;</span>
+<span class="fc" id="L100">                break;</span>
+            }
+<span class="fc" id="L102">        }</span>
+<span class="pc bpc" id="L103" title="1 of 2 branches missed.">        if(isWalkRoute){</span>
+<span class="nc" id="L104">            return  run(startCoordinates,endCoordinates,departureTime);</span>
+        }
+
+
+
+<span class="fc" id="L109">        System.out.println(&quot;Total time taken: &quot; + bestResult.getTotalTime() + &quot; seconds&quot;);</span>
+
+<span class="fc" id="L111">        return new TravelResults(formatPath(bestResult.getPath(), startCoordinates, endCoordinates), bestResult.getTotalTime());</span>
+    }
+
+    public static List&lt;Vertex&gt; getNearestStops(GTFSGraph graph, double lat, double lon, double distance) {
+<span class="fc" id="L115">        List&lt;Vertex&gt; nearestNodes = new ArrayList&lt;&gt;();</span>
+
+        // SQL query
+<span class="fc" id="L118">        String query = &quot;SELECT stop_id &quot; +</span>
+                &quot;FROM (SELECT stop_id, (6371 * acos(cos(radians(?)) * cos(radians(stop_lat)) * cos(radians(stop_lon) - radians(?)) + sin(radians(?)) * sin(radians(stop_lat)))) AS distance &quot; +
+                &quot;      FROM Stops ORDER BY distance ASC) AS derived_table &quot; +
+                &quot;WHERE distance &lt; ?&quot; +
+                &quot;LIMIT 15&quot;;
+
+        try {
+<span class="fc" id="L125">            Connection connection = ConnectionGrabber.getInstance().getConnectionGTFS();</span>
+<span class="fc" id="L126">            PreparedStatement pstmt = connection.prepareStatement(query);</span>
+            // Set the input parameters for the query
+<span class="fc" id="L128">            pstmt.setDouble(1, lat);</span>
+<span class="fc" id="L129">            pstmt.setDouble(2, lon);</span>
+<span class="fc" id="L130">            pstmt.setDouble(3, lat);</span>
+<span class="fc" id="L131">            pstmt.setDouble(4, distance);</span>
+
+            // Execute the query and get the result set
+<span class="fc" id="L134">            ResultSet rs = pstmt.executeQuery();</span>
+
+            // Process the result set
+<span class="fc bfc" id="L137" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L138">                nearestNodes.add(graph.getVertex(String.valueOf(rs.getInt(&quot;stop_id&quot;))));</span>
+            }
+
+<span class="nc" id="L141">        } catch (SQLException e) {</span>
+<span class="nc" id="L142">            e.printStackTrace();</span>
+<span class="fc" id="L143">        }</span>
+<span class="fc" id="L144">        return nearestNodes;</span>
+    }
+
+    public static Result dijkstraSearch(GTFSGraph graph, Vertex start, Vertex goal, String initialDepartureTime, int initialPenalty, int endPenalty) {
+<span class="fc" id="L148">        PriorityQueue&lt;Node&gt; openSet = new PriorityQueue&lt;&gt;(Comparator.comparingDouble(Node::getG));</span>
+<span class="fc" id="L149">        Map&lt;Vertex, Node&gt; allNodes = new HashMap&lt;&gt;();</span>
+
+
+<span class="fc" id="L152">        long initialTime = parseTime(initialDepartureTime);</span>
+<span class="fc" id="L153">        Node startNode = new Node(start, null, 0, (initialTime + initialPenalty * 1000L), null);</span>
+<span class="fc" id="L154">        allNodes.put(start, startNode);</span>
+<span class="fc" id="L155">        openSet.add(startNode);</span>
+
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        while (!openSet.isEmpty()) {</span>
+<span class="fc" id="L158">            Node currentNode = openSet.poll();</span>
+<span class="fc" id="L159">            Vertex currentVertex = currentNode.getVertex();</span>
+
+<span class="fc bfc" id="L161" title="All 2 branches covered.">            if (currentVertex.equals(goal)) {</span>
+<span class="fc" id="L162">                currentNode.setTime(currentNode.getTime() + endPenalty * 1000L);</span>
+<span class="fc" id="L163">                List&lt;Vertex&gt; path = reconstructPath(currentNode);</span>
+<span class="fc" id="L164">                long totalTime = (currentNode.getTime() - initialTime) / 1000;</span>
+<span class="fc" id="L165">                return new Result(path, totalTime);</span>
+            }
+
+
+<span class="fc bfc" id="L169" title="All 2 branches covered.">            for (Edge edge : currentVertex.getEdges()) {</span>
+<span class="fc" id="L170">                Vertex neighbor = edge.getDestination();</span>
+
+<span class="fc" id="L172">                long edgeDepartureTime = parseTime(edge.getDepartureTime());</span>
+<span class="fc bfc" id="L173" title="All 4 branches covered.">                if (edgeDepartureTime &lt;= 0 || edgeDepartureTime &gt; currentNode.getTime()) {</span>
+<span class="fc" id="L174">                    long waitTime = Math.max(0, edgeDepartureTime - currentNode.getTime());</span>
+
+<span class="fc" id="L176">                    double tentativeG = getTentativeG(edge, currentNode, waitTime);</span>
+<span class="fc" id="L177">                    long newTime = currentNode.getTime() + edge.getWeight() * 1000L;</span>
+
+<span class="fc" id="L179">                    Node neighborNode = allNodes.getOrDefault(neighbor, new Node(neighbor));</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">                    if (tentativeG &lt; neighborNode.getG()) {</span>
+<span class="fc" id="L181">                        neighborNode.setPrevious(currentNode);</span>
+<span class="fc" id="L182">                        neighborNode.setG(tentativeG);</span>
+<span class="fc" id="L183">                        neighborNode.setTime(newTime);</span>
+<span class="fc" id="L184">                        neighborNode.setTimeInSeconds((int) ((newTime - currentNode.getTime()) / 1000));</span>
+<span class="fc" id="L185">                        neighborNode.setTripId(edge.getTripId());</span>
+<span class="fc" id="L186">                        neighborNode.setDepartureTime(edgeDepartureTime);</span>
+<span class="fc" id="L187">                        allNodes.put(neighbor, neighborNode);</span>
+
+<span class="fc bfc" id="L189" title="All 2 branches covered.">                        if (!openSet.contains(neighborNode)) {</span>
+<span class="fc" id="L190">                            openSet.add(neighborNode);</span>
+                        }
+                    }
+                }
+<span class="fc" id="L194">            }</span>
+<span class="fc" id="L195">        }</span>
+
+
+<span class="nc" id="L198">        return null;</span>
+    }
+
+    private static double getTentativeG(Edge edge, Node currentNode, long waitTime) {
+<span class="fc" id="L202">        double tentativeG = currentNode.getG() + edge.getWeight() + waitTime / 1000.0;</span>
+
+
+<span class="fc" id="L205">        return tentativeG;</span>
+    }
+
+    public static double getOSMDistance(double startLat, double startLon, double endLat, double endLon) {
+        //TODO: Get nearest nodes to the lat's and lon's
+<span class="nc" id="L210">        Long nearestToStart = GetNearestNode.get(startLat, startLon);</span>
+<span class="nc" id="L211">        Long nearestToTarget = GetNearestNode.get(endLat, endLon);</span>
+
+<span class="nc" id="L213">        Path path = routingEngine.getShortestPath(nearestToStart, nearestToTarget);</span>
+        //TODO: Return distance of path
+<span class="nc" id="L215">        return path.getDistance() / 1000;</span>
+    }
+
+
+    private static List&lt;Vertex&gt; reconstructPath(Node node) {
+<span class="fc" id="L220">        List&lt;Vertex&gt; path = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L221" title="All 2 branches covered.">        while (node != null) {</span>
+<span class="fc" id="L222">            node.getVertex().setTrip_id(node.getTripId());</span>
+<span class="fc" id="L223">            Node previous = node.getPrevious();</span>
+<span class="fc" id="L224">            path.add(node.getVertex());</span>
+<span class="fc" id="L225">            System.out.println(node.getTripId() + &quot; &quot; + node.getTime() + &quot; departure: &quot; + node.getDepartureTime() + node.getVertex().getLat() + &quot; &quot; + node.getVertex().getLon() + &quot; cost in seconds: &quot; + node.getTimeInSeconds());</span>
+<span class="fc" id="L226">            node = previous;</span>
+<span class="fc" id="L227">        }</span>
+<span class="fc" id="L228">        Collections.reverse(path);</span>
+<span class="fc" id="L229">        return path;</span>
+    }
+
+    private static long parseTime(String time) {
+<span class="fc" id="L233">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;HH:mm:ss&quot;);</span>
+        try {
+<span class="fc" id="L235">            Date date = sdf.parse(time);</span>
+<span class="fc" id="L236">            return date.getTime();</span>
+<span class="nc" id="L237">        } catch (ParseException e) {</span>
+<span class="nc" id="L238">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    private static double haversine(double lat1, double lon1, double lat2, double lon2) {
+<span class="fc" id="L243">        final int R = 6371; // Radius of the Earth in km</span>
+<span class="fc" id="L244">        double latDistance = Math.toRadians(lat2 - lat1);</span>
+<span class="fc" id="L245">        double lonDistance = Math.toRadians(lon2 - lon1);</span>
+<span class="fc" id="L246">        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)</span>
+<span class="fc" id="L247">                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))</span>
+<span class="fc" id="L248">                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);</span>
+<span class="fc" id="L249">        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));</span>
+<span class="fc" id="L250">        return R * c;</span>
+    }
+
+    private static class Node {
+        private Vertex vertex;
+        private Node previous;
+<span class="fc" id="L256">        private double g = Double.MAX_VALUE;</span>
+        private long time;
+        private String tripId;
+        private long departureTime;
+        private int timeInSeconds;
+
+        public Node(Vertex vertex) {
+<span class="fc" id="L263">            this(vertex, null, Double.POSITIVE_INFINITY, 0, null);</span>
+<span class="fc" id="L264">        }</span>
+
+<span class="fc" id="L266">        public Node(Vertex vertex, Node previous, double g, long time, String tripId) {</span>
+<span class="fc" id="L267">            this.vertex = vertex;</span>
+<span class="fc" id="L268">            this.previous = previous;</span>
+<span class="fc" id="L269">            this.g = g;</span>
+<span class="fc" id="L270">            this.time = time;</span>
+<span class="fc" id="L271">            this.tripId = tripId;</span>
+<span class="fc" id="L272">        }</span>
+
+        public long getDepartureTime() {
+<span class="fc" id="L275">            return departureTime;</span>
+        }
+
+        public void setDepartureTime(long departureTime) {
+<span class="fc" id="L279">            this.departureTime = departureTime;</span>
+<span class="fc" id="L280">        }</span>
+
+        public void setTimeInSeconds(int timeInSeconds) {
+<span class="fc" id="L283">            this.timeInSeconds = timeInSeconds;</span>
+<span class="fc" id="L284">        }</span>
+
+        public int getTimeInSeconds() {
+<span class="fc" id="L287">            return this.timeInSeconds;</span>
+        }
+
+        public Vertex getVertex() {
+<span class="fc" id="L291">            return vertex;</span>
+        }
+
+        public Node getPrevious() {
+<span class="fc" id="L295">            return previous;</span>
+        }
+
+        public void setPrevious(Node previous) {
+<span class="fc" id="L299">            this.previous = previous;</span>
+<span class="fc" id="L300">        }</span>
+
+        public double getG() {
+<span class="fc" id="L303">            return g;</span>
+        }
+
+        public void setG(double g) {
+<span class="fc" id="L307">            this.g = g;</span>
+<span class="fc" id="L308">        }</span>
+
+        public long getTime() {
+<span class="fc" id="L311">            return time;</span>
+        }
+
+        public void setTime(long time) {
+<span class="fc" id="L315">            this.time = time;</span>
+<span class="fc" id="L316">        }</span>
+
+        public String getTripId() {
+<span class="fc" id="L319">            return tripId;</span>
+        }
+
+        public void setTripId(String tripId) {
+<span class="fc" id="L323">            this.tripId = tripId;</span>
+<span class="fc" id="L324">        }</span>
+    }
+
+    private static class Result {
+        private List&lt;Vertex&gt; path;
+        private long totalTime;
+
+<span class="fc" id="L331">        public Result(List&lt;Vertex&gt; path, long totalTime) {</span>
+<span class="fc" id="L332">            this.path = path;</span>
+<span class="fc" id="L333">            this.totalTime = totalTime;</span>
+<span class="fc" id="L334">        }</span>
+
+        public List&lt;Vertex&gt; getPath() {
+<span class="fc" id="L337">            return path;</span>
+        }
+
+        public long getTotalTime() {
+<span class="fc" id="L341">            return totalTime;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

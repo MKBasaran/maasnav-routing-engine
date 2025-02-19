@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransportCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.sociometric.calculation</a> &gt; <span class="el_source">TransportCalculator.java</span></div><h1>TransportCalculator.java</h1><pre class="source lang-java linenums">package com.group8.phase1.sociometric.calculation;
+
+import com.group8.phase1.ErrorUI.ErrorShower;
+import com.group8.phase1.api.WebInteraction;
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.initialdataloader.RoutingDataManager;
+import com.group8.phase1.postalcodes.DataParser;
+import com.group8.phase1.sociometric.Prompts;
+import com.group8.phase1.sociometric.Queries;
+import com.group8.phase1.sociometric.calculation.objects.TransportNode;
+import com.group8.phase1.structures.map.Node;
+
+import java.sql.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
+public class TransportCalculator {
+    private String postCode;
+    private HashMap&lt;Integer, TransportNode&gt; stops;
+    private Set&lt;Integer&gt; routeIds;
+    private Connection connection;
+    private Connection connectionGTFS;
+    private HashMap&lt;Integer,Integer&gt; routeToStops;
+<span class="fc" id="L25">    private final int[] radiusRanges = {100, 200, 300, 400};</span>
+<span class="fc" id="L26">    private final double[] rangeWeights = {0.4, 0.3, 0.2, 0.1}; // Added weights for radius ranges</span>
+<span class="fc" id="L27">    private final int NO_OF_BUS_STOPS = 23;</span>
+    private double score;
+<span class="fc" id="L29">    private int SCALING_FACTOR = 1000;</span>
+
+    /**
+     * Initializes a TransportCalculator object with the given postal code.
+     *
+     * @param postCode The postal code used for calculations.
+     */
+<span class="fc" id="L36">    public TransportCalculator(String postCode){</span>
+<span class="fc" id="L37">        connection = ConnectionGrabber.getInstance().getConnectionJSON();</span>
+<span class="fc" id="L38">        connectionGTFS = ConnectionGrabber.getInstance().getConnectionGTFS();</span>
+<span class="fc" id="L39">        routeIds = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L40">        this.postCode = postCode;</span>
+<span class="fc" id="L41">        stops = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L42">        routeToStops = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (int i = 0; i &lt; radiusRanges.length; i++) {</span>
+<span class="fc" id="L44">            score = score + handleStops(radiusRanges[i], i);</span>
+        }
+<span class="fc" id="L46">        score *= SCALING_FACTOR;</span>
+<span class="fc" id="L47">        System.out.println(&quot;Transport Score final: &quot; + score);</span>
+<span class="fc" id="L48">        score = Math.round(score);</span>
+<span class="fc" id="L49">    }</span>
+
+    /**
+     * Retrieves the stops associated with the TransportCalculator object.
+     *
+     * @return A HashMap containing the stops as TransportNode objects. The key is the stop ID.
+     */
+    public HashMap&lt;Integer, TransportNode&gt; getStops() {
+<span class="fc" id="L57">        return stops;</span>
+    }
+
+    /**
+     * Handles the stops calculation based on the given distance and number.
+     *
+     * @param distance The distance used for stop calculation.
+     * @param number The number of stops used for weight calculation.
+     * @return The score calculated based on the stops and weights.
+     * @throws RuntimeException if a SQLException occurs while accessing the database.
+     */
+    private double handleStops(int distance, int number) {
+<span class="fc" id="L69">        double score = 0;</span>
+        try {
+<span class="fc" id="L71">            PreparedStatement statement = connectionGTFS.prepareStatement(Queries.GET_COUNT_NEAREST_STOPS.getQuery());</span>
+<span class="fc" id="L72">            RoutingDataManager.postalCodeParser = new DataParser();</span>
+<span class="fc" id="L73">            Node originPostalCode = getPostalNode(postCode);</span>
+<span class="fc" id="L74">            statement.setDouble(1,originPostalCode.getLatitude());</span>
+<span class="fc" id="L75">            statement.setDouble(2, originPostalCode.getLongitude());</span>
+<span class="fc" id="L76">            statement.setDouble(3, originPostalCode.getLatitude());</span>
+<span class="fc" id="L77">            statement.setDouble(4, distance);</span>
+<span class="fc" id="L78">            statement.setDouble(5, originPostalCode.getLatitude());</span>
+<span class="fc" id="L79">            statement.setDouble(6, originPostalCode.getLongitude());</span>
+<span class="fc" id="L80">            statement.setDouble(7, originPostalCode.getLatitude());</span>
+
+<span class="fc" id="L82">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            while (resultSet.next()) {</span>
+<span class="fc" id="L84">                int stop_id = resultSet.getInt(1);</span>
+<span class="fc" id="L85">                Double stopLat = resultSet.getDouble(2);</span>
+<span class="fc" id="L86">                Double stopLon = resultSet.getDouble(3);</span>
+<span class="fc" id="L87">                TransportNode node = new TransportNode(stop_id, stopLat, stopLon);</span>
+<span class="fc" id="L88">                stops.put(stop_id, node);</span>
+<span class="fc" id="L89">                int count = fillBusLines(stop_id);</span>
+<span class="fc" id="L90">                score += (count / (double)NO_OF_BUS_STOPS) * rangeWeights[number]; // Apply weight</span>
+<span class="fc" id="L91">            }</span>
+<span class="fc" id="L92">            return score;</span>
+<span class="nc" id="L93">        } catch (SQLException e) {</span>
+<span class="nc" id="L94">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    /**
+     * Retrieves the number of bus lines associated with a specific stop ID.
+     *
+     * @param stop_id The ID of the stop.
+     * @return The number of bus lines associated with the stop ID.
+     */
+    private int fillBusLines(int stop_id){
+        try{
+<span class="fc" id="L106">            PreparedStatement statement = connectionGTFS.prepareStatement(Queries.GET_BUS_ROUTE_BY_STOP_ID.getQuery());</span>
+<span class="fc" id="L107">            statement.setInt(1, stop_id);</span>
+<span class="fc" id="L108">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="fc" id="L109">            int count = 0;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">            while (resultSet.next()) {</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">                if(routeIds.add(resultSet.getInt(1))){</span>
+<span class="fc" id="L112">                    routeToStops.put(resultSet.getInt(1),stop_id);</span>
+<span class="fc" id="L113">                    count++;</span>
+                }
+            }
+<span class="fc" id="L116">            return count;</span>
+<span class="nc" id="L117">        }catch (SQLException e){</span>
+<span class="nc" id="L118">            System.out.println(e);</span>
+        }
+<span class="nc" id="L120">        return 0;</span>
+    }
+
+    /**
+     * Retrieves the Node object associated with the given postal code.
+     *
+     * @param startPostalCode The postal code for which to retrieve the Node object.
+     * @return The Node object associated with the given postal code. If the postal code is not found in the postal code parser,
+     *         the method will make an API request to retrieve the postal code data and return the corresponding Node object.
+     *         If the postal code does not exist in Maastricht, an ErrorShower object will be created and an error message
+     *         will be displayed.
+     */
+    public Node getPostalNode(String startPostalCode) {
+        // 50.84800467,5.70166964
+<span class="fc" id="L134">        Node startPostalNode = RoutingDataManager.postalCodeParser.postalCodes.get(startPostalCode);</span>
+
+<span class="pc bpc" id="L136" title="3 of 4 branches missed.">        if (startPostalNode == null &amp;&amp; RoutingDataManager.apiRateLimiter.allowRequest()) {</span>
+<span class="nc" id="L137">            startPostalNode = WebInteraction.retrievePostalCodeData(startPostalCode);</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (startPostalNode == null) {</span>
+<span class="nc" id="L139">                new ErrorShower(&quot;The following postal code does not exist in Maastricht: &quot; + startPostalCode);</span>
+            }
+        }
+<span class="fc" id="L142">        return startPostalNode;</span>
+    }
+
+    /**
+     * Retrieves the score for the transport component.
+     *
+     * @return The score calculated based on the transport component.
+     */
+    public double getScore() {
+<span class="fc" id="L151">        int penalty = Prompts.getPenalty(postCode, connection);</span>
+<span class="fc" id="L152">        double finalScore = score - penalty;</span>
+<span class="fc" id="L153">        System.out.println(&quot;Transport Score: &quot; + finalScore);</span>
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        return finalScore &lt; 0 ? 0 : finalScore;</span>
+    }
+
+    /**
+     * Retrieves the route to stops associated with the TransportCalculator object.
+     *
+     * @return A HashMap containing the routes to stops as key-value pairs,
+     *         where the key is the stop ID and the value is the route ID.
+     */
+    public HashMap&lt;Integer, Integer&gt; getRouteToStops() {
+<span class="fc" id="L164">        return routeToStops;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

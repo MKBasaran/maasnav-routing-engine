@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Setup.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.database</a> &gt; <span class="el_source">Setup.java</span></div><h1>Setup.java</h1><pre class="source lang-java linenums">package com.group8.phase1.database;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import com.group8.phase1.initialdataloader.ProgressPanel;
+import com.group8.phase1.logger.LoggerService;
+
+/**
+ * The {@code setup} enum provides methods for setting up databases and creating tables.
+ */
+<span class="fc" id="L13">public enum Setup {</span>
+    ;
+
+<span class="fc" id="L16">    private static final LoggerService loggerService = LoggerService.getInstance();</span>
+
+    /**
+     * Sets up the databases and creates tables.
+     *
+     * @param progressViewer a {@link ProgressPanel} to show the progress of setup
+     */
+    public static void setup(ProgressPanel progressViewer) {
+
+
+<span class="fc" id="L26">        progressViewer.setStatus(&quot;Creating databases...&quot;);</span>
+<span class="fc" id="L27">        progressViewer.setProgress(0.00);</span>
+<span class="fc" id="L28">        createNewDatabase();</span>
+<span class="fc" id="L29">        progressViewer.setProgress(0.25);</span>
+<span class="fc" id="L30">        createTables();</span>
+<span class="fc" id="L31">        progressViewer.setProgress(0.5);</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Creates a new database (graph_data.db).
+     */
+    public static void createNewDatabase() {
+<span class="fc" id="L38">        try (Connection conn = ConnectionGrabber.getInstance().getConnectionOSM()) {</span>
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">            if (conn != null) {</span>
+<span class="fc" id="L40">                loggerService.info(&quot;OSM Database was created.&quot;);</span>
+            }
+
+<span class="nc" id="L43">        } catch (SQLException e) {</span>
+<span class="nc" id="L44">            loggerService.error(&quot;Couldn't create OSM database.&quot;);</span>
+<span class="fc" id="L45">        }</span>
+<span class="fc" id="L46">    }</span>
+
+    /**
+     * Creates the graph table in the database.
+     *
+     * @param conn the database connection
+     * @throws SQLException if a SQL error occurs
+     */
+    public static void createGraphTable(Connection conn) throws SQLException {
+<span class="fc" id="L55">        Statement statement = conn.createStatement();</span>
+<span class="fc" id="L56">        statement.executeUpdate(&quot;CREATE TABLE graph (\n&quot; +</span>
+                &quot;                       start_node_id INTEGER,\n&quot; +
+                &quot;                       end_node_id   INTEGER,\n&quot; +
+                &quot;                       dist          INTEGER,\n&quot; +
+                &quot;                       way_id        INTEGER\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * Creates the nodes table in the database.
+     *
+     * @param conn the database connection
+     * @throws SQLException if a SQL error occurs
+     */
+    public static void createNodesTable(Connection conn) throws SQLException {
+<span class="fc" id="L71">        Statement statement = conn.createStatement();</span>
+<span class="fc" id="L72">        statement.executeUpdate(&quot;CREATE TABLE nodes (\n&quot; +</span>
+                &quot;                       node_id INTEGER PRIMARY KEY,\n&quot; +
+                &quot;                       lon     REAL,\n&quot; +
+                &quot;                       lat     REAL\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * Creates the graph nodes table in the database.
+     *
+     * @param conn the database connection
+     * @throws SQLException if a SQL error occurs
+     */
+    public static void createGraphNodesTable(Connection conn) throws SQLException {
+<span class="fc" id="L86">        Statement statement = conn.createStatement();</span>
+<span class="fc" id="L87">        statement.executeUpdate(&quot;CREATE TABLE graph_nodes (\n&quot; +</span>
+                &quot;    node_id   NUMERIC,\n&quot; +
+                &quot;    latitude  REAL,\n&quot; +
+                &quot;    longitude REAL\n&quot; +
+                &quot;);\n&quot;);
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * Creates all tables
+     */
+    public static void createTables() {
+        try {
+<span class="fc" id="L99">            Connection conn = ConnectionGrabber.getInstance().getConnectionOSM();</span>
+<span class="fc" id="L100">            createGraphTable(conn);</span>
+<span class="fc" id="L101">            createNodesTable(conn);</span>
+<span class="fc" id="L102">            createGraphNodesTable(conn);</span>
+<span class="nc" id="L103">        } catch (SQLException e) {</span>
+<span class="nc" id="L104">            loggerService.error(&quot;Couldn't create OSM tables&quot;);</span>
+<span class="fc" id="L105">        }</span>
+<span class="fc" id="L106">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

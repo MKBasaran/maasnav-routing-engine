@@ -1,0 +1,259 @@
+museum, Museum de Historische Drukkerij, 50.850035, 5.693205
+viewpoint, Unknown, 50.822784, 5.692541
+information, Unknown, 50.844061, 5.679545
+artwork, Limburgs Bevrijdingsmonument, 50.849265, 5.710352
+information, Unknown, 50.824723, 5.730517
+information, Unknown, 50.846516, 5.695891
+hotel, Bastion Hotel, 50.855173, 5.690364
+information, Unknown, 50.854905, 5.682104
+hotel, Au Lion d'Or, 50.847366, 5.701518
+hotel, L'Empereur, 50.849870, 5.704497
+information, Unknown, 50.849638, 5.703334
+hotel, De Poshoorn, 50.849387, 5.701227
+information, Unknown, 50.849575, 5.699571
+information, Unknown, 50.843715, 5.695233
+information, Unknown, 50.842848, 5.695307
+information, Unknown, 50.848722, 5.689152
+hotel, Botticelli, 50.847780, 5.688365
+artwork, Unknown, 50.852647, 5.690388
+information, Unknown, 50.853629, 5.689969
+information, Unknown, 50.854323, 5.689812
+information, Unknown, 50.838842, 5.702984
+information, Unknown, 50.819891, 5.666074
+hotel, hip Hotel, 50.851645, 5.703673
+hotel, Townhouse Hotel, 50.851390, 5.703721
+attraction, Berenkuil, 50.843612, 5.684365
+artwork, D'Artagnan, 50.844399, 5.683721
+artwork, De Mens in het Heelal, 50.844595, 5.681406
+artwork, Unknown, 50.833699, 5.727157
+hotel, Derlon, 50.847860, 5.693208
+hotel, Le Virage, 50.847038, 5.692638
+hotel, Hotel Les Charme, 50.846752, 5.688833
+hotel, Hotel Au Quartier, 50.846618, 5.690177
+hotel, Beaumont, 50.849651, 5.700760
+zoo, Stichting Dierenpark, 50.843461, 5.689653
+viewpoint, Unknown, 50.830410, 5.685164
+viewpoint, Unknown, 50.831831, 5.688711
+artwork, Pieterpadmonument, 50.826651, 5.686515
+information, Unknown, 50.843874, 5.725151
+viewpoint, Unknown, 50.832799, 5.687529
+viewpoint, Slavante, 50.825905, 5.695266
+viewpoint, Unknown, 50.835284, 5.685518
+information, Informatiepunt van Grotten Noord en Fort Sint Pieter, 50.835193, 5.685446
+viewpoint, Unknown, 50.835980, 5.683929
+hotel, Hotel Pastis, 50.840308, 5.687769
+museum, N More, 50.850853, 5.686788
+hotel, Hotel Beez, 50.852447, 5.689927
+hotel, Hotel d'Orangerie, 50.852919, 5.693405
+hotel, Hotel Mabi, 50.852623, 5.692058
+zoo, De Wieringerberg, 50.818532, 5.724599
+hotel, Hoogenweerth suites, 50.821819, 5.699666
+hotel, Van der Valk, 50.841925, 5.719692
+hotel, Apart Hotels, 50.837945, 5.715998
+hotel, NH Maastricht Hotel, 50.837676, 5.714124
+attraction, Wiel Arets Architect B.V., 50.841034, 5.673436
+information, Slagveld Lanakerveld, 50.872735, 5.655898
+information, Maastricht Visitor Center, 50.849878, 5.692530
+hostel, Stayokay Maastricht, 50.843568, 5.697511
+hotel, easyHotel Maastricht City Centre, 50.847811, 5.694821
+hotel, Hotel Du Casque, 50.850270, 5.688859
+museum, Museum aan het Vrijthof, 50.848354, 5.688755
+hotel, Kruisherenhotel, 50.848744, 5.683803
+hotel, Saillant Hotel Maastricht, 50.849555, 5.687467
+museum, Regionaal Historisch Centrum Limburg, 50.845786, 5.692711
+museum, Natuurhistorisch Museum Maastricht, 50.845043, 5.687805
+hotel, Zenden Design Hotel, 50.846697, 5.694218
+museum, Museumkelder Derlon, 50.847799, 5.693198
+museum, Museum van illusies, 50.851622, 5.693313
+hotel, Matuchi, 50.852286, 5.691613
+hotel, de la Bourse, 50.851913, 5.691382
+museum, Marres, 50.851893, 5.685843
+attraction, Roomescape Maastricht, 50.856310, 5.682507
+guest_house, B&B Villaloca, 50.864505, 5.672322
+hotel, Crowne Plaza, 50.847054, 5.698246
+hostel, The Green Elephant, 50.851305, 5.703207
+apartment, BABs Burritos, 50.849468, 5.703255
+hotel, Apple Park, 50.858537, 5.716817
+hotel, Novotel, 50.844953, 5.718099
+hotel, Teaching Hotel, 50.867913, 5.710868
+hotel, Kasteel Vaeshartelt, 50.879519, 5.725857
+artwork, Unknown, 50.838332, 5.708770
+artwork, Unknown, 50.841823, 5.713561
+artwork, Unknown, 50.846797, 5.718544
+artwork, Unknown, 50.841303, 5.724190
+artwork, Unknown, 50.837177, 5.713575
+artwork, Monument van de dipoolmomenten van Peter Debye, 50.835188, 5.712510
+artwork, Zonder titel/No Title, 50.834816, 5.712250
+artwork, Relax & Meet, 50.837882, 5.702455
+artwork, Unknown, 50.842274, 5.702495
+artwork, Unknown, 50.841788, 5.702727
+artwork, Unknown, 50.857911, 5.716068
+artwork, Unknown, 50.859926, 5.716991
+artwork, Unknown, 50.858633, 5.717297
+artwork, Unknown, 50.841298, 5.696389
+information, Unknown, 50.871751, 5.679119
+caravan_site, Maastricht marina, 50.824686, 5.703373
+hotel, Hotel Bigarré, 50.853861, 5.693507
+viewpoint, Unknown, 50.826405, 5.686490
+viewpoint, Unknown, 50.835527, 5.684496
+viewpoint, Unknown, 50.820259, 5.678985
+viewpoint, Unknown, 50.825994, 5.677727
+attraction, Grotten Zonneberg, 50.825731, 5.694667
+information, Pietersberg, 50.816283, 5.686365
+information, Sint-Pietersberg, 50.835715, 5.685267
+information, D'n Observant, 50.813544, 5.689099
+information, Oehoe-vallei, 50.830729, 5.683447
+guest_house, Teikyo, 50.848442, 5.668006
+hotel, Boutique Hotel Grote Gracht, 50.850830, 5.687583
+artwork, Unknown, 50.833693, 5.709535
+artwork, Bulten Plein, 50.834341, 5.705676
+viewpoint, Unknown, 50.812958, 5.679838
+viewpoint, Unknown, 50.817533, 5.686059
+attraction, F(r)ee Tours by City Sights Maastricht, 50.847517, 5.693057
+viewpoint, Kiekoet Oehoe-vallei, 50.830645, 5.683496
+viewpoint, Unknown, 50.822657, 5.694704
+museum, De Schatkamer, 50.849042, 5.687335
+artwork, Unknown, 50.837757, 5.717053
+artwork, Unknown, 50.837093, 5.713451
+artwork, D'Artagnan, 50.846516, 5.682163
+artwork, Unknown, 50.847494, 5.682621
+artwork, Unknown, 50.847495, 5.682625
+artwork, Unknown, 50.847282, 5.680728
+attraction, kanon, 50.844062, 5.689404
+information, Knooppunten Zuid-Limburg, 50.841396, 5.683731
+hotel, Hotel Sansa, 50.849861, 5.703469
+museum, Bureau Europa, 50.856734, 5.690277
+guest_house, M-building, 50.846526, 5.669766
+hotel, The Social Hub, 50.856452, 5.689425
+artwork, Unknown, 50.861942, 5.651890
+artwork, Unknown, 50.863947, 5.649281
+artwork, Unknown, 50.861603, 5.652314
+artwork, Unknown, 50.860982, 5.653112
+artwork, Tongeren 2000, 50.842514, 5.651525
+artwork, Fons Olterdissen, 50.844952, 5.688779
+artwork, Unknown, 50.848758, 5.684427
+artwork, Unknown, 50.844255, 5.688729
+attraction, Waterpoortje, 50.847350, 5.697929
+artwork, Sint Amor, 50.848954, 5.690501
+artwork, Mural zanglijster, 50.857735, 5.690744
+information, De Kleine Weerd, 50.836067, 5.702324
+information, Lage Fronten, 50.855679, 5.683889
+information, Lage Fronten, 50.855890, 5.683522
+artwork, Old Hickorymonument, 50.840339, 5.700954
+viewpoint, De Krul, 50.858321, 5.688436
+information, Unknown, 50.828331, 5.669942
+artwork, Unknown, 50.847311, 5.694354
+guest_house, Pension Jekerzicht, 50.847672, 5.681224
+artwork, Bosnimf, 50.844159, 5.684266
+viewpoint, Unknown, 50.848343, 5.687286
+information, Unknown, 50.825643, 5.677159
+artwork, Unknown, 50.841206, 5.687887
+information, Unknown, 50.835523, 5.685387
+information, Unknown, 50.835532, 5.685377
+information, Unknown, 50.851507, 5.693830
+information, 't Bassin Maastricht, 50.855670, 5.690816
+information, Unknown, 50.859032, 5.688355
+information, Leeuwenmolen, 50.844558, 5.691772
+information, Helpoort, 50.845502, 5.694506
+information, Papiermolen 'De Ancker', 50.845404, 5.694677
+information, De Helpoort, 50.845660, 5.694503
+information, Jekertoren, 50.845529, 5.694799
+information, Onze Lieve Vrouwewal, 50.846816, 5.694600
+information, Unknown, 50.844036, 5.689028
+artwork, Unknown, 50.844489, 5.691780
+information, Rondeel Haet Ende Nyt, 50.844348, 5.693665
+information, Stadsommuring, 50.845731, 5.690679
+information, Stadsommuring en waterpoort, 50.845914, 5.687851
+information, Huize in den Nieuwenhof, 50.844237, 5.688946
+information, Nieuwenhofpoortje, 50.844017, 5.689069
+information, Onze Lievevrouwebasiliek, 50.847453, 5.693217
+attraction, Jezuïetenberg, 50.822495, 5.664878
+artwork, Unknown, 50.863026, 5.654379
+hotel, Merrett, 50.852090, 5.690629
+hotel, Designhotel Maastricht, 50.849755, 5.702721
+viewpoint, Unknown, 50.833606, 5.682095
+artwork, Unknown, 50.855787, 5.694136
+artwork, Unknown, 50.855562, 5.694954
+information, Unknown, 50.828694, 5.672408
+attraction, Rederij Stiphout, 50.851035, 5.694110
+artwork, Unknown, 50.828983, 5.694160
+information, Ruïnetoren van Lichtenberg, 50.822658, 5.694586
+information, Unknown, 50.824301, 5.693556
+information, Activiteiten Zuid-Limburg, 50.822949, 5.693347
+information, Van lege badkuip to natuurgebied, 50.822738, 5.692575
+information, Verhalen van vroeger en de geur van vlaai, 50.822448, 5.693971
+information, Unknown, 50.826453, 5.690849
+information, Hoeve Lichtenberg, 50.826603, 5.686870
+information, Zweven boven de groeve, 50.826612, 5.686539
+information, 70 miljoen jaar in 1 maand, 50.826649, 5.686384
+information, Tikdreis door de groeve, 50.826407, 5.686480
+artwork, Kiekoet, 50.830691, 5.683416
+information, Zachtjes zweeft de uil voorbij, 50.830671, 5.683436
+information, Schrale rijdom, 50.833457, 5.684552
+viewpoint, Unknown, 50.836466, 5.683955
+artwork, Unknown, 50.843910, 5.695501
+artwork, Unknown, 50.846218, 5.694153
+artwork, Unknown, 50.845892, 5.692525
+artwork, Huivende kinder, 50.846963, 5.691580
+artwork, Unknown, 50.847271, 5.693003
+artwork, S. Joseph ora pro nobis, 50.847682, 5.693415
+artwork, Unknown, 50.847910, 5.692319
+artwork, Unknown, 50.848182, 5.692168
+artwork, Unknown, 50.847804, 5.692906
+artwork, Unknown, 50.848224, 5.693753
+artwork, Unknown, 50.847984, 5.694165
+artwork, Unknown, 50.846840, 5.695148
+artwork, Unknown, 50.848147, 5.695386
+information, Pons Mosae - Maasbrug, 50.848164, 5.695362
+artwork, Unknown, 50.848702, 5.688689
+artwork, Unknown, 50.848570, 5.688338
+artwork, Unknown, 50.848596, 5.688366
+artwork, Unknown, 50.848590, 5.688436
+artwork, Unknown, 50.848570, 5.688389
+artwork, Unknown, 50.848542, 5.688322
+artwork, Unknown, 50.849510, 5.686438
+artwork, Unknown, 50.848996, 5.686969
+attraction, Unknown, 50.848561, 5.686889
+artwork, Monulphus on Gondulphus, 50.848482, 5.686787
+artwork, Unknown, 50.854263, 5.684356
+artwork, Unknown, 50.855749, 5.693768
+artwork, Snor, 50.855779, 5.693862
+artwork, Unknown, 50.855803, 5.693935
+artwork, Unknown, 50.855805, 5.693994
+artwork, Unknown, 50.855819, 5.694248
+artwork, Unknown, 50.855854, 5.694380
+artwork, Unknown, 50.855963, 5.694592
+attraction, Unknown, 50.845805, 5.694767
+attraction, Unknown, 50.845941, 5.694757
+attraction, Unknown, 50.846075, 5.694740
+attraction, Unknown, 50.846210, 5.694722
+attraction, Unknown, 50.846345, 5.694704
+guest_house, Rozemarijn, 50.851438, 5.729830
+artwork, Heilig Hartbeeld, 50.839512, 5.662867
+artwork, Unknown, 50.853030, 5.688257
+artwork, Unknown, 50.852821, 5.688287
+artwork, Sculptuur Henri Hermans, 50.843593, 5.691164
+artwork, Gedenkteken Franse Vluchtelingen, 50.844189, 5.690887
+artwork, Jacob en de Engel, 50.847853, 5.723766
+artwork, Graanvrouwe van Limmel, 50.867200, 5.705833
+artwork, Heilig Hartbeeld, 50.876671, 5.688969
+artwork, Engel van Maastricht, 50.848294, 5.711423
+artwork, Klein meisje en wezentje, 50.853466, 5.718088
+information, Limburg verrijst uit zee, 50.826363, 5.686085
+viewpoint, Unknown, 50.830172, 5.685271
+viewpoint, Unknown, 50.825441, 5.695849
+information, Unknown, 50.849857, 5.705436
+artwork, Unknown, 50.849559, 5.700876
+artwork, Unknown, 50.847662, 5.687627
+artwork, Unknown, 50.847420, 5.687681
+artwork, Unknown, 50.843961, 5.685518
+information, Unknown, 50.847277, 5.729163
+information, Unknown, 50.846584, 5.707570
+information, Unknown, 50.847602, 5.707090
+information, Unknown, 50.846321, 5.706654
+information, Unknown, 50.817001, 5.687300
+apartment, Bakker & Bed, 50.846364, 5.692549
+gallery, Galerie en Kunstuitleen Maastricht, 50.853155, 5.690275
+hotel, Hotel Monastère, 50.853739, 5.690215
+information, Bisschopsmolen, 50.846280, 5.692792
+information, Unknown, 50.820670, 5.662224

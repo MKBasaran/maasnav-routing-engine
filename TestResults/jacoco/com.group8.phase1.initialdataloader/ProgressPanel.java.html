@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProgressPanel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.initialdataloader</a> &gt; <span class="el_source">ProgressPanel.java</span></div><h1>ProgressPanel.java</h1><pre class="source lang-java linenums">package com.group8.phase1.initialdataloader;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+/**
+ * The {@code ProgressPanel} class represents a panel used to display progress information
+ * during the initial data loading process ( OSM database creation ).
+ */
+public class ProgressPanel extends JPanel {
+    private JLabel statusLabel;
+    private JProgressBar progressBar;
+
+    /**
+     * Constructs a new {@code ProgressPanel} with default settings.
+     */
+<span class="fc" id="L21">    public ProgressPanel() {</span>
+<span class="fc" id="L22">        initComponents();</span>
+<span class="fc" id="L23">        setupLayout();</span>
+<span class="fc" id="L24">    }</span>
+
+    /**
+     * Initializes the components of the progress panel.
+     */
+    private void initComponents() {
+<span class="fc" id="L30">        statusLabel = new JLabel(&quot;Loading...&quot;);</span>
+<span class="fc" id="L31">        statusLabel.setFont(new Font(&quot;Sans-Serif&quot;, Font.PLAIN, 16));</span>
+<span class="fc" id="L32">        progressBar = new JProgressBar();</span>
+<span class="fc" id="L33">        progressBar.setBackground(new Color(240, 240, 240)); // Light gray background</span>
+<span class="fc" id="L34">        progressBar.setForeground(new Color(3, 105, 208));</span>
+<span class="fc" id="L35">        progressBar.setValue(0);</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Sets up the layout of the progress panel.
+     */
+    private void setupLayout() {
+<span class="fc" id="L42">        setLayout(new BorderLayout());</span>
+
+        // Logo Image
+        try {
+<span class="fc" id="L46">            BufferedImage logoIcon = ImageIO.read(new File(&quot;src/main/resources/com/group8/phase1/Logo.png&quot;));</span>
+<span class="fc" id="L47">            JLabel logoLabel = new JLabel(new ImageIcon(logoIcon));</span>
+<span class="fc" id="L48">            add(logoLabel, BorderLayout.CENTER);</span>
+<span class="nc" id="L49">        } catch (IOException e) {</span>
+            // Handle image loading error
+<span class="fc" id="L51">        }</span>
+<span class="fc" id="L52">        JPanel centerPanel = new JPanel();</span>
+
+<span class="fc" id="L54">        statusLabel.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L55">        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));</span>
+<span class="fc" id="L56">        centerPanel.add(statusLabel);</span>
+<span class="fc" id="L57">        centerPanel.add(progressBar);</span>
+
+<span class="fc" id="L59">        add(centerPanel, BorderLayout.SOUTH);</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Sets the progress value of the progress bar.
+     *
+     * @param value the progress value (between 0.0 and 1.0)
+     */
+    public void setProgress(double value) {
+<span class="fc" id="L68">        SwingUtilities.invokeLater(() -&gt; {</span>
+<span class="fc" id="L69">            progressBar.setValue((int) (value * 100));</span>
+<span class="fc" id="L70">        });</span>
+<span class="fc" id="L71">    }</span>
+
+    /**
+     * Sets the status message of the progress panel.
+     *
+     * @param status the status message to be displayed
+     */
+    public void setStatus(String status) {
+<span class="fc" id="L79">        SwingUtilities.invokeLater(() -&gt; {</span>
+<span class="fc" id="L80">            statusLabel.setText(status);</span>
+<span class="fc" id="L81">        });</span>
+<span class="fc" id="L82">    }</span>
+
+    /**
+     * Sets the status message of the progress panel with a specific service description.
+     *
+     * @param service the service description
+     * @param status  the status message to be displayed
+     */
+    public void setStatus(String service, String status) {
+<span class="fc" id="L91">        SwingUtilities.invokeLater(() -&gt; {</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            if (&quot;Routing&quot;.equals(service)) {</span>
+<span class="fc" id="L93">                statusLabel.setText(&quot;&lt;html&gt;&lt;b&gt;Routing:&lt;/b&gt; &quot; + status + &quot;&lt;/html&gt;&quot;);</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">            } else if (&quot;Database&quot;.equals(service)) {</span>
+<span class="fc" id="L95">                statusLabel.setText(&quot;&lt;html&gt;&lt;b&gt;Database:&lt;/b&gt; &quot; + status + &quot;&lt;/html&gt;&quot;);</span>
+            }
+<span class="fc" id="L97">        });</span>
+<span class="fc" id="L98">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

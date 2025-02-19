@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TourismCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.sociometric.calculation</a> &gt; <span class="el_source">TourismCalculator.java</span></div><h1>TourismCalculator.java</h1><pre class="source lang-java linenums">package com.group8.phase1.sociometric.calculation;
+
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.sociometric.Prompts;
+import com.group8.phase1.sociometric.calculation.objects.TourismNode;
+import com.group8.phase1.structures.map.Node;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class TourismCalculator {
+    private static final double METERS_PER_DEGREE = 111320.0;
+<span class="fc" id="L18">    private final int[] radiusRanges = {100, 200, 300, 400};</span>
+<span class="fc" id="L19">    private final double[] rangeWeights = {0.4, 0.3, 0.2, 0.1};</span>
+    private final Set&lt;Integer&gt; currentCollection;
+<span class="fc" id="L21">    private final ArrayList&lt;TourismNode&gt; tourismNodes = new ArrayList&lt;&gt;();</span>
+    private final Node postalCode;
+    private double globalScore;
+    private Connection connection;
+
+    /**
+     * Calculates the tourism score for a given postal code.
+     *
+     * @param postalCode The postal code for which to calculate the tourism score.
+     */
+<span class="fc" id="L31">    public TourismCalculator(Node postalCode) {</span>
+<span class="fc" id="L32">        currentCollection = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L33">        connection = ConnectionGrabber.getInstance().getConnectionJSON();</span>
+<span class="fc" id="L34">        this.postalCode = postalCode;</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (int i = 0; i &lt; radiusRanges.length; i++) {</span>
+<span class="fc" id="L36">            globalScore = globalScore + returnTourism(postalCode, radiusRanges[i], i);</span>
+<span class="fc" id="L37">            System.out.println(&quot;started&quot;);</span>
+        }
+<span class="fc" id="L39">        globalScore = Math.round(globalScore);</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Calculates the tourism score for a given postal code and parameters.
+     *
+     * @param postalCode The postal code for which to calculate the tourism score.
+     * @param distance   The maximum distance in meters from the postal code to consider for calculating the tourism score.
+     * @param number     The weight index used for calculating the tourism score.
+     * @return The tourism score calculated for the given postal code.
+     */
+    public double returnTourism(Node postalCode, int distance, int number) {
+<span class="fc" id="L51">        double score = 0.0;</span>
+        try {
+<span class="fc" id="L53">            String sql = Prompts.findTourism(postalCode.getLatitude(), postalCode.getLongitude(), distance / METERS_PER_DEGREE);</span>
+<span class="fc" id="L54">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="fc" id="L55">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">            while (resultSet.next()) {</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                if (currentCollection.add(resultSet.getInt(3))) {</span>
+<span class="fc" id="L58">                    score = score + getScore(resultSet.getDouble(4), rangeWeights[number]);</span>
+<span class="fc" id="L59">                    System.out.println(distance + &quot; &quot; + resultSet.getString(2));</span>
+<span class="fc" id="L60">                    tourismNodes.add(new TourismNode(resultSet.getInt(3), resultSet.getDouble(5), resultSet.getDouble(6)));</span>
+                }
+            }
+<span class="fc" id="L63">            return score;</span>
+<span class="nc" id="L64">        } catch (SQLException e) {</span>
+<span class="nc" id="L65">            throw new RuntimeException(e);</span>
+        }
+
+    }
+
+    /**
+     * Calculates the shop score based on the given score and weight.
+     *
+     * @param score The score to calculate the shop score for.
+     * @param weight The weight to apply to the score.
+     * @return The shop score calculated based on the given score and weight.
+     */
+    public double getScore(double score,double weight) {
+<span class="fc" id="L78">        int penalty = Prompts.getPenalty(postalCode.getPostalCode(), connection);</span>
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (score == 0) {</span>
+<span class="nc" id="L80">            score += penalty * weight;</span>
+        }
+        else{
+<span class="fc" id="L83">            score += score - (penalty * weight);</span>
+        }
+<span class="fc" id="L85">        System.out.println(&quot;Shop Score :&quot; + score);</span>
+<span class="fc" id="L86">        return score;</span>
+    }
+
+    /**
+     * Returns the tourism score for the given object.
+     *
+     * @return The tourism score.
+     */
+    public double getTourismScore() {
+<span class="fc" id="L95">        return globalScore;</span>
+    }
+
+    /**
+     * Retrieves the list of tourism nodes.
+     *
+     * @return An ArrayList containing the TourismNode objects.
+     */
+    public ArrayList&lt;TourismNode&gt; getTourismNodes() {
+<span class="fc" id="L104">        return tourismNodes;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

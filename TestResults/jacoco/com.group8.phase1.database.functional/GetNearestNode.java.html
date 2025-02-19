@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GetNearestNode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.database.functional</a> &gt; <span class="el_source">GetNearestNode.java</span></div><h1>GetNearestNode.java</h1><pre class="source lang-java linenums">package com.group8.phase1.database.functional;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.logger.LoggerService;
+
+<span class="fc" id="L11">public enum GetNearestNode {</span>
+    ;
+
+    public static Long get(double targetLatitude, double targetLongitude) {
+<span class="fc" id="L15">        LoggerService logger = LoggerService.getInstance();</span>
+<span class="fc" id="L16">        Connection conn = ConnectionGrabber.getInstance().getConnectionOSM();</span>
+<span class="fc" id="L17">        long id=-1;</span>
+<span class="fc" id="L18">        double latThreshold = 0.0001, lonThreshold = 0.0001;</span>
+<span class="pc bpc" id="L19" title="3 of 6 branches missed.">        while(id==-1 &amp;&amp; latThreshold&lt;=0.0110 &amp;&amp; lonThreshold&lt;=0.0110) {</span>
+
+<span class="fc" id="L21">                String sql =</span>
+                        &quot;&quot;&quot;
+                                SELECT id
+                                FROM graph_nodes_rtree
+                                WHERE min_latitude &gt;= ? - ? AND max_latitude &lt;= ? + ?\s
+                                AND min_longitude &gt;= ? - ? AND max_longitude &lt;= ? + ?\s
+                                ORDER BY ABS((SELECT latitude FROM graph_nodes WHERE node_id = id LIMIT 1) - ?) + ABS((SELECT longitude FROM graph_nodes WHERE node_id = id LIMIT 1) - ?)
+                                LIMIT 1;&quot;&quot;&quot;;
+
+<span class="fc" id="L30">                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {</span>
+<span class="fc" id="L31">                    pstmt.setDouble(1, targetLatitude);</span>
+<span class="fc" id="L32">                    pstmt.setDouble(2, latThreshold);</span>
+
+<span class="fc" id="L34">                    pstmt.setDouble(3, targetLatitude);</span>
+<span class="fc" id="L35">                    pstmt.setDouble(4, latThreshold);</span>
+
+
+<span class="fc" id="L38">                    pstmt.setDouble(5, targetLongitude);</span>
+<span class="fc" id="L39">                    pstmt.setDouble(6, lonThreshold);</span>
+
+<span class="fc" id="L41">                    pstmt.setDouble(7, targetLongitude);</span>
+<span class="fc" id="L42">                    pstmt.setDouble(8, lonThreshold);</span>
+
+<span class="fc" id="L44">                    pstmt.setDouble(9, targetLatitude);</span>
+<span class="fc" id="L45">                    pstmt.setDouble(10, targetLongitude);</span>
+
+
+
+<span class="fc" id="L49">                    try (ResultSet rs = pstmt.executeQuery()) {</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">                        if (rs.next()) {</span>
+<span class="fc" id="L51">                            id = rs.getLong(&quot;id&quot;);</span>
+<span class="fc" id="L52">                            logger.info(&quot;Found node with id: &quot; + id + &quot; near &quot; + &quot; latitude: &quot; + targetLatitude + &quot; and longitude: &quot; + targetLongitude);</span>
+<span class="fc" id="L53">                            return id;</span>
+                        }
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                    }catch (SQLException e){</span>
+<span class="nc" id="L56">                        logger.error(&quot;Couldn't execute query when trying to find closest node.&quot;);</span>
+<span class="fc" id="L57">                    }</span>
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">                }catch (SQLException e){</span>
+<span class="nc" id="L59">                    logger.error(&quot;[GetNearestNode] Couldn't create prepared statement!&quot;);</span>
+<span class="fc" id="L60">                }</span>
+<span class="fc" id="L61">            latThreshold += 0.0001;</span>
+<span class="fc" id="L62">            lonThreshold += 0.0001;</span>
+<span class="fc" id="L63">        }</span>
+<span class="nc" id="L64">        logger.error(&quot;Couldn't find a nearest node at &quot; + &quot; latitude: &quot; + targetLatitude + &quot; and longitude: &quot; + targetLongitude);</span>
+<span class="nc" id="L65">        return null;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

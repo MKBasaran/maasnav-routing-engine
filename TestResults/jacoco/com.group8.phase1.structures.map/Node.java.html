@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Node.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.structures.map</a> &gt; <span class="el_source">Node.java</span></div><h1>Node.java</h1><pre class="source lang-java linenums">package com.group8.phase1.structures.map;
+
+/**
+ * Represents a geographical node.
+ */
+public class Node {
+    private double longitude;
+    private double latitude;
+    private String postalCode;
+    private long id;
+
+    /**
+     * Constructs a Node with the given postal code, latitude, and longitude.
+     *
+     * @param postalCode The postal code of the node.
+     * @param latitude   The latitude coordinate of the node.
+     * @param longitude  The longitude coordinate of the node.
+     */
+<span class="fc" id="L19">    public Node(String postalCode, double latitude, double longitude) {</span>
+<span class="fc" id="L20">        this.longitude = longitude;</span>
+<span class="fc" id="L21">        this.latitude = latitude;</span>
+<span class="fc" id="L22">        this.postalCode = postalCode;</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * Constructs a Node with the given ID, latitude, and longitude.
+     *
+     * @param id        The ID of the node.
+     * @param latitude  The latitude coordinate of the node.
+     * @param longitude The longitude coordinate of the node.
+     */
+<span class="fc" id="L32">    public Node(long id, double latitude, double longitude) {</span>
+<span class="fc" id="L33">        this.longitude = longitude;</span>
+<span class="fc" id="L34">        this.latitude = latitude;</span>
+<span class="fc" id="L35">        this.id = id;</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Gets the ID of the node.
+     *
+     * @return The ID of the node.
+     */
+    public long getId() {
+<span class="fc" id="L44">        return this.id;</span>
+    }
+
+    /**
+     * Gets the longitude coordinate of the node.
+     *
+     * @return The longitude coordinate of the node.
+     */
+    public double getLongitude() {
+<span class="fc" id="L53">        return this.longitude;</span>
+    }
+
+    /**
+     * Sets the longitude coordinate of the node.
+     *
+     * @param longitude The longitude coordinate to set.
+     */
+    public void setLongitude(double longitude) {
+<span class="nc" id="L62">        this.longitude = longitude;</span>
+<span class="nc" id="L63">    }</span>
+
+    /**
+     * Gets the latitude coordinate of the node.
+     *
+     * @return The latitude coordinate of the node.
+     */
+    public double getLatitude() {
+<span class="fc" id="L71">        return this.latitude;</span>
+    }
+
+    /**
+     * Sets the latitude coordinate of the node.
+     *
+     * @param latitude The latitude coordinate to set.
+     */
+    public void setLatitude(double latitude) {
+<span class="nc" id="L80">        this.latitude = latitude;</span>
+<span class="nc" id="L81">    }</span>
+
+    /**
+     * Gets the postal code of the node.
+     *
+     * @return The postal code of the node.
+     */
+    public String getPostalCode() {
+<span class="fc" id="L89">        return postalCode;</span>
+    }
+
+    /**
+     * Returns a string representation of the node.
+     *
+     * @return A string representation of the node.
+     */
+    public String toString() {
+<span class="nc" id="L98">        return postalCode + &quot;; &quot; + latitude + &quot;; &quot; + longitude;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

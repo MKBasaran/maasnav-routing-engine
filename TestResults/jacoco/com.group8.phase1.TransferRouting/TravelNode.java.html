@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TravelNode.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.TransferRouting</a> &gt; <span class="el_source">TravelNode.java</span></div><h1>TravelNode.java</h1><pre class="source lang-java linenums">package com.group8.phase1.TransferRouting;
+
+import com.group8.phase1.structures.map.Graph;
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.database.functional.GetNearestNode;
+import com.group8.phase1.osm.LoadRoutingGraph;
+import com.group8.phase1.pathfinding.RoutingEngine;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TravelNode {
+
+
+    public List&lt;Shape&gt; shapes;
+    private List&lt;Shape&gt; stops;
+    public List&lt;Long&gt; walkingNodes;
+    public String line;
+    public String tripId;
+
+    public String color;
+
+
+<span class="fc" id="L25">    public TravelNode(String tripId, long fromStopId, long toStopId){</span>
+<span class="fc" id="L26">        this.tripId = tripId;</span>
+       // System.out.println(&quot;TRIP ID: &quot; + tripId + &quot; from: &quot; + fromStopId + &quot; to: &quot; + toStopId);
+<span class="fc" id="L28">        shapes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L29">        String sql = &quot;&quot;&quot;</span>
+                WITH current_trip AS (
+                                                                   SELECT ? AS trip_id
+                                                               ),
+                                                               trip_shape_id AS (
+                                                                   SELECT shape_id FROM Trips WHERE Trips.trip_id = (SELECT trip_id FROM current_trip)
+                                                               ),
+                                                               start_shape_pt AS (
+                                                                   SELECT Shapes.shape_pt_sequence FROM Shapes WHERE Shapes.shape_id = (SELECT shape_id FROM trip_shape_id)
+                                                                   ORDER BY ABS(Shapes.shape_pt_lat - (SELECT stop_lat FROM Stops WHERE Stops.stop_id = ?)) + ABS(Shapes.shape_pt_lon - (SELECT stop_lon FROM Stops WHERE Stops.stop_id = ?)) ASC
+                                                                   LIMIT 1
+                                                               ),
+                                                               end_shape_pt AS (
+                                                                   SELECT Shapes.shape_pt_sequence FROM Shapes WHERE Shapes.shape_id = (SELECT shape_id FROM trip_shape_id)
+                                                                   ORDER BY ABS(Shapes.shape_pt_lat - (SELECT stop_lat FROM Stops WHERE Stops.stop_id = ?)) + ABS(Shapes.shape_pt_lon - (SELECT stop_lon FROM Stops WHERE Stops.stop_id = ?)) ASC
+                                                                   LIMIT 1
+                                                               )
+                                                               SELECT shape_pt_sequence, shape_pt_lat, shape_pt_lon FROM Shapes
+                                                               WHERE
+                                                                   Shapes.shape_pt_sequence &gt;= (SELECT shape_pt_sequence FROM start_shape_pt)
+                                                                   AND Shapes.shape_pt_sequence &lt;= (SELECT shape_pt_sequence FROM end_shape_pt)
+                                                                   AND Shapes.shape_id = (SELECT shape_id FROM trip_shape_id)
+                                                               ORDER BY Shapes.shape_pt_sequence ASC;
+                                                               
+                &quot;&quot;&quot;;
+
+<span class="fc" id="L55">        try (Connection conn = ConnectionGrabber.getInstance().getConnectionGTFS();</span>
+<span class="fc" id="L56">             PreparedStatement pstmt = conn.prepareStatement(sql)) {</span>
+          //  System.out.println(fromStopId);
+           // System.out.println(toStopId);
+           // System.out.println(tripId);
+<span class="fc" id="L60">            pstmt.setString(1, tripId);</span>
+<span class="fc" id="L61">            pstmt.setLong(2, fromStopId);</span>
+<span class="fc" id="L62">            pstmt.setLong(3, fromStopId);</span>
+<span class="fc" id="L63">            pstmt.setLong(4,toStopId);</span>
+<span class="fc" id="L64">            pstmt.setLong(5,toStopId);</span>
+
+<span class="fc" id="L66">            try (ResultSet rs = pstmt.executeQuery()) {</span>
+<span class="fc bfc" id="L67" title="All 2 branches covered.">                while (rs.next()) {</span>
+                   // String routeShortName = rs.getString(&quot;route_short_name&quot;);
+<span class="fc" id="L69">                    double shapePtLat = rs.getDouble(&quot;shape_pt_lat&quot;);</span>
+<span class="fc" id="L70">                    double shapePtLon = rs.getDouble(&quot;shape_pt_lon&quot;);</span>
+                    //this.line = routeShortName;
+<span class="fc" id="L72">                    this.shapes.add(new Shape(shapePtLat,shapePtLon));</span>
+
+<span class="fc" id="L74">                }</span>
+            }
+<span class="fc" id="L76">            sql = &quot;SELECT route_short_name, route_color FROM Routes WHERE route_id=(SELECT route_id FROM Trips WHERE trip_id=?)&quot;;</span>
+<span class="fc" id="L77">            PreparedStatement pstmt2 = conn.prepareStatement(sql);</span>
+<span class="fc" id="L78">            pstmt2.setString(1,tripId);</span>
+<span class="fc" id="L79">            try(ResultSet rs = pstmt2.executeQuery()){</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">                while (rs.next()) {</span>
+<span class="fc" id="L81">                    line = rs.getString(&quot;route_short_name&quot;);</span>
+<span class="fc" id="L82">                    color = rs.getString(&quot;route_color&quot;);</span>
+
+                }
+            }
+
+
+<span class="nc" id="L88">        } catch (SQLException e) {</span>
+<span class="nc" id="L89">           System.out.println( e.getMessage());</span>
+<span class="fc" id="L90">        }</span>
+
+
+<span class="fc" id="L93">    }</span>
+<span class="fc" id="L94">    public TravelNode( double fromLat, double fromLon, double toLat, double toLon,long fromStopId,long toStopId) {</span>
+<span class="fc" id="L95">        this.tripId = &quot;Walking&quot;;</span>
+<span class="fc" id="L96">        this.line = &quot;Walking&quot;;</span>
+<span class="fc" id="L97">        this.color =&quot;0058f8&quot;;</span>
+<span class="fc" id="L98">        Graph OSMGraph = LoadRoutingGraph.loadGraph();</span>
+<span class="fc" id="L99">        RoutingEngine routingEngine = new RoutingEngine(OSMGraph);</span>
+
+<span class="pc bpc" id="L101" title="1 of 4 branches missed.">        if (fromStopId != -1 &amp;&amp; toStopId != -1){</span>
+<span class="nc" id="L102">            walkingNodes = routingEngine.getShortestPath( GetNearestNode.get(fromLat,fromLon),  GetNearestNode.get(toLat,toLon)).getNodes();</span>
+        }
+<span class="fc bfc" id="L104" title="All 2 branches covered.">        else if(fromStopId==-1){</span>
+<span class="fc" id="L105">            walkingNodes = routingEngine.getShortestPath( GetNearestNode.get(fromLat,fromLon),GetNearestNode.get(toLat,toLon)).getNodes();</span>
+        }else {
+<span class="fc" id="L107">            walkingNodes = routingEngine.getShortestPath(GetNearestNode.get(fromLat,fromLon),GetNearestNode.get(toLat,toLon)).getNodes();</span>
+        }
+<span class="fc" id="L109">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

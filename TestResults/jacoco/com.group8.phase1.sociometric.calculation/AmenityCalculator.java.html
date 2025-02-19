@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AmenityCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.sociometric.calculation</a> &gt; <span class="el_source">AmenityCalculator.java</span></div><h1>AmenityCalculator.java</h1><pre class="source lang-java linenums">package com.group8.phase1.sociometric.calculation;
+
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.sociometric.Prompts;
+import com.group8.phase1.sociometric.calculation.objects.AmenityNode;
+import com.group8.phase1.structures.map.Node;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class AmenityCalculator {
+    private Set&lt;Integer&gt; currentCollection;
+<span class="fc" id="L18">    private final int[] radiusRanges = {100, 200, 300, 400};</span>
+<span class="fc" id="L19">    private final double[] rangeWeights = {0.4, 0.3, 0.2, 0.1};</span>
+<span class="fc" id="L20">    private ArrayList&lt;AmenityNode&gt; amenityNodes = new ArrayList&lt;&gt;();</span>
+
+    private static final double METERS_PER_DEGREE = 111320.0;
+    private double globalScore;
+    private Node postalCode;
+    private Connection connection;
+
+<span class="fc" id="L27">    public AmenityCalculator(Node postalCode){</span>
+<span class="fc" id="L28">        currentCollection = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L29">        this.postalCode = postalCode;</span>
+<span class="fc" id="L30">        connection = ConnectionGrabber.getInstance().getConnectionJSON();</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (int i = 0; i &lt; radiusRanges.length; i++) {</span>
+<span class="fc" id="L32">            globalScore = globalScore + returnAmenities(postalCode,radiusRanges[i], i);</span>
+<span class="fc" id="L33">            System.out.println(&quot;started&quot;);</span>
+        }
+<span class="fc" id="L35">        globalScore = Math.round(globalScore);</span>
+<span class="fc" id="L36">    }</span>
+
+    /**
+     * Calculates the score for amenities based on the given postal code, distance, and number.
+     *
+     * @param postalCode The postal code node.
+     * @param distance   The distance in meters.
+     * @param number     The range number.
+     * @return The score for amenities.
+     * @throws RuntimeException If a SQL error occurs.
+     */
+    public double returnAmenities(Node postalCode, int distance, int number){
+<span class="fc" id="L48">        double score = 0.0;</span>
+        try {
+<span class="fc" id="L50">            String sql = Prompts.findAmenities(postalCode.getLatitude(), postalCode.getLongitude(), distance/METERS_PER_DEGREE);</span>
+<span class="fc" id="L51">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="fc" id="L52">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">            while (resultSet.next()){</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                if(currentCollection.add(resultSet.getInt(3))){</span>
+<span class="fc" id="L55">                    score = score + getScore(resultSet.getDouble(4), rangeWeights[number]);</span>
+<span class="fc" id="L56">                    System.out.println(distance + &quot; &quot; + resultSet.getString(2));</span>
+<span class="fc" id="L57">                    amenityNodes.add(new AmenityNode(resultSet.getInt(3), resultSet.getDouble(5), resultSet.getDouble(6)));</span>
+                }
+            }
+<span class="fc" id="L60">            return score;</span>
+<span class="nc" id="L61">        } catch (SQLException e) {</span>
+<span class="nc" id="L62">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    /**
+     * Calculates the final score for amenities based on the given score and weight.
+     *
+     * @param score The initial score.
+     * @param weight The weight of the score.
+     * @return The final score for amenities.
+     */
+    public double getScore(double score,double weight) {
+<span class="fc" id="L74">        int penalty = Prompts.getPenalty(postalCode.getPostalCode(), connection);</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (score == 0) {</span>
+<span class="fc" id="L76">            score += penalty * weight;</span>
+        }
+        else{
+<span class="fc" id="L79">            score += score - (penalty * weight);</span>
+        }
+<span class="fc" id="L81">        System.out.println(&quot;Amenity Score :&quot; + score);</span>
+<span class="fc" id="L82">        return score;</span>
+    }
+
+    /**
+     * Retrieves the amenity score for the AmenityCalculator object.
+     *
+     * @return The amenity score.
+     */
+    public double getAmenityScore(){
+<span class="fc" id="L91">        return globalScore;</span>
+    }
+
+    /**
+     * Retrieves the list of AmenityNodes.
+     *
+     * @return The ArrayList containing AmenityNode objects.
+     */
+    public ArrayList&lt;AmenityNode&gt; getAmenityNodes() {
+<span class="fc" id="L100">        return amenityNodes;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

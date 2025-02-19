@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DateTimeUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.utils</a> &gt; <span class="el_source">DateTimeUtil.java</span></div><h1>DateTimeUtil.java</h1><pre class="source lang-java linenums">package com.group8.phase1.utils;
+
+
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
+<span class="fc" id="L10">public enum DateTimeUtil {</span>
+    ;
+
+<span class="fc" id="L13">    private static String timezoneID = &quot;Europe/Amsterdam&quot;; // Default timezone for our app</span>
+
+    // Method to get the current date in &quot;YYYYMMDD&quot; format
+    public static String getCurrentDate() {
+<span class="nc" id="L17">        ZoneId zone = ZoneId.of(timezoneID);</span>
+<span class="nc" id="L18">        ZonedDateTime currentDate = ZonedDateTime.now(zone);</span>
+<span class="nc" id="L19">        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;yyyyMMdd&quot;);</span>
+<span class="nc" id="L20">        return currentDate.format(formatter);</span>
+    }
+
+    // Method to get the current date and time in &quot;YYYY-MM-DD HH:MM:SS&quot; format
+    public static String getCurrentTime() {
+<span class="nc" id="L25">        ZoneId zone = ZoneId.of(timezoneID);</span>
+<span class="nc" id="L26">        ZonedDateTime currentTime = ZonedDateTime.now(zone);</span>
+<span class="nc" id="L27">        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;HH:mm:ss&quot;);</span>
+<span class="nc" id="L28">        return currentTime.format(formatter);</span>
+    }
+
+    public static void setTimezone(String timezone) {
+<span class="nc" id="L32">        timezoneID = timezone;</span>
+<span class="nc" id="L33">    }</span>
+
+    public static String correctDataTime(String timeString) {
+<span class="fc" id="L36">        int hours = Integer.parseInt(timeString.substring(0, 2));</span>
+<span class="pc bpc" id="L37" title="1 of 2 branches missed.">        if (hours &gt;= 24) {</span>
+<span class="nc" id="L38">            timeString = &quot;0&quot; + (hours - 24) + timeString.substring(2);</span>
+        }
+<span class="fc" id="L40">        return timeString;</span>
+    }
+
+    public static int calculateDifference(String startTime, String endTime) {
+
+<span class="nc" id="L45">        startTime = correctDataTime(startTime);</span>
+<span class="nc" id="L46">        endTime = correctDataTime(endTime);</span>
+<span class="nc" id="L47">        LocalTime start = LocalTime.parse(startTime);</span>
+<span class="nc" id="L48">        LocalTime end = LocalTime.parse(endTime);</span>
+
+<span class="nc" id="L50">        Duration duration = Duration.between(start, end);</span>
+
+<span class="nc" id="L52">        long minutes = duration.toMinutes();</span>
+<span class="nc" id="L53">        return (int) minutes;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

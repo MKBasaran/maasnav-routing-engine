@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Edge.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.structures.map</a> &gt; <span class="el_source">Edge.java</span></div><h1>Edge.java</h1><pre class="source lang-java linenums">package com.group8.phase1.structures.map;
+
+/**
+ * Represents an edge in a graph.
+ */
+public class Edge {
+
+
+    /**
+     * Destination node ID
+     */
+    public Long destination;
+    /**
+     * Weight of the edge
+     */
+    public double weight;
+
+    /**
+     * Constructs an Edge with the given destination and weight.
+     *
+     * @param destination The ID of the destination node.
+     * @param weight      The weight of the edge.
+     */
+<span class="fc" id="L24">    public Edge(Long destination, double weight) {</span>
+<span class="fc" id="L25">        this.destination = destination;</span>
+<span class="fc" id="L26">        this.weight = weight;</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * Gets the weight of the edge.
+     *
+     * @return The weight of the edge.
+     */
+    public double getWeight() {
+<span class="fc" id="L35">        return weight;</span>
+    }
+
+    /**
+     * Gets the ID of the destination node.
+     *
+     * @return The ID of the destination node.
+     */
+    public Long getDestination() {
+<span class="fc" id="L44">        return destination;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

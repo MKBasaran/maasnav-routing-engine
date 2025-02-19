@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrecomputeWalkingEdges.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.TransferRouting</a> &gt; <span class="el_source">PrecomputeWalkingEdges.java</span></div><h1>PrecomputeWalkingEdges.java</h1><pre class="source lang-java linenums">package com.group8.phase1.TransferRouting;
+
+import com.group8.phase1.structures.map.Graph;
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.database.functional.GetNearestNode;
+import com.group8.phase1.logger.LoggerService;
+import com.group8.phase1.osm.LoadRoutingGraph;
+import com.group8.phase1.pathfinding.Path;
+import com.group8.phase1.pathfinding.RoutingEngine;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc" id="L15">public class PrecomputeWalkingEdges {</span>
+
+    static RoutingEngine routingEngine;
+
+    public static void main(String[] args) {
+<span class="nc" id="L20">        precompute();</span>
+<span class="nc" id="L21">    }</span>
+    public static void precompute(){
+<span class="nc" id="L23">        Graph OSMGraph = LoadRoutingGraph.loadGraph();</span>
+<span class="nc" id="L24">        routingEngine = new RoutingEngine(OSMGraph);</span>
+<span class="nc" id="L25">        List&lt;Stop&gt; stops = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L27">        Statement stmt = null;</span>
+<span class="nc" id="L28">        Connection connection = null;</span>
+<span class="nc" id="L29">        ResultSet rs = null;</span>
+        try{
+<span class="nc" id="L31">             connection = ConnectionGrabber.getInstance().getConnectionGTFS();</span>
+
+            // Load stops
+<span class="nc" id="L34">            stmt = connection.createStatement();</span>
+<span class="nc" id="L35">             rs = stmt.executeQuery(&quot;SELECT stop_id, stop_lat, stop_lon FROM Stops&quot;);</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            while (rs.next()) {</span>
+<span class="nc" id="L37">                String stopId = rs.getString(&quot;stop_id&quot;);</span>
+
+<span class="nc" id="L39">                double lat = rs.getDouble(&quot;stop_lat&quot;);</span>
+<span class="nc" id="L40">                double lon = rs.getDouble(&quot;stop_lon&quot;);</span>
+<span class="nc" id="L41">                stops.add(new Stop(stopId,lat,lon));</span>
+<span class="nc" id="L42">            }</span>
+
+<span class="nc" id="L44">        } catch (SQLException e) {</span>
+<span class="nc" id="L45">            throw new RuntimeException(e);</span>
+        }finally {
+            try {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">                if(rs!=null) rs.close();</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if (stmt != null) stmt.close();</span>
+<span class="nc" id="L50">            } catch (SQLException e) {</span>
+<span class="nc" id="L51">                e.printStackTrace();</span>
+<span class="nc" id="L52">            }</span>
+        }
+
+
+<span class="nc" id="L56">        int index = 0;</span>
+<span class="nc" id="L57">        try(Connection connectiongtfs = ConnectionGrabber.getInstance().getConnectionGTFS()){</span>
+<span class="nc" id="L58">        List&lt;Edge&gt; edges = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        for(int i=315;i&lt;stops.size();i++){</span>
+<span class="nc" id="L60">            Stop stop = stops.get(i);</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">           for(int j=i+1; j&lt;stops.size();j++) {</span>
+<span class="nc" id="L62">               Stop stop2 = stops.get(j);</span>
+<span class="nc bnc" id="L63" title="All 4 branches missed.">               if (stop != stop2 &amp;&amp; haversine(stop.lat, stop.lon, stop2.lat, stop2.lon) &lt; 1.5) {</span>
+<span class="nc" id="L64">                   double distance = getOSMDistance(stop.lat, stop.lon, stop2.lat, stop2.lon);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                   if(distance &gt; 10000)</span>
+<span class="nc" id="L66">                       distance = 10000;</span>
+<span class="nc" id="L67">                   edges.add(new Edge(stop.stopId,stop2.stopId,distance/ 5 * 3600));</span>
+
+               }
+<span class="nc bnc" id="L70" title="All 2 branches missed.">               if(edges.size()&gt;10){</span>
+<span class="nc" id="L71">                   insert(edges,connectiongtfs);</span>
+<span class="nc" id="L72">                   edges.clear();</span>
+               }
+           }
+<span class="nc" id="L75">           System.out.println(&quot;Processed stop: &quot;+ index + &quot; out of &quot; + stops.size());</span>
+<span class="nc" id="L76">           index++;</span>
+        }
+
+<span class="nc" id="L79">        insert(edges,connection);</span>
+<span class="nc" id="L80">        edges.clear();</span>
+
+
+<span class="nc" id="L83">    } catch (SQLException e) {</span>
+<span class="nc" id="L84">            throw new RuntimeException(e);</span>
+<span class="nc" id="L85">        }</span>
+<span class="nc" id="L86">    }</span>
+
+
+    public static void insert(List&lt;Edge&gt; batchEdges, Connection connection) {
+<span class="nc" id="L90">        LoggerService loggerService = LoggerService.getInstance();</span>
+<span class="nc" id="L91">        String sql = &quot;INSERT INTO PrecomputedWalkingEdges(from_stop,to_stop,time_taken) VALUES(?,?,?)&quot;;</span>
+<span class="nc" id="L92">        PreparedStatement pstmt = null;</span>
+        try  {
+<span class="nc" id="L94">            pstmt = connection.prepareStatement(sql);</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            for (Edge edge : batchEdges) {</span>
+<span class="nc" id="L96">                pstmt.setString(1, edge.fromId);</span>
+<span class="nc" id="L97">                pstmt.setString(2, edge.toId);</span>
+<span class="nc" id="L98">                pstmt.setDouble(3, edge.time_taken);</span>
+<span class="nc" id="L99">                pstmt.addBatch();</span>
+<span class="nc" id="L100">            }</span>
+<span class="nc" id="L101">            pstmt.executeBatch();</span>
+           // loggerService.info(&quot;Successfully inserted another batch of edges into Precomputed table!&quot;);
+<span class="nc" id="L103">        } catch (SQLException e) {</span>
+<span class="nc" id="L104">            System.out.println(e.getMessage());</span>
+          //  loggerService.error(&quot;Couldn't insert  &quot; + e.getMessage());
+        }finally {
+            try {
+<span class="nc bnc" id="L108" title="All 2 branches missed.">                if (pstmt != null) pstmt.close();</span>
+<span class="nc" id="L109">            } catch (SQLException e) {</span>
+<span class="nc" id="L110">                e.printStackTrace();</span>
+<span class="nc" id="L111">            }</span>
+        }
+<span class="nc" id="L113">    }</span>
+
+    public static double getOSMDistance(double startLat, double startLon, double endLat, double endLon) {
+        //TODO: Get nearest nodes to the lat's and lon's
+<span class="nc" id="L117">        Long nearestToStart = GetNearestNode.get(startLat, startLon);</span>
+<span class="nc" id="L118">        Long nearestToTarget = GetNearestNode.get(endLat, endLon);</span>
+
+<span class="nc" id="L120">        Path path = routingEngine.getShortestPath(nearestToStart, nearestToTarget);</span>
+        //TODO: Return distance of path
+//        System.out.println(path.getDistance()/1000);
+//        System.out.println(path.getDistance()/1000/5*3600);
+<span class="nc" id="L124">        double distance = path.getDistance()/1000;</span>
+<span class="nc" id="L125">        path = null;</span>
+<span class="nc" id="L126">        return distance;</span>
+    }
+
+    private static double haversine(double lat1, double lon1, double lat2, double lon2) {
+<span class="nc" id="L130">        final int R = 6371; // Radius of the Earth in km</span>
+<span class="nc" id="L131">        double latDistance = Math.toRadians(lat2 - lat1);</span>
+<span class="nc" id="L132">        double lonDistance = Math.toRadians(lon2 - lon1);</span>
+<span class="nc" id="L133">        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)</span>
+<span class="nc" id="L134">                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))</span>
+<span class="nc" id="L135">                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);</span>
+<span class="nc" id="L136">        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));</span>
+<span class="nc" id="L137">        return R * c;</span>
+    }
+
+   public static class Edge{
+        public String fromId,toId;
+        public double time_taken;
+
+<span class="nc" id="L144">        public Edge(String fromId,String toId, double time_taken ){</span>
+<span class="nc" id="L145">            this.fromId = fromId;</span>
+<span class="nc" id="L146">            this.toId = toId;</span>
+<span class="nc" id="L147">            this.time_taken = time_taken;</span>
+<span class="nc" id="L148">        }</span>
+    }
+
+    static class Stop{
+        public String stopId;
+        public double lat,lon;
+<span class="nc" id="L154">        public Stop(String stopId, double lat, double lon){</span>
+<span class="nc" id="L155">            this.stopId = stopId;</span>
+<span class="nc" id="L156">            this.lat = lat;</span>
+<span class="nc" id="L157">            this.lon = lon;</span>
+<span class="nc" id="L158">        }</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShopCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.sociometric.calculation</a> &gt; <span class="el_source">ShopCalculator.java</span></div><h1>ShopCalculator.java</h1><pre class="source lang-java linenums">package com.group8.phase1.sociometric.calculation;
+
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.sociometric.Prompts;
+import com.group8.phase1.sociometric.calculation.objects.AmenityNode;
+import com.group8.phase1.sociometric.calculation.objects.ShopNode;
+import com.group8.phase1.structures.map.Node;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+public class ShopCalculator {
+    private final Node postalCode;
+    private Set&lt;Integer&gt; currentCollection;
+<span class="fc" id="L20">    private final int[] radiusRanges = {100, 200, 300, 400};</span>
+<span class="fc" id="L21">    private final double[] rangeWeights = {0.4, 0.3, 0.2, 0.1};</span>
+<span class="fc" id="L22">    private ArrayList&lt;ShopNode&gt; shopNodes = new ArrayList&lt;&gt;();</span>
+    private static final double METERS_PER_DEGREE = 111320.0;
+    private double globalScore;
+    private Connection connection;
+
+<span class="fc" id="L27">    public ShopCalculator(Node postalCode){</span>
+<span class="fc" id="L28">        currentCollection = new HashSet&lt;&gt;();</span>
+<span class="fc" id="L29">        connection = ConnectionGrabber.getInstance().getConnectionJSON();</span>
+<span class="fc" id="L30">        this.postalCode = postalCode;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (int i = 0; i &lt; radiusRanges.length; i++) {</span>
+<span class="fc" id="L32">            globalScore = globalScore + returnShops(postalCode,radiusRanges[i], i);</span>
+<span class="fc" id="L33">            System.out.println(&quot;started&quot;);</span>
+        }
+<span class="fc" id="L35">        globalScore = Math.round(globalScore);</span>
+
+<span class="fc" id="L37">    }</span>
+
+    /**
+     * Returns the score of the shops within the given distance from the specified postal code,
+     * and updates the shopNodes list with the corresponding shops.
+     *
+     * @param postalCode The Node object representing the postal code location.
+     * @param distance   The distance from the postal code in meters.
+     * @param number     The index of the rangeWeights array to use for calculating the score.
+     * @return The total score of the shops within the specified distance.
+     */
+    public double returnShops(Node postalCode, int distance, int number){
+<span class="fc" id="L49">        double score = 0.0;</span>
+        try {
+
+<span class="fc" id="L52">            String sql = Prompts.findShops(postalCode.getLatitude(), postalCode.getLongitude(), distance/METERS_PER_DEGREE);</span>
+<span class="fc" id="L53">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="fc" id="L54">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">            while (resultSet.next()){</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">                if(currentCollection.add(resultSet.getInt(3))){</span>
+<span class="fc" id="L57">                    score = score + getScore(resultSet.getDouble(4), rangeWeights[number]);</span>
+<span class="fc" id="L58">                    System.out.println(distance + &quot; &quot; + resultSet.getString(2));</span>
+<span class="fc" id="L59">                    shopNodes.add(new ShopNode(resultSet.getInt(3), resultSet.getDouble(5), resultSet.getDouble(6)));</span>
+                }
+            }
+<span class="fc" id="L62">            return score;</span>
+<span class="nc" id="L63">        } catch (SQLException e) {</span>
+<span class="nc" id="L64">            throw new RuntimeException(e);</span>
+        }
+
+    }
+
+    /**
+     * Calculates the score based on the given score and weight.
+     *
+     * @param score The current score.
+     * @param weight The weight.
+     * @return The updated score.
+     */
+    public double getScore(double score,double weight) {
+<span class="fc" id="L77">        int penalty = Prompts.getPenalty(postalCode.getPostalCode(), connection);</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if (score == 0) {</span>
+<span class="fc" id="L79">            score += penalty * weight;</span>
+        }
+        else{
+<span class="fc" id="L82">            score += score - (penalty * weight);</span>
+        }
+<span class="fc" id="L84">        System.out.println(&quot;Shop Score :&quot; + score);</span>
+<span class="fc" id="L85">        return score;</span>
+    }
+
+    /**
+     * Retrieves the shop score for a given FeatureCalculator object.
+     *
+     * @return The shop score.
+     */
+    public double getShopScore(){
+<span class="fc" id="L94">        return globalScore;</span>
+    }
+
+    /**
+     * Retrieves the list of ShopNode objects.
+     *
+     * @return The ArrayList of ShopNode objects representing the shops.
+     */
+    public ArrayList&lt;ShopNode&gt; getShopNodes() {
+<span class="fc" id="L103">        return shopNodes;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

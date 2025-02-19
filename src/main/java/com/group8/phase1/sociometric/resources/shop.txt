@@ -1,0 +1,697 @@
+supermarket, Maastricht,Roserije 325, 50.827380, 5.726173
+supermarket, ALDI, 50.848549, 5.676682
+supermarket, Albert Heijn XL, 50.850462, 5.665003
+supermarket, Albert Heijn, 50.844218, 5.728078
+supermarket, PLUS, 50.843014, 5.729148
+supermarket, Jumbo Maastricht, 50.863451, 5.655105
+supermarket, Albert Heijn, 50.846554, 5.700274
+convenience, Albert Heijn to go, 50.849853, 5.705565
+supermarket, Jumbo, 50.857108, 5.700410
+chemist, Etos, 50.842924, 5.727784
+chemist, Etos, 50.850502, 5.666176
+chemist, Etos, 50.864212, 5.732395
+alcohol, Gall & Gall, 50.850606, 5.665762
+bakery, De Lekkerbek, 50.840675, 5.731086
+butcher, Unknown, 50.840670, 5.730536
+gift, WW Maastricht, 50.849589, 5.685423
+supermarket, Jumbo, 50.827147, 5.725817
+florist, Unknown, 50.849553, 5.701097
+outdoor, ANWB winkel, 50.849570, 5.699535
+supermarket, Jumbo, 50.850235, 5.666599
+soft_drugs, Sirius, 50.849578, 5.685712
+bicycle, Courtens, 50.847917, 5.682447
+soft_drugs, Cool Running, 50.849554, 5.684265
+soft_drugs, Club69, 50.849905, 5.685894
+soft_drugs, Organic Earth, 50.849579, 5.682026
+soft_drugs, Headshop Vision, 50.849720, 5.685093
+soft_drugs, Missouri, 50.847226, 5.700452
+soft_drugs, Maxcy's Coffeeshop, 50.848629, 5.698069
+electronics, ElektroWorld Weerts, 50.843202, 5.727802
+sports, Relax, 50.843067, 5.727487
+charity, Terre des hommes, 50.842942, 5.727418
+optician, Hans Anders, 50.843151, 5.728320
+florist, villa vivante, 50.843204, 5.728720
+chemist, Kruidvat, 50.842818, 5.727744
+hearing_aids, Beter horen, 50.843070, 5.728682
+shoes, shoebidoe, 50.843078, 5.727749
+bakery, Paulissen, 50.843118, 5.728553
+shoes, Unknown, 50.843867, 5.727763
+bicycle, Cycling Evers, 50.844469, 5.727404
+clothes, Unknown, 50.843804, 5.727759
+gift, Unknown, 50.844103, 5.727439
+optician, Unknown, 50.843612, 5.727719
+clothes, VidaMama, 50.844531, 5.727843
+bakery, Van de Weert, 50.843637, 5.724347
+ice, De Wilg, 50.843695, 5.723964
+stationery, Geurten, 50.843523, 5.725577
+convenience, Toko Bandung, 50.843585, 5.724962
+furniture, Essers, 50.843702, 5.723652
+hearing_aids, Schoonenberg, 50.843461, 5.726274
+curtain, Frans Beks & Zonen, 50.843618, 5.728085
+kitchen, Kookhuis an de Maes, 50.851529, 5.689952
+hairdresser, Kapsalon Mandy, 50.851147, 5.689673
+bakery, SoDelicious, 50.849445, 5.702994
+vacant, Unknown, 50.845116, 5.701825
+clothes, Bàm Bàm kinderkleding, 50.842874, 5.727905
+bakery, Mathieu Hermans, 50.850078, 5.679655
+car_repair, Kessels BMW, 50.845175, 5.708118
+car, Kessels Automobielen, 50.845416, 5.707571
+bakery, Paulissen, 50.839543, 5.650111
+supermarket, Lidl, 50.838849, 5.651999
+car_repair, Jorissen Auto's, 50.842248, 5.721633
+garden_centre, Aveve, 50.825171, 5.715505
+hairdresser, Unknown, 50.831529, 5.704261
+car, Garage van den Boorn, 50.826082, 5.714041
+hairdresser, Unknown, 50.830217, 5.705509
+bicycle, Quaaden, 50.843937, 5.721207
+sports, Aktiesport, 50.850651, 5.666768
+clothes, C&A, 50.851048, 5.665664
+florist, Hendriks, 50.850550, 5.666888
+hairdresser, Jay Dee, 50.850383, 5.667127
+chemist, Kapper Kreatos, 50.850791, 5.667905
+laundry, Mon-Ami, 50.846497, 5.675860
+bakery, Paulissen Bakkerijen, 50.850870, 5.667800
+bicycle, Unknown, 50.846508, 5.673835
+computer, Unknown, 50.846929, 5.673241
+department_store, HEMA, 50.850019, 5.705518
+coffee, Kaldi Maastricht, 50.849579, 5.698745
+butcher, Het Demertje, 50.842003, 5.722547
+music, sound academy, 50.840634, 5.722182
+toys, Top1Toys, 50.843451, 5.726380
+newsagent, Primera, 50.831905, 5.703826
+chemist, Kruidvat, 50.831691, 5.703964
+florist, Lelieveld, 50.827940, 5.728986
+car, Unknown, 50.821850, 5.712686
+car, Remmers Occasions, 50.831073, 5.728892
+doityourself, Praxis, 50.843002, 5.721115
+clothes, Zeeman, 50.842807, 5.728141
+optician, Oogwereld Ritchi, 50.843507, 5.726085
+convenience, Maison Culinair, 50.841646, 5.727720
+clothes, Joli Fashion, 50.843135, 5.728422
+convenience, 't Rommedoeke, 50.842902, 5.728555
+supermarket, Cobben, 50.839874, 5.691973
+greengrocer, Vroegop, 50.839963, 5.690554
+wine, St. Pieter, 50.839944, 5.690419
+clothes, Wibra, 50.839297, 5.650767
+florist, Villa Vivante, 50.839183, 5.651123
+chemist, Kruidvat, 50.839625, 5.649890
+garden_centre, Tuincentrum Groen Maastricht, 50.836886, 5.654557
+books, Bruna, 50.850691, 5.666859
+convenience, Blokker, 50.850574, 5.666621
+medical_supply, Medipoint, 50.852259, 5.659052
+hairdresser, Dordan Kappers, 50.850748, 5.666937
+interior_decoration, Home Service, 50.846498, 5.679400
+pastry, Patisserie van Boheemen, 50.849161, 5.676675
+supermarket, Aldi, 50.864077, 5.655171
+shoes, Hendriks schoenmode by Calbasa, 50.860473, 5.671356
+party, Funny Deco, 50.860766, 5.670713
+clothes, Gadet Mode, 50.860698, 5.670450
+beauty, Asenna Beauty, 50.860664, 5.670316
+butcher, Kippenhof, 50.860555, 5.669900
+butcher, Slagerij Brandts, 50.860584, 5.670011
+pastry, Creme de la Creme, 50.860570, 5.669954
+newsagent, Primera, 50.860423, 5.669393
+clothes, Calbasa Fashion & Shoes, 50.860458, 5.671657
+nutrition_supplements, Be Fit Maastricht, 50.860375, 5.671033
+greengrocer, Shabnam, 50.860458, 5.669527
+party, OP = OP, 50.860392, 5.669270
+hairdresser, Kapper François, 50.860224, 5.668643
+dry_cleaning, Stomerij Kerkhoffs, 50.860214, 5.668579
+mobile_phone, Dphone, 50.849794, 5.691296
+clothes, Per Semprr, 50.848879, 5.693124
+hairdresser, Mon Rêve, 50.850475, 5.693025
+clothes, Hilfiger Denim, 50.850541, 5.692332
+clothes, Grail, 50.850235, 5.691454
+jewelry, Ferrum, 50.850134, 5.690527
+beauty, Aveda, 50.848473, 5.694136
+books, Boekhandel Dominicanen, 50.850120, 5.689636
+confectionery, Jamin, 50.849786, 5.692209
+clothes, Unknown, 50.848827, 5.690930
+clothes, Iva, 50.849471, 5.684945
+clothes, Yoké, 50.850807, 5.690283
+gift, Scope Store, 50.848695, 5.691596
+clothes, Scotch & Soda, 50.850952, 5.692266
+confectionery, Pinky, 50.847940, 5.692740
+deli, Oil & Vinegar, 50.850603, 5.690457
+bakery, De Bisschopsmolen, 50.846386, 5.692699
+ice_cream, Pinky, 50.849669, 5.689297
+clothes, King of Menstyle, 50.848544, 5.690572
+clothes, Wam Denim, 50.849662, 5.692425
+interior_decoration, No Label, 50.848651, 5.691412
+jewelry, Dare in Dono, 50.850722, 5.692138
+shoes, Shoes & Shirts, 50.847985, 5.693508
+clothes, Eco Linea, 50.848810, 5.689930
+clothes, Possible, 50.849002, 5.690295
+clothes, Courage, 50.849319, 5.690279
+shoes, Unknown, 50.849345, 5.691404
+clothes, State of Art, 50.848687, 5.692506
+clothes, Imago, 50.849002, 5.692029
+clothes, Claudia Sträter, 50.849631, 5.692689
+jewelry, Unknown, 50.849248, 5.693824
+books, D’n Boekenwurm, 50.850508, 5.693334
+jewelry, Bijou Brigitte, 50.850758, 5.692305
+interior_decoration, Lifestyle, 50.850459, 5.691437
+jewelry, Belle Flo, 50.847951, 5.693800
+mobile_phone, Star Mobile, 50.850374, 5.690481
+clothes, Wolford, 50.848668, 5.694088
+clothes, Antony Morato, 50.848753, 5.692660
+clothes, WE, 50.849617, 5.692469
+clothes, Vanilla, 50.849403, 5.693688
+clothes, GANT, 50.848977, 5.693432
+vacant, Promiss, 50.850688, 5.692144
+interior_decoration, Wishlist Things, 50.849281, 5.690268
+shoes, Tamaris, 50.848629, 5.692492
+mobile_phone, T-Mobile, 50.849593, 5.692719
+jewelry, Willy Vossen, 50.849243, 5.693739
+clothes, L’Angelico, 50.848888, 5.693520
+mobile_phone, KPN, 50.850716, 5.692312
+interior_decoration, Paradis de Clayre, 50.850387, 5.691443
+mobile_phone, T-Mobile, 50.850334, 5.690487
+cosmetics, Dermalogica, 50.848689, 5.692649
+clothes, Christian Lagerwaard, 50.848464, 5.693236
+clothes, Muchachas, 50.848474, 5.690521
+clothes, Score, 50.849571, 5.692511
+interior_decoration, Conflict, 50.848536, 5.691393
+pet, Dierenspeciaalzaak Wolters, 50.850378, 5.691270
+clothes, Trivaldi, 50.848796, 5.689737
+clothes, Freddy, 50.849030, 5.690715
+photo, PicturePeople, 50.850214, 5.690351
+clothes, Hannes Roether, 50.849244, 5.690271
+clothes, Be One, 50.848627, 5.693959
+bakery, Souren, 50.849274, 5.691362
+clothes, New Hampshire, 50.848798, 5.689647
+clothes, Marc O'Polo, 50.848572, 5.692478
+clothes, 7 Camicie, 50.849024, 5.691866
+clothes, Hunkemöller, 50.849540, 5.692766
+clothes, Schins, 50.848882, 5.693446
+chemist, Holland & Barett, 50.850666, 5.692321
+clothes, Repeat, 50.847928, 5.693641
+clothes, Kinsjasa, 50.849037, 5.690770
+clothes, Isa, 50.850284, 5.690495
+shoes, Loake, 50.848606, 5.694108
+interior_decoration, Christianne Rousseau, 50.848371, 5.693252
+clothes, Traders Pop, 50.848404, 5.690466
+clothes, Jack & Jones, 50.849538, 5.692542
+clothes, Denham, 50.849396, 5.693527
+clothes, Montulet, 50.848978, 5.693259
+clothes, Uniq Mode, 50.849489, 5.692805
+clothes, Eleventy, 50.848875, 5.693378
+jewelry, Puur, 50.850490, 5.693163
+books, AKO, 50.850623, 5.692330
+electronics, Handyman, 50.850304, 5.691448
+shoes, Noë, 50.849086, 5.690947
+interior_decoration, Studio - Cedille Design, 50.848474, 5.691380
+clothes, Belle et Beau, 50.850322, 5.691280
+accessories, Coin des Filles, 50.848799, 5.689596
+clothes, My Jewellery, 50.849054, 5.690848
+clothes, La Ligna, 50.850150, 5.690361
+clothes, Menners, 50.849203, 5.690275
+clothes, Mayfair, 50.848564, 5.693969
+clothes, Gerry Weber, 50.848517, 5.692475
+clothes, Sandwich_, 50.850241, 5.690503
+clothes, 7 for all Mankind, 50.848551, 5.694120
+clothes, Esprit, 50.848576, 5.692651
+clothes, Avanti, 50.848313, 5.689255
+shoes, Nelson, 50.849494, 5.692580
+shoes, Van Lier, 50.849393, 5.693462
+clothes, Aristo, 50.848802, 5.689487
+interior_decoration, ‘t Stokpeerdsje, 50.849160, 5.690275
+clothes, Giensch, 50.849045, 5.691717
+vacant, Miss Etam, 50.849795, 5.691350
+shoes, Dr. Martens, 50.849454, 5.692831
+clothes, Woolrich, 50.848869, 5.693228
+clothes, Le Ballon, 50.850587, 5.692339
+jewelry, Angela’s Bijoux, 50.850271, 5.691451
+interior_decoration, Festen, 50.848770, 5.691608
+cosmetics, Rituals, 50.850662, 5.690454
+clothes, Pop-up Outlet by PL-Line, 50.847708, 5.691459
+clothes, Max Mara, 50.847894, 5.691199
+confectionery, Pinky, 50.849916, 5.692239
+clothes, Scapa, 50.848745, 5.693227
+hairdresser, The Barbershop, 50.848904, 5.691457
+jewelry, Turkish Juwelier Alanya, 50.850874, 5.692107
+shoes, Wolky, 50.850714, 5.691170
+clothes, Depeche, 50.848877, 5.690248
+clothes, Pieces, 50.850737, 5.690304
+antiques, Steiner, 50.848924, 5.694000
+shoes, Peter Kaiser, 50.848919, 5.692568
+clothes, ONLY, 50.849417, 5.692605
+jewelry, Filipucci, 50.849389, 5.693399
+clothes, Gigue, 50.848989, 5.693117
+clothes, Cuplé, 50.848904, 5.692908
+vacant, Steps, 50.850402, 5.692362
+perfumery, Bargello, 50.850121, 5.691464
+clothes, Scotch & Soda, 50.850039, 5.690566
+clothes, Shoebaloo, 50.848401, 5.694157
+shoes, Gabor, 50.848384, 5.692637
+clothes, NAME IT, 50.850499, 5.692175
+clothes, Hemingway’s, 50.849120, 5.690276
+shoes, Bastiaans, 50.848891, 5.693034
+jewelry, Bags & Bijoux, 50.850177, 5.691461
+wine, Derlon’s Winestore, 50.847921, 5.693580
+chocolate, Boulanger, 50.850094, 5.690544
+shoes, Mephisto, 50.848422, 5.692635
+clothes, Supertrash, 50.849382, 5.693265
+clothes, Maison Ad, 50.849000, 5.693017
+clothes, Verona, 50.850416, 5.692192
+clothes, Uniq, 50.850146, 5.691307
+jewelry, Leon Martens Espace, 50.848408, 5.694006
+electronics, Lichtstroom, 50.848293, 5.692496
+clothes, WE, 50.849930, 5.691318
+bakery, Bread & More, 50.846991, 5.689874
+clothes, Timberland, 50.849386, 5.693333
+shoes, Shoe Line, 50.850452, 5.692187
+optician, Het Huis Eyewish Opticiens, 50.850216, 5.691293
+clothes, A Fish Named Fred, 50.848807, 5.689349
+shoes, Mr. & Mrs., 50.849080, 5.690280
+optician, Siefers Opticum, 50.848458, 5.693998
+clothes, Pieces, 50.848330, 5.692487
+books, AKO, 50.849192, 5.691556
+perfumery, Douglas, 50.849916, 5.691095
+clothes, Schins, 50.849009, 5.692946
+vacant, Steps, 50.850377, 5.692202
+clothes, Hebbiesz, 50.850103, 5.691317
+shoes, Monfrance, 50.848235, 5.692514
+shoes, Foot Locker, 50.849791, 5.691096
+clothes, River Woods, 50.849218, 5.693267
+optician, Eyes+More, 50.850363, 5.692373
+houseware, Tupperware, 50.850056, 5.691468
+hairdresser, Salon Craft, 50.847751, 5.692559
+clothes, Marc Cain, 50.847900, 5.693413
+clothes, Lacoste, 50.848342, 5.692640
+clothes, FALKE, 50.849378, 5.693101
+coffee, Blanche Dael, 50.848180, 5.692537
+clothes, No Excess, 50.849072, 5.691311
+clothes, C&A, 50.849780, 5.690873
+clothes, Oska, 50.848934, 5.692779
+clothes, Heeren, 50.847889, 5.693320
+clothes, Amarna, 50.848350, 5.694165
+toys, Intertoys, 50.848286, 5.692651
+bakery, Bakker Bart, 50.849211, 5.693172
+deli, Le Salonard, 50.846774, 5.691697
+clothes, Domiq, 50.848960, 5.692310
+art, Roeland Schoonbrood, 50.849962, 5.689638
+shoes, Manfield, 50.849780, 5.692118
+clothes, Pauw, 50.848764, 5.693454
+clothes, Stradivarius, 50.849812, 5.692552
+clothes, Schins, 50.848915, 5.693820
+chemist, Balsemien, 50.850918, 5.690278
+clothes, Open 32, 50.850896, 5.692278
+clothes, Jos van Hugten, 50.850705, 5.691384
+clothes, Monfrance, 50.847955, 5.692921
+clothes, Lara, 50.850542, 5.690461
+clothes, Nikkie, 50.848858, 5.694103
+shoes, Sacha, 50.849906, 5.690910
+clothes, La Dress, 50.848122, 5.692553
+shoes, Maxime, 50.849057, 5.691233
+clothes, Cavallaro, 50.849209, 5.693098
+clothes, ONLY, 50.850284, 5.692393
+clothes, Liu Jo, 50.848289, 5.694182
+clothes, Valeb, 50.849178, 5.691250
+clothes, Costes, 50.849901, 5.690839
+shoes, Shoes & Boots, 50.850234, 5.692240
+shoes, Kiki Niesten, 50.848198, 5.694077
+clothes, CoolCat, 50.849896, 5.690735
+clothes, We-ar Vintage, 50.849042, 5.691173
+clothes, Sam Friday, 50.849205, 5.693029
+vacant, Didi, 50.850233, 5.692405
+clothes, Kiki’s Stocksale, 50.848240, 5.694189
+hairdresser, Vrijthof 33, 50.849577, 5.687480
+clothes, Betty Barclay, 50.848224, 5.692662
+clothes, Unknown, 50.849161, 5.691192
+shoes, Sidestep, 50.849898, 5.690636
+bag, Lucky Leder, 50.850206, 5.692249
+clothes, Sarah Pasini, 50.848167, 5.694086
+clothes, Stylish, 50.849031, 5.691127
+vacant, Unknown, 50.848153, 5.689938
+jewelry, Christ, 50.849211, 5.692871
+books, Boekenvoordeel, 50.850190, 5.692413
+clothes, Bona Venia, 50.847973, 5.693951
+houseware, Dille & Kamille, 50.848821, 5.690443
+chemist, Etos, 50.850462, 5.690470
+jewelry, BieZoe, 50.848848, 5.692686
+supermarket, Coop, 50.844444, 5.691012
+gift, In ‘t Panhuis, 50.850764, 5.690679
+clothes, De 13 jongens, 50.849147, 5.691143
+shoes, Durlinger, 50.849870, 5.690386
+shoes, Monfrance, 50.848172, 5.693303
+jewelry, Follies, 50.850181, 5.692256
+clothes, Paddy Point, 50.849019, 5.691082
+clothes, G-Star Raw, 50.849763, 5.690605
+clothes, Garcia, 50.850149, 5.692420
+clothes, Etalage, 50.848106, 5.694224
+jewelry, Bering, 50.850158, 5.692262
+clothes, Mody Mary, 50.848087, 5.694098
+clothes, Sjieko, 50.849007, 5.691036
+clothes, Mango, 50.849749, 5.690428
+shoes, Munnichs, 50.848051, 5.692705
+perfumery, ICI PARIS XL, 50.849918, 5.692127
+perfumery, Von Euersdorff, 50.848676, 5.690672
+shoes, Sneakers, 50.849748, 5.692353
+clothes, Camel Active, 50.849070, 5.693954
+shoes, Bastiaans Bis, 50.849423, 5.694006
+clothes, Unknown, 50.849007, 5.693750
+interior_decoration, Festen, 50.848834, 5.691445
+shoes, Sioux Grashopper, 50.850838, 5.692114
+art, O.L. Vrouwe, 50.847963, 5.693028
+clothes, Caroline Biss, 50.848039, 5.693899
+clothes, Jing’s, 50.848858, 5.690176
+clothes, Georgette, 50.848880, 5.693982
+shoes, The Athlete’s Foot, 50.848890, 5.692560
+clothes, Suzy B., 50.849118, 5.691051
+shoes, Sacha, 50.850095, 5.692290
+clothes, Maison Louis, 50.847953, 5.694288
+clothes, Mybajka, 50.849103, 5.690998
+clothes, Unknown, 50.850033, 5.692444
+accessories, Claire’s, 50.849846, 5.689944
+clothes, Purdey Maastricht, 50.847895, 5.694163
+clothes, Expresso, 50.849735, 5.690309
+photo, Foto Rembrandt, 50.849843, 5.689902
+cosmetics, L'Occitane, 50.850031, 5.692294
+clothes, Cristel Marcellis, 50.847715, 5.694180
+shoes, Foot Locker, 50.849727, 5.690201
+clothes, Meijer & Meijer, 50.849970, 5.692455
+clothes, Six, 50.849839, 5.689793
+clothes, Jacks and Jeans, 50.849969, 5.692300
+cosmetics, Lush, 50.849843, 5.689845
+shoes, Vans, 50.849722, 5.690128
+clothes, Sylver, 50.847746, 5.694313
+clothes, Suitable, 50.848969, 5.692250
+clothes, Unknown, 50.847771, 5.692080
+clothes, Le Marais, 50.848521, 5.693374
+bag, Christian Louboutin, 50.848330, 5.691534
+shoes, Birkenstock, 50.850848, 5.692309
+tobacco, Compaenen Tobachoes Schürmann, 50.850674, 5.691382
+clothes, Lincherie, 50.848860, 5.690629
+supermarket, De Pindakaaswinkel, 50.848884, 5.692702
+chemist, Holland & Barett, 50.849833, 5.689692
+clothes, Shoes & Shirts, 50.848045, 5.693312
+optician, Schmeck, 50.849932, 5.692312
+clothes, Levi's, 50.849717, 5.690066
+toys, De Winkel van Nijntje, 50.850288, 5.693803
+variety_store, SoLow, 50.849712, 5.689997
+clothes, Bershka, 50.849824, 5.689477
+clothes, Noppies, 50.850203, 5.693837
+chemist, Kruidvat, 50.849707, 5.689934
+shoes, Munnichs, 50.849815, 5.689378
+clothes, Desigual, 50.851062, 5.692217
+bakery, Délifrance, 50.849703, 5.689846
+chemist, Kruidvat, 50.851014, 5.692242
+shoes, Manfield, 50.849698, 5.689754
+clothes, America Today, 50.849794, 5.689254
+clothes, Björn Borg, 50.850939, 5.692064
+clothes, Top Fashion, 50.849692, 5.689656
+shoes, Sinckers & Zoon, 50.849599, 5.691572
+shoes, Ecco, 50.849920, 5.692056
+jewelry, Swarovski, 50.849711, 5.692381
+houseware, Le Creuset, 50.849415, 5.693914
+clothes, Now, 50.849011, 5.693648
+greengrocer, Cheese Expo, 50.850624, 5.691194
+clothes, Atelier Maastricht, 50.848835, 5.690108
+clothes, Colette, 50.848842, 5.693978
+shoes, Van Dalen, 50.848842, 5.692547
+clothes, MS Mode, 50.849685, 5.689506
+clothes, The Items, 50.849632, 5.694115
+optician, Optiek Carl Kramp, 50.849590, 5.694108
+clothes, Triumph, 50.849680, 5.689417
+party, ‘t Mooswief, 50.851095, 5.693044
+clothes, Vingino, 50.849706, 5.692641
+hairdresser, Hair Boutique Maya, 50.849351, 5.684861
+shoes, Mondiales, 50.849248, 5.693985
+clothes, Fashion Outlet, 50.848901, 5.693684
+bag, Kymyka, 50.848266, 5.691524
+clothes, Erbinotto, 50.850819, 5.692293
+jewelry, Pandora, 50.849922, 5.691989
+clothes, BO1, 50.848578, 5.693233
+jewelry, Brocantique Watches, 50.848597, 5.690614
+watches, Watch!, 50.849682, 5.692407
+clothes, Ikks, 50.849411, 5.693819
+jewelry, Martens van Lijf, 50.850756, 5.692131
+clothes, Calucci, 50.850550, 5.691216
+clothes, Sarneedessous, 50.848840, 5.689994
+clothes, Gents, 50.848903, 5.690313
+clothes, Moustache, 50.850365, 5.690324
+clothes, Basler, 50.848760, 5.693974
+clothes, Massimo Dutti, 50.848762, 5.692532
+clothes, Stijl, 50.848989, 5.692112
+clothes, Van Daan, 50.848518, 5.690709
+clothes, Zumo, 50.849258, 5.693900
+clothes, Christian, 50.848895, 5.693615
+clothes, Paprika, 50.850787, 5.692299
+optician, Martens & Mathot, 50.847958, 5.693866
+jewelry, Étoil Maastricht, 50.848745, 5.694092
+interior_decoration, Zara Home, 50.848790, 5.692667
+erotic, Sexshop Maastricht, 50.849832, 5.685756
+furniture, Young Living, 50.855919, 5.680642
+supermarket, Yildiz Plaza, 50.851526, 5.672434
+cannabis, Easy Going, 50.851273, 5.693379
+chemist, Kruidvat, 50.851974, 5.693166
+drugs_paraphernalia, Passe Partout, 50.851267, 5.693255
+clothes, Condito Exclusive, 50.851289, 5.693622
+clothes, Ulla Popken, 50.851256, 5.692858
+clothes, JP Menswear, 50.851259, 5.692774
+supermarket, Jumbo, 50.852006, 5.693441
+beauty, Your Nails & Beauty, 50.851250, 5.692677
+cannabis, Coffeeshop Kosbor, 50.852690, 5.693096
+convenience, Spar City Maastricht, 50.854112, 5.689807
+shoes, vanHaren, 50.851377, 5.692564
+paint, Peter Van Ginkel Kunstenaarsbenodigdheden, 50.850876, 5.687870
+chocolate, Rousseau Chocolate, 50.851426, 5.692026
+clothes, Sissy-Boy, 50.851259, 5.692109
+hairdresser, Toni & Guy Hairdressing, 50.852812, 5.689906
+perfumery, ICI PARIS XL, 50.849590, 5.700026
+bag, de VerwonderinG, 50.847202, 5.700808
+optician, Specsavers, 50.849399, 5.699859
+beverages, Brewerij Bosch, 50.848560, 5.699319
+computer, Ivizi, 50.849561, 5.699228
+chemist, Kruidvat, 50.849561, 5.699144
+greengrocer, Veers oet wieck, 50.849427, 5.700720
+bicycle, De Fietsedokter, 50.854410, 5.708398
+supermarket, Stichting Twiede Hands Twiede Kans, 50.858516, 5.700633
+electronics, Mediamarkt, 50.857074, 5.700015
+doityourself, Gamma, 50.853627, 5.724961
+hairdresser, De Soigneur, 50.853267, 5.712740
+hairdresser, Unknown, 50.850801, 5.714118
+art, Kunstketel, 50.850690, 5.713856
+laundry, Wasserette de Wasbeer, 50.850556, 5.714098
+car, Renault, 50.854176, 5.726294
+greengrocer, Dunya Exotic Supermarket, 50.852716, 5.714539
+supermarket, Albert Heijn, 50.849434, 5.713122
+hifi, ElektroWorld Beckers, 50.844652, 5.727499
+second_hand, Vintage & New, 50.844552, 5.726974
+storage_rental, Shurgard Maastricht-Zuid, 50.842530, 5.714700
+alcohol, Gall & Gall, 50.843984, 5.727771
+car, Hensgens, 50.851112, 5.730582
+second_hand, Woonwerkgemeenschap Hartelstein, 50.900918, 5.714214
+stationery, Staples, 50.874037, 5.713127
+beauty, Schoonheidssalon Beauté Véronique, 50.861686, 5.732936
+hairdresser, Theo Haarmode, 50.863684, 5.731819
+newsagent, Primera, 50.843019, 5.729057
+variety_store, Big Bazar, 50.842915, 5.729083
+alcohol, Unknown, 50.844585, 5.726366
+jewelry, Unknown, 50.843418, 5.726779
+supermarket, Jumbo, 50.852316, 5.714063
+clothes, s.Oliver, 50.851535, 5.692244
+clothes, H&M, 50.851786, 5.691898
+clothes, The Sting, 50.851830, 5.692678
+clothes, New Yorker, 50.850597, 5.690069
+mobile_phone, Vodafone, 50.849943, 5.691214
+supermarket, Lidl, 50.842167, 5.708747
+supermarket, Albert Heijn, 50.850519, 5.688600
+bicycle, Alley Cat Bikes and Coffee, 50.851090, 5.692662
+department_store, HEMA, 50.849968, 5.691890
+clothes, Aspact, 50.849246, 5.693675
+florist, Bloemenshop van der Weijden, 50.849872, 5.705284
+clothes, Hugo Boss, 50.849404, 5.693621
+department_store, De Bijenkorf, 50.849233, 5.692334
+clothes, Jeans Centre, 50.849385, 5.693183
+coffee, Nespresso, 50.849230, 5.693370
+confectionery, Pinky, 50.849364, 5.692922
+clothes, Polarn O. Pyret, 50.849213, 5.692950
+cosmetics, Rituals, 50.849376, 5.693010
+interior_decoration, Rivièra Maison, 50.849251, 5.694116
+clothes, Superdry, 50.849278, 5.694458
+cosmetics, The Body Shop, 50.849871, 5.690218
+ticket, Tickets&Service, 50.849685, 5.705583
+clothes, Tommy Hilfiger, 50.849239, 5.693550
+bicycle, Vive le Velo, 50.853152, 5.685101
+alcohol, BAMS Drankenshop, 50.851119, 5.690060
+alcohol, Sauter Wijnen, 50.854813, 5.730510
+supermarket, Aldi, 50.859226, 5.700715
+bakery, Bakkerij Koos, 50.846589, 5.699754
+butcher, Bufkes, 50.851889, 5.692660
+garden_centre, Intratuin, 50.818781, 5.710811
+chemist, Trekpleister, 50.843500, 5.677763
+alcohol, wackywines, 50.823953, 5.695966
+supermarket, PLUS, 50.831957, 5.704289
+wholesale, Sligro, 50.869817, 5.704508
+convenience, HEMA, 50.842833, 5.728470
+newsagent, Primera, 50.850540, 5.665610
+supermarket, PLUS, 50.845535, 5.658941
+electronics, Expert, 50.850768, 5.665938
+chemist, Kruidvat, 50.863187, 5.732929
+chemist, Kruidvat, 50.852297, 5.713539
+shoes, Clarks, 50.849841, 5.690132
+tea, Simon Levelt, 50.849395, 5.699952
+cosmetics, KIKO Milano, 50.849844, 5.690028
+kiosk, De Kiosk, 50.849300, 5.694837
+butcher, Onglet, 50.849400, 5.699700
+clothes, Open 32, 50.851597, 5.692513
+ticket, Unknown, 50.835181, 5.685432
+interior_decoration, Casa, 50.851540, 5.692529
+chemist, Kruidvat, 50.864428, 5.655973
+perfumery, ICI PARIS XL, 50.850865, 5.665442
+bicycle, De Beente Fietsen & Scooters, 50.828030, 5.713494
+car_repair, Merkelbag Autoschade, 50.827860, 5.713602
+car_parts, Heuts | Mobiliteit en Vrije Tijd, 50.828655, 5.712994
+car, DickerSchutz car import, 50.829243, 5.712699
+car, Toyota Mengelers, 50.829498, 5.712984
+car, Janssen Kerres, 50.829748, 5.713328
+bakery, Koekjes Royale, 50.830419, 5.713871
+second_hand, Circus Bontevorst, 50.849263, 5.679199
+car_repair, Vakgarage Walstock, 50.848936, 5.679285
+car_repair, Bollen, 50.847720, 5.681464
+clothes, Bristol, 50.843359, 5.677655
+clothes, Zara, 50.850371, 5.689178
+florist, Unknown, 50.845849, 5.659755
+hairdresser, Unknown, 50.845738, 5.659435
+department_store, HEMA, 50.850964, 5.665782
+bicycle, Rijwiehandel George Walstock, 50.844223, 5.675247
+pawnbroker, Used Products Maastricht, 50.852868, 5.690369
+clothes, Secondhand4all, 50.848197, 5.690211
+clothes, Secondhand4All, 50.849270, 5.703157
+variety_store, Action, 50.843220, 5.677733
+optician, Ace & Tate, 50.849406, 5.697682
+supermarket, Budget food, 50.852354, 5.714377
+supermarket, Dutch Passion, 50.821388, 5.711919
+antiques, Elisabeth, 50.846720, 5.692834
+clothes, Socks & Socky, 50.850657, 5.690299
+clothes, Sketch, 50.847851, 5.691542
+beauty, Nails & Beauty Bar, 50.848961, 5.689840
+chemist, Kruidvat, 50.850758, 5.665329
+baby_goods, Baby Dump, 50.855795, 5.680880
+supermarket, Gedeelde Weelde, 50.855491, 5.689168
+bicycle, Giant, 50.860023, 5.670865
+alcohol, Gall & Gall, 50.849005, 5.713097
+chemist, Etos, 50.849034, 5.713497
+clothes, Dot, 50.848951, 5.692396
+supermarket, Jan Linders, 50.843298, 5.677679
+interior_decoration, Gila, 50.849374, 5.690258
+books, AKO, 50.850333, 5.705357
+second_hand, Kringloop Zuid, 50.821788, 5.715946
+alcohol, Gall & Gall, 50.846464, 5.701204
+chocolate, Choca Mosa, 50.848782, 5.690300
+hairdresser, Saloon, 50.848823, 5.690063
+jewelry, Clio, 50.849087, 5.690431
+clothes, De Kiekoet, 50.848641, 5.690786
+hairdresser, Len, 50.848637, 5.690642
+clothes, PL-Line, 50.847771, 5.691822
+clothes, Giensch Collection, 50.848904, 5.691619
+clothes, Modshop, 50.849114, 5.692794
+bag, Van Os, 50.849051, 5.692748
+supermarket, Amazing Oriental, 50.852069, 5.693103
+convenience, Turquoise, 50.851960, 5.692650
+art, Kunstproeven, 50.851638, 5.693477
+clothes, Esprit, 50.851782, 5.692633
+clothes, 50 50 Store, 50.852040, 5.692640
+outdoor, Bever, 50.851915, 5.693192
+deli, Saveurs, 50.852100, 5.692804
+clothes, Men At Work, 50.850459, 5.690178
+clothes, Hollister, 50.850660, 5.689739
+clothes, Tumble ‘n Dry, 50.850634, 5.689668
+shoes, Ziengs, 50.850461, 5.689832
+clothes, Mango, 50.850627, 5.689806
+optician, Hans Anders, 50.850326, 5.689769
+jewelry, Siebel, 50.850433, 5.689839
+clothes, Jack & Jones, 50.850640, 5.689364
+clothes, VILA, 50.850408, 5.689513
+gift, Cadeux, 50.850443, 5.690108
+music, Klassieke Zaken, 50.850680, 5.689464
+clothes, JDY, 50.850596, 5.689934
+optician, Eye Wish Opticiens, 50.850633, 5.689566
+optician, Pearle, 50.848588, 5.689271
+art, Uit de Kunst, 50.851275, 5.693518
+clothes, Milli, 50.851114, 5.693249
+gift, Dionnnie’s, 50.850552, 5.693584
+electronics, Grootaers Elektronika, 50.850469, 5.692919
+market, Jouw Marktkraam, 50.849958, 5.692899
+jewelry, Goudsmitse Murei, 50.849853, 5.693131
+clothes, Chasin’, 50.850549, 5.692184
+clothes, K Store, 50.848514, 5.694009
+clothes, NZA, 50.848918, 5.694112
+clothes, Tommy Hilfiger, 50.848983, 5.693532
+jewelry, Jos Naebers, 50.848517, 5.693238
+clothes, Caprice, 50.848143, 5.692685
+clothes, Natan, 50.847991, 5.693591
+hairdresser, Philippe, 50.846503, 5.692806
+bakery, Bakkerij Paulissen, 50.849348, 5.698950
+shoes, Unknown, 50.849366, 5.700925
+clothes, Men's Boutique, 50.848342, 5.698398
+furniture, Coen Gorter, 50.848404, 5.698404
+clothes, MiPasion, 50.848150, 5.697969
+furniture, gay jongen, 50.848525, 5.698363
+clothes, Joffers, 50.848318, 5.698059
+clothes, Kris Wolf, 50.848176, 5.698330
+deli, Unknown, 50.848116, 5.698038
+furniture, Zenza, 50.848436, 5.698060
+clothes, Unknown, 50.848374, 5.697974
+laundry, Mengelers, 50.848511, 5.698033
+clothes, Nina's, 50.848723, 5.698057
+clothes, Vintage Wear, 50.848865, 5.698192
+clothes, Arboraror Denim, 50.848645, 5.698381
+clothes, WePe Mode, 50.848808, 5.698128
+clothes, bij duut, 50.848536, 5.697999
+deli, A Caravela, 50.848868, 5.698420
+supermarket, Ekoplaza, 50.849048, 5.698229
+jewelry, Unknown, 50.849414, 5.701596
+gift, Wanderlust, 50.849429, 5.700837
+clothes, Max, 50.847448, 5.698591
+supermarket, Spar, 50.864031, 5.687458
+doityourself, Praxis, 50.862125, 5.680910
+beverages, Keepin' It Hoppy, 50.849619, 5.685532
+greengrocer, Yasar Market, 50.850089, 5.712999
+bicycle, Aon De Stasie, 50.846076, 5.706703
+cannabis, Slow Motion, 50.848794, 5.704178
+bicycle, Aon De Stasie, 50.849233, 5.705716
+bakery, Bakkerij Cornelissen, 50.847396, 5.679800
+laundry, Henriette's Laundrette, 50.844561, 5.691356
+deli, Adriaan De Smaakmaker, 50.845336, 5.692216
+variety_store, Action, 50.856843, 5.700011
+variety_store, Zeeman, 50.864394, 5.655924
+jewelry, Juwelier Burger, 50.849383, 5.701362
+chemist, Etos, 50.864044, 5.655080
+bakery, Bakkerij Paulissen, 50.864000, 5.654967
+clothes, Verjan mode, 50.864125, 5.655260
+craft, pipoos, 50.849338, 5.700168
+ticket, Fort Sint Pieter ticket office, 50.836443, 5.683973
+car, Hekkert, 50.862012, 5.703913
+confectionery, Friandises Chocolaterie, 50.849409, 5.698031
+carpet, Carpetright, 50.860829, 5.681602
+clothes, ONLY, 50.850460, 5.690281
+coffee, Blanche Dael, 50.855590, 5.686991
+bed, Beddenreus, 50.860745, 5.681144
+bed, Beter Bed, 50.860534, 5.681189
+furniture, JYSK, 50.860271, 5.681289
+furniture, Leen Bakker, 50.859916, 5.681593
+furniture, Kwantum, 50.859714, 5.681910
+cannabis, Big Bud Maastricht, 50.850659, 5.687571
+shoes, Reinhard Frans, 50.847745, 5.691551
+wine, Ruyters & de Koenig, 50.848782, 5.698359
+vacant, Unknown, 50.849598, 5.705820
+pastry, Smores Pastry & Chocolade, 50.849725, 5.701260
+alcohol, Bierwinkel Stadsbrouwerij Maastricht, 50.849969, 5.697507
+pastry, Peter Lemmens, 50.839958, 5.690512
+bakery, Chris’s micro bakery, 50.843143, 5.688349
+mall, Winkelcentrum Caberg, 50.860399, 5.669063
+bakery, Bakkerij Souren, 50.849244, 5.691354
+butcher, Slagerij Van Melik, 50.851929, 5.692654
+confectionery, Chocolaterie Abbing, 50.850667, 5.687633
+massage, Pioenroos Chinese Massage, 50.853481, 5.690190
+hairdresser_supply, Afroshop Giselle Wato, 50.853380, 5.690208
+chocolate, Visser Chocolade, 50.853112, 5.690278
+convenience, Persia, 50.852511, 5.690464
+fabric, Iskander, 50.854057, 5.690186
+gift, Au Renard Blanc, 50.854101, 5.690162
+beauty, Ladyline Maastricht, 50.853971, 5.690937
+convenience, Unknown, 50.850932, 5.689099
+hairdresser, Hennessy's Barbershop, 50.846847, 5.678390

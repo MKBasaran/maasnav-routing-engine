@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoutingEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.pathfinding</a> &gt; <span class="el_source">RoutingEngine.java</span></div><h1>RoutingEngine.java</h1><pre class="source lang-java linenums">package com.group8.phase1.pathfinding;
+
+import com.group8.phase1.logger.LoggerService;
+import com.group8.phase1.structures.map.Edge;
+import com.group8.phase1.structures.map.Graph;
+
+import java.util.*;
+
+
+public class RoutingEngine {
+    private final Graph graph;
+<span class="fc" id="L12">    private final LoggerService loggerService = LoggerService.getInstance();</span>
+
+    /**
+     * Constructs a new RoutingEngine ( Dijkstra ) with the specified graph.
+     *
+     * @param graph the graph in which the shortest path will be found
+     */
+<span class="fc" id="L19">    public RoutingEngine(Graph graph) {</span>
+<span class="fc" id="L20">        this.graph = graph;</span>
+<span class="fc" id="L21">    }</span>
+
+    /**
+     * Finds the shortest path between two nodes in the graph using Dijkstra's algorithm.
+     *
+     * @param startNodeId the ID of the starting node
+     * @param endNodeId   the ID of the destination node
+     * @return the shortest path between the start and end nodes
+     */
+    public Path getShortestPath(long startNodeId, long endNodeId) {
+        // Initialize data structures
+<span class="fc" id="L32">        Map&lt;Long, Double&gt; distances = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L33">        Map&lt;Long, Long&gt; predecessors = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L34">        PriorityQueue&lt;Long&gt; priorityQueue = new PriorityQueue&lt;&gt;(Comparator.comparingDouble(distances::get));</span>
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for (Long nodeId : graph.graph.keySet()) {</span>
+<span class="fc" id="L37">            distances.put(nodeId, Double.MAX_VALUE);</span>
+<span class="fc" id="L38">            predecessors.put(nodeId, null);</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">        distances.put(startNodeId, 0.0);</span>
+<span class="fc" id="L41">        priorityQueue.add(startNodeId);</span>
+
+        // Apply Dijkstra's algorithm
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">        while (!priorityQueue.isEmpty()) {</span>
+<span class="fc" id="L45">            long currentNode = priorityQueue.poll();</span>
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            if (currentNode == endNodeId) {</span>
+<span class="fc" id="L48">                break;</span>
+            }
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            for (Edge edge : graph.getEdges(currentNode)) {</span>
+<span class="fc" id="L51">                long adjacentNode = edge.getDestination();</span>
+<span class="fc" id="L52">                double weight = edge.getWeight();</span>
+<span class="fc" id="L53">                double newDistance = distances.get(currentNode) + weight;</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                if (newDistance &lt; distances.get(adjacentNode)) {</span>
+<span class="fc" id="L55">                    distances.put(adjacentNode, newDistance);</span>
+<span class="fc" id="L56">                    predecessors.put(adjacentNode, currentNode);</span>
+<span class="fc" id="L57">                    priorityQueue.add(adjacentNode);</span>
+                }
+<span class="fc" id="L59">            }</span>
+<span class="fc" id="L60">        }</span>
+<span class="fc" id="L61">        loggerService.info(&quot;Executed Dijkstra's algorithm!&quot;);</span>
+        // Reconstruct the shortest path
+<span class="fc" id="L63">        return new Path(reconstructPath(predecessors, startNodeId, endNodeId), distances.get(endNodeId));</span>
+    }
+
+    /**
+     * Reconstructs the shortest path from the predecessors map.
+     *
+     * @param predecessors the map containing predecessors of each node
+     * @param startNodeId  the ID of the starting node
+     * @param endNodeId    the ID of the destination node
+     * @return the reconstructed shortest path
+     */
+    private List&lt;Long&gt; reconstructPath(Map&lt;Long, Long&gt; predecessors, long startNodeId, long endNodeId) {
+<span class="fc" id="L75">        List&lt;Long&gt; path = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L76">        Long step = endNodeId;</span>
+
+        // Check if a path exists
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (predecessors.get(step) == null) {</span>
+<span class="nc" id="L80">            return path;  //null if no road exists</span>
+        }
+
+        // Reconstruct the path
+<span class="fc" id="L84">        path.add(step);</span>
+<span class="pc bpc" id="L85" title="1 of 4 branches missed.">        while (step != null &amp;&amp; step != startNodeId) {</span>
+<span class="fc" id="L86">            step = predecessors.get(step);</span>
+<span class="fc" id="L87">            path.add(0, step);</span>
+        }
+<span class="fc" id="L89">        loggerService.info(&quot;Successfully reconstructed Dijkstra's path!&quot;);</span>
+<span class="fc" id="L90">        return path;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SideBar2.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.views.components</a> &gt; <span class="el_source">SideBar2.java</span></div><h1>SideBar2.java</h1><pre class="source lang-java linenums">package com.group8.phase1.views.components;
+
+import com.group8.phase1.ErrorUI.ErrorShower;
+import com.group8.phase1.imageutil.Resize;
+import com.group8.phase1.map.IndexPainter;
+import com.group8.phase1.sociometric.calculation.FeatureCalculator;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+
+public class SideBar2 extends JPanel {
+
+
+    private Sidebar mainSidebar;
+    private BufferedImage StatsIcon;
+    private BufferedImage deleteIcon;
+    private JLabel scoreAmenities;
+    private JLabel scoreTourism;
+    private JLabel scoreShops;
+    private JLabel scoreTransport;
+    private JLabel scoreTotal;
+
+    /**
+     * Constructs a new SideBar2 object.
+     *
+     * @param mainSidebar the Sidebar object
+     */
+<span class="fc" id="L36">    public SideBar2(Sidebar mainSidebar) {</span>
+<span class="fc" id="L37">        this.mainSidebar = mainSidebar;</span>
+<span class="fc" id="L38">        this.setLayout(new BorderLayout());</span>
+<span class="fc" id="L39">        int top = 10, left = 10, bottom = 10, right = 10;</span>
+<span class="fc" id="L40">        this.setBorder(BorderFactory.createEmptyBorder(top, left, bottom, right));</span>
+<span class="fc" id="L41">        resizeAndLoadPhotos();</span>
+<span class="fc" id="L42">        initComponents();</span>
+<span class="fc" id="L43">    }</span>
+
+    /**
+     * Initializes the components of the SideBar2 class.
+     * This method sets up the input panel, buttons panel, score panel, and interaction panel.
+     */
+    private void initComponents() {
+<span class="fc" id="L50">        JPanel inputPanel = new JPanel();</span>
+<span class="fc" id="L51">        GridBagLayout layout =new GridBagLayout();</span>
+
+<span class="fc" id="L53">        inputPanel.setLayout(layout);</span>
+<span class="fc" id="L54">        GridBagConstraints gbc = new GridBagConstraints();</span>
+
+        //icon for input field
+<span class="fc" id="L57">        JLabel statphoto=new JLabel();</span>
+<span class="fc" id="L58">        statphoto.setIcon(new ImageIcon(StatsIcon));</span>
+
+<span class="fc" id="L60">        JButton clearBtn = new JButton();</span>
+<span class="fc" id="L61">        clearBtn.setName(&quot;clearAmenityInfoButton&quot;);</span>
+<span class="fc" id="L62">        clearBtn.setIcon(new ImageIcon(deleteIcon));</span>
+<span class="fc" id="L63">        clearBtn.setContentAreaFilled(false);</span>
+<span class="fc" id="L64">        clearBtn.setBorderPainted(false);</span>
+<span class="fc" id="L65">        clearBtn.setPreferredSize(new Dimension(35, 35)); // Set the button size to 20 by 20 pixels</span>
+
+        //input field
+<span class="fc" id="L68">        JTextField inputField = new RoundTextField(&quot;Enter postal code:&quot;);</span>
+<span class="fc" id="L69">        inputField.setName(&quot;inputField&quot;);</span>
+<span class="fc" id="L70">        addFocusListener(inputField, &quot;Enter postal code:&quot;);</span>
+
+<span class="fc" id="L72">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L73">        gbc.gridx = 0;</span>
+<span class="fc" id="L74">        gbc.gridy = 0;</span>
+<span class="fc" id="L75">        gbc.ipady = 5;</span>
+<span class="fc" id="L76">        gbc.ipadx = 5;</span>
+<span class="fc" id="L77">        inputPanel.add(statphoto,gbc);</span>
+
+
+<span class="fc" id="L80">        gbc.fill = GridBagConstraints.HORIZONTAL;</span>
+<span class="fc" id="L81">        gbc.gridx = 1;</span>
+<span class="fc" id="L82">        gbc.gridy = 0;</span>
+<span class="fc" id="L83">        gbc.ipady = 20;</span>
+<span class="fc" id="L84">        gbc.ipadx = 50;</span>
+<span class="fc" id="L85">        inputPanel.add(inputField, gbc);</span>
+
+<span class="fc" id="L87">        gbc.fill = GridBagConstraints.NONE; // Ensure the button keeps its preferred size</span>
+<span class="fc" id="L88">        gbc.gridx = 2;</span>
+<span class="fc" id="L89">        gbc.gridy = 0;</span>
+<span class="fc" id="L90">        gbc.ipadx = 0;</span>
+<span class="fc" id="L91">        gbc.ipady = 0;</span>
+<span class="fc" id="L92">        inputPanel.add(clearBtn, gbc);</span>
+
+<span class="fc" id="L94">        inputPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));</span>
+<span class="fc" id="L95">        inputPanel.setPreferredSize(new Dimension(320, 150));</span>
+
+<span class="fc" id="L97">        inputPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY));</span>
+<span class="fc" id="L98">        inputPanel.setPreferredSize(new Dimension(320,150));</span>
+
+        //Panel for buttons
+<span class="fc" id="L101">        JPanel buttonsPanel = new JPanel();</span>
+<span class="fc" id="L102">        GridLayout gridLayout = new GridLayout(1, 2);</span>
+<span class="fc" id="L103">        gridLayout.setHgap(5);</span>
+<span class="fc" id="L104">        buttonsPanel.setLayout(gridLayout);</span>
+
+<span class="fc" id="L106">        JButton startBtn=new JButton(&quot;See Details&quot;);</span>
+<span class="fc" id="L107">        startBtn.setName(&quot;scoreButton&quot;);</span>
+<span class="fc" id="L108">        startBtn.setBackground(Color.white);</span>
+<span class="fc" id="L109">        startBtn.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L112">                startIndexCalculation(inputField.getText());</span>
+<span class="fc" id="L113">            }</span>
+        });
+
+<span class="fc" id="L116">        clearBtn.setBackground(Color.white);</span>
+<span class="fc" id="L117">        clearBtn.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L120">                scoreAmenities.setText(&quot;Amenities Score: &quot;);</span>
+<span class="fc" id="L121">                scoreTourism.setText(&quot;Tourism Score: &quot;);</span>
+<span class="fc" id="L122">                scoreShops.setText(&quot;Shops Score: &quot;);</span>
+<span class="fc" id="L123">                scoreTransport.setText(&quot;Transport Score: &quot;);</span>
+<span class="fc" id="L124">                scoreTotal.setText(&quot;Total Score: &quot;);</span>
+<span class="fc" id="L125">                inputField.setText(&quot;Enter postal code:&quot;);</span>
+
+<span class="fc" id="L127">            }</span>
+        });
+<span class="fc" id="L129">        JButton backBtn=new JButton(&quot;Back&quot;);</span>
+<span class="fc" id="L130">        backBtn.setName(&quot;toRoutingButton&quot;);</span>
+<span class="fc" id="L131">        backBtn.setBackground(Color.white);</span>
+<span class="fc" id="L132">        backBtn.addActionListener(new ActionListener() {</span>
+            @Override
+            public void actionPerformed(ActionEvent e) {
+<span class="fc" id="L135">                mainSidebar.switchToSidebar();</span>
+<span class="fc" id="L136">                mainSidebar.mapViewer.setOverlayPainter(mainSidebar.painter);</span>
+<span class="fc" id="L137">                mainSidebar.mapViewer.repaint();</span>
+<span class="fc" id="L138">            }</span>
+        });
+
+
+<span class="fc" id="L142">        buttonsPanel.add(startBtn);</span>
+<span class="fc" id="L143">        buttonsPanel.add(backBtn);</span>
+<span class="fc" id="L144">        buttonsPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));</span>
+
+
+        //Pannel for amenities/tourism/shops
+<span class="fc" id="L148">        JPanel scorePanel=new JPanel();</span>
+<span class="fc" id="L149">        GridLayout grid1Layout = new GridLayout(3,1);</span>
+<span class="fc" id="L150">        grid1Layout.setHgap(5);</span>
+<span class="fc" id="L151">        scorePanel.setLayout(grid1Layout);</span>
+
+<span class="fc" id="L153">        JLabel scoreA = new JLabel(&quot;Amenities Score: &quot;);</span>
+<span class="fc" id="L154">        scoreAmenities=scoreA;</span>
+<span class="fc" id="L155">        scoreA.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));</span>
+
+<span class="fc" id="L157">        JLabel scoreT = new JLabel(&quot;Tourism Score: &quot;);</span>
+<span class="fc" id="L158">        scoreTourism=scoreT;</span>
+<span class="fc" id="L159">        scoreT.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));;</span>
+
+<span class="fc" id="L161">        JLabel scoreS = new JLabel(&quot;Shops Score: &quot;);</span>
+<span class="fc" id="L162">        scoreShops=scoreS;</span>
+<span class="fc" id="L163">        scoreS.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));</span>
+
+<span class="fc" id="L165">        JLabel scoreTr = new JLabel(&quot;Transport Score: &quot;);</span>
+<span class="fc" id="L166">        scoreTransport = scoreTr;</span>
+<span class="fc" id="L167">        scoreTransport.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));</span>
+
+<span class="fc" id="L169">        JLabel scoreTotal = new JLabel(&quot;Total Score: &quot;);</span>
+<span class="fc" id="L170">        this.scoreTotal = scoreTotal;</span>
+<span class="fc" id="L171">        scoreTotal.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));</span>
+
+<span class="fc" id="L173">        scorePanel.add(scoreA);</span>
+<span class="fc" id="L174">        scorePanel.add(scoreT);</span>
+<span class="fc" id="L175">        scorePanel.add(scoreS);</span>
+<span class="fc" id="L176">        scorePanel.add(scoreTr);</span>
+<span class="fc" id="L177">        scorePanel.add(scoreTotal);</span>
+<span class="fc" id="L178">        scorePanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));</span>
+
+
+<span class="fc" id="L181">        JPanel interactionPanel = new JPanel();</span>
+<span class="fc" id="L182">        interactionPanel.setLayout(new BoxLayout(interactionPanel, BoxLayout.Y_AXIS));</span>
+<span class="fc" id="L183">        interactionPanel.add(inputPanel);</span>
+<span class="fc" id="L184">        interactionPanel.add(buttonsPanel);</span>
+<span class="fc" id="L185">        interactionPanel.add(scorePanel);</span>
+
+<span class="fc" id="L187">        this.add(interactionPanel, BorderLayout.NORTH);</span>
+
+
+<span class="fc" id="L190">        JPanel spacer = new JPanel();</span>
+<span class="fc" id="L191">        spacer.setPreferredSize(new Dimension(100, 400));</span>
+
+<span class="fc" id="L193">    }</span>
+
+    /**
+     * Adds a focus listener to the given text field. When the text field gains focus, if its current text is equal to the prompt text, it clears the text field. When the text field
+     * loses focus, if its trimmed text is empty, it sets the text field to the prompt text.
+     *
+     * @param textField the text field to add the focus listener to
+     * @param promptText the prompt text to be displayed in the text field when it is empty and loses focus
+     */
+
+    void addFocusListener(JTextField textField, String promptText) {
+<span class="fc" id="L204">        textField.addFocusListener(new FocusListener() {</span>
+
+            @Override
+            public void focusGained(FocusEvent e) {
+<span class="fc bfc" id="L208" title="All 2 branches covered.">                if (textField.getText().equals(promptText)) {</span>
+<span class="fc" id="L209">                    textField.setText(&quot;&quot;);</span>
+                }
+<span class="fc" id="L211">            }</span>
+
+            @Override
+            public void focusLost(FocusEvent e) {
+<span class="pc bpc" id="L215" title="1 of 2 branches missed.">                if (textField.getText().trim().equals(&quot;&quot;)) {</span>
+<span class="nc" id="L216">                    textField.setText(promptText);</span>
+                }
+<span class="fc" id="L218">            }</span>
+
+        });
+<span class="fc" id="L221">    }</span>
+
+    /**
+     * Resizes and loads photos for the SideBar2 class.
+     * This method resizes the AccessImage.png and Delete.png files to specific dimensions and loads them into the StatsIcon and deleteIcon variables respectively.
+     */
+    private void resizeAndLoadPhotos() {
+        try {
+<span class="fc" id="L229">            URL imageUrl = getClass().getResource(&quot;AccessImage.png&quot;);</span>
+<span class="pc bpc" id="L230" title="1 of 2 branches missed.">            if (imageUrl != null) {</span>
+<span class="fc" id="L231">                StatsIcon = Resize.resize(ImageIO.read(imageUrl), 70, 70);</span>
+            }
+<span class="fc" id="L233">            URL imageUrl2 = getClass().getResource(&quot;delete.png&quot;);</span>
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">            if(imageUrl2!= null){</span>
+<span class="fc" id="L235">                deleteIcon = Resize.resize(ImageIO.read(imageUrl2), 25, 25);</span>
+            }
+<span class="nc" id="L237">        } catch (IOException e) {</span>
+<span class="nc" id="L238">            System.out.println(e.getMessage());</span>
+<span class="fc" id="L239">        }</span>
+<span class="fc" id="L240">    }</span>
+
+    /**
+     * Calculates the start index based on the given postal code.
+     *
+     * @param postCode The postal code to calculate the start index.
+     */
+    public void startIndexCalculation(String postCode){
+<span class="fc bfc" id="L248" title="All 2 branches covered.">        if (checkValidInput(postCode)) {</span>
+<span class="fc" id="L249">            FeatureCalculator featureCalculator = new FeatureCalculator(postCode);</span>
+<span class="fc" id="L250">            double postCodeScore = featureCalculator.getTotalScore();</span>
+<span class="fc" id="L251">            double amenityScore = featureCalculator.getAmenityScore();</span>
+<span class="fc" id="L252">            double tourismScore = featureCalculator.getTourismScore();</span>
+<span class="fc" id="L253">            double shopScore = featureCalculator.getShopScore();</span>
+<span class="fc" id="L254">            double transportScore = featureCalculator.getTransportScore();</span>
+<span class="fc" id="L255">            scoreAmenities.setText(&quot;Amenities Score: &quot; + amenityScore);</span>
+<span class="fc" id="L256">            scoreTourism.setText(&quot;Tourism Score: &quot; + tourismScore);</span>
+<span class="fc" id="L257">            scoreShops.setText(&quot;Shops Score: &quot; + shopScore);</span>
+<span class="fc" id="L258">            scoreTransport.setText(&quot;Transport Score: &quot; + transportScore);</span>
+<span class="fc" id="L259">            scoreTotal.setText(&quot;Total Score: &quot; + postCodeScore);</span>
+
+<span class="fc" id="L261">            mainSidebar.mapViewer.setOverlayPainter(new IndexPainter(featureCalculator.getAmenityNodes(), featureCalculator.getShopNodes(), featureCalculator.getTourismNodes(), featureCalculator.getStops(), featureCalculator.getRouteToStops()));</span>
+<span class="fc" id="L262">            mainSidebar.mapViewer.repaint();</span>
+<span class="fc" id="L263">        } else {</span>
+<span class="fc" id="L264">            showError(postCode);</span>
+        }
+<span class="fc" id="L266">    }</span>
+
+    /**
+     * Displays an error message with the given postal code.
+     *
+     * @param postCode The postal code that caused the error.
+     */
+    public void showError(String postCode) {
+<span class="fc" id="L274">        String postalError = &quot;Invalid postal code: &quot; + postCode;</span>
+<span class="fc" id="L275">        new ErrorShower(postalError);</span>
+<span class="fc" id="L276">    }</span>
+
+    /**
+     * Checks if the provided postal code is a valid input.
+     *
+     * @param postCode The postal code to validate.
+     * @return True if the postal code is valid, false otherwise.
+     */
+    public boolean checkValidInput(String postCode) {
+<span class="fc" id="L285">        String regex = &quot;^[0-9]{4}[A-Z]{2}$&quot;;</span>
+<span class="pc bpc" id="L286" title="2 of 6 branches missed.">        return !postCode.equals(&quot;Enter postal code:&quot;) &amp;&amp; !postCode.equals(&quot;&quot;) &amp;&amp; postCode.matches(regex);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

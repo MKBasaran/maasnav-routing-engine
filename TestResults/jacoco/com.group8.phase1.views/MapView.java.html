@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MapView.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.views</a> &gt; <span class="el_source">MapView.java</span></div><h1>MapView.java</h1><pre class="source lang-java linenums">package com.group8.phase1.views;
+
+import com.group8.phase1.api.RateLimiter;
+import com.group8.phase1.imageutil.Resize;
+import com.group8.phase1.initialdataloader.ProgressPanel;
+import com.group8.phase1.initialdataloader.RoutingDataManager;
+import com.group8.phase1.osm.LoadGraphNodes;
+import com.group8.phase1.osm.LoadRoutingGraph;
+import com.group8.phase1.osm.checker.CheckDatabase;
+import com.group8.phase1.postalcodes.DataParser;
+import com.group8.phase1.views.components.FontManager;
+import com.group8.phase1.views.components.Sidebar;
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.OSMTileFactoryInfo;
+import org.jxmapviewer.input.PanMouseInputListener;
+import org.jxmapviewer.input.ZoomMouseWheelListenerCenter;
+import org.jxmapviewer.viewer.DefaultTileFactory;
+import org.jxmapviewer.viewer.GeoPosition;
+import org.jxmapviewer.viewer.TileFactoryInfo;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.event.MouseInputListener;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
+public class MapView extends JFrame {
+
+    private JXMapViewer mapViewer;
+    private JPanel mainPanel;
+    private JPanel sideBar;
+    private BufferedImage logoImage;
+
+
+<span class="fc" id="L38">    public MapView() {</span>
+        try {
+<span class="fc" id="L40">            URL logoUrl = getClass().getResource(&quot;Logo.png&quot;);</span>
+<span class="fc" id="L41">            logoImage = Resize.resize(ImageIO.read(logoUrl), 24, 24);</span>
+
+<span class="fc" id="L43">            this.setIconImage(logoImage);</span>
+<span class="nc" id="L44">        } catch (IOException e) {</span>
+<span class="nc" id="L45">            System.out.println(e.getMessage());</span>
+<span class="fc" id="L46">        }</span>
+<span class="fc" id="L47">        setDefaultCloseOperation(EXIT_ON_CLOSE);</span>
+<span class="fc" id="L48">        setWindowSizeAndCenter();</span>
+
+<span class="fc" id="L50">        loadRoutingData();</span>
+<span class="fc" id="L51">        this.revalidate();</span>
+<span class="fc" id="L52">        this.repaint();</span>
+<span class="fc" id="L53">        changeFont(this, FontManager.REGULAR_FONT);</span>
+<span class="fc" id="L54">    }</span>
+
+    public static void changeFont(Component component, Font font) {
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (component.getFont() != FontManager.BOLD_FONT)</span>
+<span class="fc" id="L58">            component.setFont(font);</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (component instanceof Container) {</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            for (Component child : ((Container) component).getComponents()) {</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">                if (child.getFont() != FontManager.BOLD_FONT)</span>
+<span class="fc" id="L62">                    changeFont(child, font);</span>
+            }
+        }
+<span class="fc" id="L65">    }</span>
+
+    public static void main(String[] args) {
+<span class="nc" id="L68">        EventQueue.invokeLater(() -&gt; new MapView().setVisible(true));</span>
+<span class="nc" id="L69">    }</span>
+
+    private void loadRoutingData() {
+<span class="fc" id="L72">        ProgressPanel progressViewer = new ProgressPanel();</span>
+<span class="fc" id="L73">        progressViewer.setName(&quot;loaderPanel&quot;);</span>
+<span class="fc" id="L74">        this.getContentPane().add(progressViewer);</span>
+<span class="fc" id="L75">        this.setVisible(true);</span>
+<span class="fc" id="L76">        SwingWorker&lt;Void, Void&gt; task = new SwingWorker&lt;&gt;() {</span>
+            @Override
+            protected Void doInBackground() throws Exception {
+<span class="fc" id="L79">                CheckDatabase.check(progressViewer);</span>
+<span class="fc" id="L80">                RoutingDataManager.nodesMap = LoadGraphNodes.load(progressViewer);</span>
+<span class="fc" id="L81">                RoutingDataManager.routingGraph = LoadRoutingGraph.load(progressViewer);</span>
+
+<span class="fc" id="L83">                return null;</span>
+            }
+
+            @Override
+            protected void done() {
+                try {
+<span class="fc" id="L89">                    initComponents();</span>
+<span class="fc" id="L90">                    getContentPane().remove(progressViewer);</span>
+<span class="fc" id="L91">                    progressViewer.setVisible(false);</span>
+<span class="fc" id="L92">                    initComponents();</span>
+<span class="fc" id="L93">                    getContentPane().add(mainPanel);</span>
+<span class="fc" id="L94">                    repaint();</span>
+<span class="fc" id="L95">                    revalidate();</span>
+
+<span class="fc" id="L97">                    RoutingDataManager.postalCodeParser = new DataParser();</span>
+<span class="fc" id="L98">                    RoutingDataManager.apiRateLimiter = new RateLimiter(new int[]{1, 5, 40, 100}, false);</span>
+
+<span class="nc" id="L100">                } catch (Exception ex) {</span>
+
+<span class="nc" id="L102">                    throw new RuntimeException(ex);</span>
+<span class="fc" id="L103">                }</span>
+<span class="fc" id="L104">            }</span>
+        };
+<span class="fc" id="L106">        task.execute();</span>
+<span class="fc" id="L107">    }</span>
+
+    private void initMapViewer() {
+<span class="fc" id="L110">        TileFactoryInfo info = new OSMTileFactoryInfo();</span>
+
+<span class="fc" id="L112">        mapViewer.setTileFactory(new DefaultTileFactory(info));</span>
+<span class="fc" id="L113">        GeoPosition geoPosition = new GeoPosition(50.851709369248134, 5.692473355677425);</span>
+<span class="fc" id="L114">        mapViewer.setCenterPosition(geoPosition);</span>
+<span class="fc" id="L115">        mapViewer.setZoom(6);</span>
+
+<span class="fc" id="L117">        MouseInputListener pan = new PanMouseInputListener(mapViewer);</span>
+<span class="fc" id="L118">        mapViewer.addMouseListener(pan);</span>
+<span class="fc" id="L119">        mapViewer.addMouseMotionListener(pan);</span>
+<span class="fc" id="L120">        mapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCenter(mapViewer));</span>
+
+<span class="fc" id="L122">        mapViewer.repaint();</span>
+<span class="fc" id="L123">    }</span>
+
+    private void initComponents() {
+<span class="fc" id="L126">        mapViewer = new JXMapViewer();</span>
+<span class="fc" id="L127">        initMapViewer();</span>
+
+<span class="fc" id="L129">        mainPanel = new JPanel(new BorderLayout());</span>
+
+<span class="fc" id="L131">        sideBar = new Sidebar(mapViewer);</span>
+<span class="fc" id="L132">        sideBar.setName(&quot;sidebar&quot;);</span>
+
+<span class="fc" id="L134">        mainPanel.add(mapViewer, BorderLayout.CENTER);</span>
+<span class="fc" id="L135">        mainPanel.add(sideBar, BorderLayout.EAST);</span>
+<span class="fc" id="L136">        mainPanel.setPreferredSize(new Dimension(800, 600)); // Set initial size for mainPanel</span>
+
+<span class="fc" id="L138">    }</span>
+
+    private void setWindowSizeAndCenter() {
+<span class="fc" id="L141">        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();</span>
+<span class="fc" id="L142">        int screenWidth = screenSize.width;</span>
+<span class="fc" id="L143">        int screenHeight = screenSize.height;</span>
+
+<span class="fc" id="L145">        int newWidth = (int) (screenWidth / 1.5);</span>
+<span class="fc" id="L146">        int newHeight = (int) (screenHeight / 1.5);</span>
+
+<span class="fc" id="L148">        setSize(newWidth, newHeight);</span>
+
+<span class="fc" id="L150">        int newX = ((screenWidth - newWidth) / 2);</span>
+<span class="fc" id="L151">        int newY = ((screenHeight - newHeight) / 2);</span>
+
+<span class="fc" id="L153">        setLocation(newX, newY);</span>
+<span class="fc" id="L154">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

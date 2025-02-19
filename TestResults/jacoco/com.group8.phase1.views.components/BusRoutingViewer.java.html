@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BusRoutingViewer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.views.components</a> &gt; <span class="el_source">BusRoutingViewer.java</span></div><h1>BusRoutingViewer.java</h1><pre class="source lang-java linenums">package com.group8.phase1.views.components;
+
+import com.group8.phase1.imageutil.Resize;
+import com.group8.phase1.views.handlers.Pair;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+public class BusRoutingViewer extends JPanel {
+
+
+<span class="fc" id="L19">    private BufferedImage startPointImage = null;</span>
+<span class="fc" id="L20">    private BufferedImage toPointImage = null;</span>
+<span class="fc" id="L21">    private BufferedImage dotsImage = null;</span>
+
+
+    private JLabel startingStationLabel, startingTimeLabel;
+    private JLabel endStationLabel, endTimeLabel;
+    private JPanel busLineInfo;
+<span class="fc" id="L27">    private JLabel busLineLabel = null;</span>
+
+    private JPanel routeInformation;
+
+<span class="fc" id="L31">    public BusRoutingViewer() {</span>
+<span class="fc" id="L32">        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));</span>
+
+<span class="fc" id="L34">        resizeAndLoadImages();</span>
+<span class="fc" id="L35">        this.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.gray), BorderFactory.createEmptyBorder(10, 10, 10, 10)));</span>
+<span class="fc" id="L36">        initComponents();</span>
+<span class="fc" id="L37">    }</span>
+
+    private void initComponents() {
+<span class="fc" id="L40">        routeInformation = new JPanel();</span>
+<span class="fc" id="L41">        routeInformation.setLayout(new BoxLayout(routeInformation, BoxLayout.Y_AXIS));</span>
+
+
+<span class="fc" id="L44">        JPanel routeStartNodeInformation = new JPanel();</span>
+<span class="fc" id="L45">        routeStartNodeInformation.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L46">        JLabel routeStartIcon = new JLabel(new ImageIcon(startPointImage));</span>
+<span class="fc" id="L47">        JLabel routeStartNodeName = new JLabel(&quot;Maastricht Station&quot;);</span>
+<span class="fc" id="L48">        startingStationLabel = routeStartNodeName;</span>
+<span class="fc" id="L49">        JLabel routeStartTime = new JLabel(&quot;12:45&quot;);</span>
+<span class="fc" id="L50">        startingTimeLabel = routeStartTime;</span>
+<span class="fc" id="L51">        routeStartTime.setFont(FontManager.BOLD_FONT);</span>
+<span class="fc" id="L52">        routeStartIcon.setDoubleBuffered(true);</span>
+<span class="fc" id="L53">        routeStartNodeInformation.add(routeStartIcon);</span>
+<span class="fc" id="L54">        routeStartNodeInformation.add(routeStartNodeName);</span>
+<span class="fc" id="L55">        routeStartNodeName.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 3));</span>
+<span class="fc" id="L56">        routeStartNodeInformation.add(routeStartTime);</span>
+
+
+
+<span class="fc" id="L60">        JPanel routeDestinationNodeInformation = new JPanel();</span>
+<span class="fc" id="L61">        routeDestinationNodeInformation.setLayout(new GridLayout(1, 3));</span>
+<span class="fc" id="L62">        JLabel routeDestinationIcon = new JLabel(new ImageIcon(toPointImage));</span>
+<span class="fc" id="L63">        JLabel routeDestinationNodeName = new JLabel(&quot;Daalhof&quot;);</span>
+<span class="fc" id="L64">        endStationLabel = routeDestinationNodeName;</span>
+<span class="fc" id="L65">        routeDestinationNodeName.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 3));</span>
+<span class="fc" id="L66">        JLabel routeDestinationTime = new JLabel(&quot;13:42&quot;);</span>
+<span class="fc" id="L67">        endTimeLabel = routeDestinationTime;</span>
+<span class="fc" id="L68">        routeDestinationTime.setFont(FontManager.BOLD_FONT);</span>
+<span class="fc" id="L69">        routeDestinationNodeInformation.add(routeDestinationIcon);</span>
+<span class="fc" id="L70">        routeDestinationNodeInformation.add(routeDestinationNodeName);</span>
+<span class="fc" id="L71">        routeDestinationNodeInformation.add(routeDestinationTime);</span>
+
+<span class="fc" id="L73">        routeInformation.add(routeStartNodeInformation);</span>
+<span class="fc" id="L74">        busLineInfo = new JPanel();</span>
+<span class="fc" id="L75">        routeInformation.add(busLineInfo);</span>
+<span class="fc" id="L76">        routeInformation.add(routeDestinationNodeInformation);</span>
+
+
+
+
+
+<span class="fc" id="L82">        this.add(routeInformation);</span>
+<span class="fc" id="L83">    }</span>
+
+    private void resizeAndLoadImages() {
+        try {
+<span class="fc" id="L87">            URL imageUrl = getClass().getResource(&quot;startPointIcon.png&quot;);</span>
+<span class="fc" id="L88">            startPointImage = Resize.resize(ImageIO.read(imageUrl), 20, 20);</span>
+<span class="fc" id="L89">            imageUrl = getClass().getResource(&quot;dotsIcon.png&quot;);</span>
+<span class="fc" id="L90">            dotsImage = Resize.resize(ImageIO.read(imageUrl), 20, 20);</span>
+<span class="fc" id="L91">            imageUrl = getClass().getResource(&quot;destinationPointIcon.png&quot;);</span>
+<span class="fc" id="L92">            toPointImage = Resize.resize(ImageIO.read(imageUrl), 24, 24);</span>
+<span class="nc" id="L93">        } catch (IOException e) {</span>
+<span class="nc" id="L94">            System.out.println(e.getMessage());</span>
+<span class="fc" id="L95">        }</span>
+<span class="fc" id="L96">    }</span>
+
+
+    /**
+     * Updates the data displayed in the panel.
+     *
+     * @param startingStation The starting station.
+     * @param startTime       The starting time.
+     * @param endStation      The destination station.
+     * @param endTime         The arrival time.
+     * @param busLines         The bus line information.
+     */
+    public void updateData(String startingStation, String startTime, String endStation, String endTime, List&lt;Pair&gt; busLines) {
+<span class="fc" id="L109">        startingStationLabel.setText(startingStation);</span>
+<span class="fc" id="L110">        startingTimeLabel.setText(startTime);</span>
+<span class="fc" id="L111">        endStationLabel.setText(endStation);</span>
+<span class="fc" id="L112">        endTimeLabel.setText(endTime);</span>
+
+<span class="fc" id="L114">        routeInformation.remove(busLineInfo);</span>
+<span class="fc" id="L115">        busLineInfo = new JPanel();</span>
+<span class="fc" id="L116">        busLineInfo.setLayout(new GridLayout(busLines.size(), 3));</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        for (Pair busLine : busLines) {</span>
+<span class="fc" id="L118">            busLineInfo.add(new JLabel());</span>
+            JLabel busLineText;
+<span class="fc bfc" id="L120" title="All 2 branches covered.">            if(Objects.equals(busLine.lineName, &quot;Walking&quot;))</span>
+<span class="fc" id="L121">                busLineText = new JLabel( busLine.lineName);</span>
+            else
+<span class="fc" id="L123">                busLineText = new JLabel(&quot;Bus &quot; + busLine.lineName);</span>
+<span class="fc" id="L124">            busLineLabel = busLineText;</span>
+<span class="fc" id="L125">            busLineText.setOpaque(true);</span>
+<span class="fc" id="L126">            busLineText.setForeground(Color.WHITE);</span>
+<span class="fc" id="L127">            busLineText.setBackground(Color.decode(&quot;#&quot; + busLine.color));</span>
+<span class="fc" id="L128">            busLineText.setHorizontalAlignment(SwingConstants.CENTER);</span>
+<span class="fc" id="L129">            busLineText.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0));</span>
+<span class="fc" id="L130">            busLineInfo.add(busLineText);</span>
+<span class="fc" id="L131">            busLineInfo.add(new JLabel());</span>
+
+<span class="fc" id="L133">        }</span>
+<span class="fc" id="L134">        busLineInfo.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));</span>
+<span class="fc" id="L135">        routeInformation.add(busLineInfo,1);</span>
+<span class="fc" id="L136">        routeInformation.revalidate();</span>
+<span class="fc" id="L137">        routeInformation.repaint();</span>
+<span class="fc" id="L138">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

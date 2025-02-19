@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GeoJSONToMySQLShops.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.sociometric.parser</a> &gt; <span class="el_source">GeoJSONToMySQLShops.java</span></div><h1>GeoJSONToMySQLShops.java</h1><pre class="source lang-java linenums">package com.group8.phase1.sociometric.parser;
+
+import com.group8.phase1.database.ConnectionGrabber;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+<span class="fc" id="L15">public enum GeoJSONToMySQLShops {;</span>
+
+    /**
+     * Inserts shop data into the database from a GeoJSON file.
+     */
+    public static void insertShopsData() {
+<span class="fc" id="L21">        Connection connection = ConnectionGrabber.getInstance().getConnectionJSON();</span>
+
+<span class="fc" id="L23">        String geoJsonFilePath = &quot;./GeoJSON/shop.geojson&quot;;</span>
+<span class="fc" id="L24">        File geoJsonFile = new File(geoJsonFilePath);</span>
+
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (!geoJsonFile.exists()) {</span>
+<span class="nc" id="L27">            System.err.println(&quot;Error: GeoJSON Shop file not found at path: &quot; + geoJsonFilePath);</span>
+<span class="nc" id="L28">            return;</span>
+        }
+
+<span class="fc" id="L31">        try (InputStream is = new FileInputStream(geoJsonFilePath)) {</span>
+
+<span class="fc" id="L33">            JSONObject geoJson = new JSONObject(new JSONTokener(is));</span>
+<span class="fc" id="L34">            JSONArray features = geoJson.getJSONArray(&quot;features&quot;);</span>
+
+
+
+
+<span class="fc" id="L39">            String sql = &quot;INSERT INTO shops (shop_type, name, lat, long) VALUES (?, ?, ?, ?);\n&quot;;</span>
+<span class="fc" id="L40">            String sql2 = &quot;INSERT INTO rtree_shops (id, minX, maxX, minY, maxY) VALUES (last_insert_rowid(), ?, ?, ?, ?);&quot;;</span>
+<span class="fc" id="L41">            PreparedStatement statement = connection.prepareStatement(sql);</span>
+<span class="fc" id="L42">            PreparedStatement statement1 = connection.prepareStatement(sql2);</span>
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            for (int i = 0; i &lt; features.length(); i++) {</span>
+<span class="fc" id="L45">                JSONObject feature = features.getJSONObject(i);</span>
+<span class="fc" id="L46">                JSONObject properties = feature.getJSONObject(&quot;properties&quot;);</span>
+<span class="fc" id="L47">                JSONObject geometry = feature.getJSONObject(&quot;geometry&quot;);</span>
+
+<span class="fc" id="L49">                String amenityName = properties.getString(&quot;shop&quot;);</span>
+                String name;
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                if(properties.has(&quot;name&quot;)){</span>
+<span class="fc" id="L52">                    name = properties.getString(&quot;name&quot;);</span>
+                }
+<span class="fc" id="L54">                else { name = &quot;&quot;; }</span>
+<span class="fc" id="L55">                JSONArray coordinates = geometry.getJSONArray(&quot;coordinates&quot;);</span>
+<span class="fc" id="L56">                double longitude = coordinates.getDouble(0);</span>
+<span class="fc" id="L57">                double latitude = coordinates.getDouble(1);</span>
+
+<span class="fc" id="L59">                statement.setString(1, amenityName);</span>
+<span class="fc" id="L60">                statement.setString(2, name);</span>
+<span class="fc" id="L61">                statement.setDouble(3, latitude);</span>
+<span class="fc" id="L62">                statement.setDouble(4,longitude);</span>
+<span class="fc" id="L63">                statement.executeUpdate();</span>
+<span class="fc" id="L64">                statement1.setDouble(1, latitude);</span>
+<span class="fc" id="L65">                statement1.setDouble(2, latitude);</span>
+<span class="fc" id="L66">                statement1.setDouble(3, longitude);</span>
+<span class="fc" id="L67">                statement1.setDouble(4, longitude);</span>
+<span class="fc" id="L68">                statement1.executeUpdate();</span>
+            }
+
+
+<span class="fc" id="L72">            statement.close();</span>
+<span class="fc" id="L73">            connection.close();</span>
+
+<span class="fc" id="L75">            System.out.println(&quot;Data inserted successfully!&quot;);</span>
+
+<span class="nc" id="L77">        } catch (Exception e) {</span>
+<span class="nc" id="L78">            e.printStackTrace();</span>
+<span class="fc" id="L79">        }</span>
+<span class="fc" id="L80">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

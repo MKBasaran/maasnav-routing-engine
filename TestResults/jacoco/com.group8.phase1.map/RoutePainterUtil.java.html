@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RoutePainterUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.map</a> &gt; <span class="el_source">RoutePainterUtil.java</span></div><h1>RoutePainterUtil.java</h1><pre class="source lang-java linenums">package com.group8.phase1.map;
+
+import com.group8.phase1.imageutil.Resize;
+import com.group8.phase1.map.components.Arrow;
+import com.group8.phase1.views.components.FontManager;
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.viewer.GeoPosition;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.Objects;
+
+
+<span class="fc" id="L19">public enum RoutePainterUtil {</span>
+    ;
+
+<span class="fc" id="L22">    static final Stroke dashed = new BasicStroke(5, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL,</span>
+            0, new float[]{9}, 0);
+    private static BufferedImage destinationImage;
+    private static BufferedImage startImage;
+    private static BufferedImage arrowIcon;
+
+    public static void LoadImages() {
+        try {
+<span class="fc" id="L30">            URL imageUrl = RoutePainterUtil.class.getResource(&quot;components/locationIcon.png&quot;);</span>
+<span class="fc" id="L31">            destinationImage = ImageIO.read(imageUrl);</span>
+<span class="fc" id="L32">            destinationImage = Resize.resize(destinationImage, 24, 24);</span>
+<span class="fc" id="L33">            URL startImageUrl = RoutePainterUtil.class.getResource(&quot;components/startIcon.png&quot;);</span>
+<span class="fc" id="L34">            startImage = ImageIO.read(startImageUrl);</span>
+<span class="fc" id="L35">            startImage = Resize.resize(startImage, 24, 24);</span>
+<span class="fc" id="L36">            URL arrowIconUrl = RoutePainterUtil.class.getResource(&quot;components/arrowIcon.png&quot;);</span>
+<span class="fc" id="L37">            arrowIcon = ImageIO.read(arrowIconUrl);</span>
+<span class="fc" id="L38">            arrowIcon = Resize.resize(arrowIcon, 24, 24);</span>
+<span class="nc" id="L39">        } catch (IOException e) {</span>
+<span class="nc" id="L40">            e.printStackTrace();</span>
+<span class="fc" id="L41">        }</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * Paints the route made by a GeoPosition List path on the map.
+     *
+     * @param g    the Graphics2D object used for painting
+     * @param path the list of GeoPositions representing the route
+     * @param map  the map viewer
+     * @param mode the mode used for painting the route (e.g., &quot;Walking&quot;, &quot;AssistStart&quot;, &quot;AssistEnd&quot;)
+     */
+    public static void paintIndividualRoute(Graphics2D g, List&lt;GeoPosition&gt; path, JXMapViewer map, String mode) {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (arrowIcon == null)</span>
+<span class="fc" id="L54">            LoadImages();</span>
+
+<span class="fc" id="L56">        int index = 0;</span>
+<span class="fc" id="L57">        Point2D prev = null;</span>
+
+<span class="fc" id="L59">        g.setStroke(new BasicStroke(11));</span>
+<span class="pc bpc" id="L60" title="1 of 4 branches missed.">        if (Objects.equals(mode, &quot;AssistStart&quot;) || Objects.equals(mode, &quot;AssistEnd&quot;))</span>
+<span class="fc" id="L61">            g.setStroke(dashed);</span>
+
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        for (GeoPosition gp : path) {</span>
+<span class="fc" id="L64">            Point2D pt = map.getTileFactory().geoToPixel(gp, map.getZoom());</span>
+
+<span class="fc" id="L66">            g.setColor(new Color(0, 88, 248, 255));</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">            if (Objects.equals(mode, &quot;AssistEnd&quot;))</span>
+<span class="nc" id="L68">                g.setColor(Color.red);</span>
+
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            if (prev != null) {</span>
+<span class="fc" id="L71">                g.drawLine((int) prev.getX(), (int) prev.getY(), (int) pt.getX(), (int) pt.getY());</span>
+<span class="fc" id="L72">                g.setColor(new Color(255, 255, 255, 240));</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">                if (Objects.equals(mode, &quot;Walking&quot;))</span>
+<span class="fc" id="L74">                    g.fill(Arrow.createArrowShape(new Point((int) prev.getX(), (int) prev.getY()), new Point((int) pt.getX(), (int) pt.getY()), map.getZoom()));</span>
+            }
+<span class="fc" id="L76">            prev = pt;</span>
+<span class="fc" id="L77">            index++;</span>
+<span class="fc" id="L78">        }</span>
+<span class="fc" id="L79">    }</span>
+
+    /**
+     * Paints the start of a route on the map.
+     *
+     * @param g      the Graphics2D object
+     * @param target the GeoPosition representing the start
+     * @param map    the map viewer
+     * @param name   the name of the start location
+     */
+    public static void paintStartOfRoute(Graphics2D g, GeoPosition target, JXMapViewer map, String name) {
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (startImage == null)</span>
+<span class="nc" id="L91">            LoadImages();</span>
+<span class="fc" id="L92">        g.setColor(new Color(0, 88, 248, 255));</span>
+<span class="fc" id="L93">        g.setFont(FontManager.BOLD_FONT);</span>
+<span class="fc" id="L94">        Point2D targetPoint = map.getTileFactory().geoToPixel(target, map.getZoom());</span>
+<span class="fc" id="L95">        g.drawImage(startImage, (int) targetPoint.getX() - startImage.getWidth() / 2, (int) targetPoint.getY() - startImage.getHeight() / 2, null);</span>
+<span class="fc" id="L96">        g.drawString(name, (int) (targetPoint.getX() - startImage.getWidth() / 2), (int) (targetPoint.getY() - startImage.getHeight()));</span>
+<span class="fc" id="L97">    }</span>
+
+    /**
+     * Paints the end of a route on the map.
+     *
+     * @param g      the Graphics2D object
+     * @param target the GeoPosition representing the end
+     * @param map    the map viewer
+     * @param name   the name of the end location
+     */
+    public static void paintEndOfRoute(Graphics2D g, GeoPosition target, JXMapViewer map, String name) {
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (destinationImage == null)</span>
+<span class="nc" id="L109">            LoadImages();</span>
+<span class="fc" id="L110">        g.setColor(Color.RED);</span>
+<span class="fc" id="L111">        g.setFont(FontManager.BOLD_FONT);</span>
+
+<span class="fc" id="L113">        Point2D targetPoint = map.getTileFactory().geoToPixel(target, map.getZoom());</span>
+<span class="fc" id="L114">        g.drawImage(destinationImage, (int) targetPoint.getX() - destinationImage.getWidth() / 2, (int) targetPoint.getY() - destinationImage.getHeight() / 2, null);</span>
+<span class="fc" id="L115">        g.drawString(name, (int) (targetPoint.getX() - startImage.getWidth() / 2), (int) (targetPoint.getY() - startImage.getHeight()));</span>
+<span class="fc" id="L116">    }</span>
+
+    /**
+     * Paints bus stops along a route on the map.
+     *
+     * @param g            the Graphics2D object
+     * @param stops        the list of GeoPositions representing bus stops
+     * @param map          the map viewer
+     */
+    public static void paintBusStops(Graphics2D g, List&lt;GeoPosition&gt; stops,Color color,String line, JXMapViewer map) {
+<span class="fc" id="L126">        g.setColor(Color.RED);</span>
+<span class="fc" id="L127">        GeoPosition lastStop = null;</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        for (GeoPosition stop : stops) {</span>
+<span class="fc" id="L129">            Point2D stopPoint = map.getTileFactory().geoToPixel(stop, map.getZoom());</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            if(stop!=stops.get(0)){</span>
+<span class="fc" id="L131">                paintBusLine(g,lastStop,stop,color,map);</span>
+            }
+<span class="fc" id="L133">            lastStop = stop;</span>
+         //   g.fillOval((int) stopPoint.getX(), (int) stopPoint.getY(), 10, 10);
+<span class="fc" id="L135">        }</span>
+
+
+
+
+<span class="fc" id="L140">        g.setColor(Color.red);</span>
+<span class="fc" id="L141">        g.setFont(FontManager.BOLD_FONT);</span>
+
+<span class="fc" id="L143">    }</span>
+
+    /**
+     * Paints a straight line between two GeoPositions on the map.
+     *
+     * @param g     the Graphics2D object
+     * @param start the starting GeoPosition
+     * @param end   the ending GeoPosition
+     * @param color the color of the line
+     * @param map   the map viewer
+     */
+    public static void paintStraightLine(Graphics2D g, GeoPosition start, GeoPosition end, Color color, JXMapViewer map) {
+<span class="fc" id="L155">        Point2D startPoint = map.getTileFactory().geoToPixel(start, map.getZoom());</span>
+<span class="fc" id="L156">        Point2D endPoint = map.getTileFactory().geoToPixel(end, map.getZoom());</span>
+
+<span class="fc" id="L158">        g.setStroke(dashed);</span>
+<span class="fc" id="L159">        g.setColor(color);</span>
+<span class="fc" id="L160">        g.drawLine((int) startPoint.getX(), (int) startPoint.getY(), (int) endPoint.getX(), (int) endPoint.getY());</span>
+<span class="fc" id="L161">    }</span>
+
+    /**
+     * Paints a straight line between two GeoPositions on the map.
+     *
+     * @param g     the Graphics2D object
+     * @param start the starting GeoPosition
+     * @param end   the ending GeoPosition
+     * @param color the color of the line
+     * @param map   the map viewer
+     */
+    public static void paintBusLine(Graphics2D g, GeoPosition start, GeoPosition end, Color color, JXMapViewer map) {
+<span class="fc" id="L173">        Point2D startPoint = map.getTileFactory().geoToPixel(start, map.getZoom());</span>
+<span class="fc" id="L174">        Point2D endPoint = map.getTileFactory().geoToPixel(end, map.getZoom());</span>
+
+<span class="fc" id="L176">        g.setStroke(new BasicStroke(5));</span>
+<span class="fc" id="L177">        g.setColor(color);</span>
+<span class="fc" id="L178">        g.drawLine((int) startPoint.getX(), (int) startPoint.getY(), (int) endPoint.getX(), (int) endPoint.getY());</span>
+<span class="fc" id="L179">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

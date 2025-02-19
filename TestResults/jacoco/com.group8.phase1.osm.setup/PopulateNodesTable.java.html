@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PopulateNodesTable.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.osm.setup</a> &gt; <span class="el_source">PopulateNodesTable.java</span></div><h1>PopulateNodesTable.java</h1><pre class="source lang-java linenums">package com.group8.phase1.osm.setup;
+
+
+import com.group8.phase1.logger.LoggerService;
+import com.group8.phase1.structures.map.Node;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+
+<span class="fc" id="L12">public enum PopulateNodesTable {</span>
+    ;
+
+    /**
+     * Inserts a batch of Node objects into the nodes table.
+     *
+     * @param batchNodes the list of Node objects to be inserted
+     * @param connection the database connection
+     */
+    public static void insert(List&lt;Node&gt; batchNodes, Connection connection) {
+<span class="fc" id="L22">        LoggerService loggerService = LoggerService.getInstance();</span>
+
+<span class="fc" id="L24">        String sql = &quot;INSERT INTO nodes(node_id,lat,lon) VALUES(?,?,?)&quot;;</span>
+
+<span class="fc" id="L26">        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">            for (Node node : batchNodes) {</span>
+<span class="fc" id="L28">                pstmt.setLong(1, node.getId());</span>
+<span class="fc" id="L29">                pstmt.setDouble(2, node.getLatitude());</span>
+<span class="fc" id="L30">                pstmt.setDouble(3, node.getLongitude());</span>
+<span class="fc" id="L31">                pstmt.addBatch();</span>
+<span class="fc" id="L32">            }</span>
+<span class="fc" id="L33">            pstmt.executeBatch();</span>
+<span class="fc" id="L34">            loggerService.info(&quot;Successfully inserted batch of nodes into OSM database!&quot;);</span>
+<span class="nc" id="L35">        } catch (SQLException e) {</span>
+<span class="nc" id="L36">            System.out.println(e.getMessage());</span>
+<span class="nc" id="L37">            loggerService.error(&quot;Couldn't insert batch of nodes into OSM database! &quot; + e.getMessage());</span>
+<span class="fc" id="L38">        }</span>
+<span class="fc" id="L39">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

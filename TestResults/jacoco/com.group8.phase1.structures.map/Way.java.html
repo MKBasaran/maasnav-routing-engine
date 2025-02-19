@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Way.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.structures.map</a> &gt; <span class="el_source">Way.java</span></div><h1>Way.java</h1><pre class="source lang-java linenums">package com.group8.phase1.structures.map;
+
+
+public class Way {
+    private final long source;
+    private final long destination;
+    private final long wayId;
+    private final double weight;
+
+    /**
+     * Constructs a Way with the given source, destination, way ID, and weight.
+     *
+     * @param source      The ID of the source node.
+     * @param destination The ID of the destination node.
+     * @param wayId       The ID of the way.
+     * @param weight      The weight of the way.
+     */
+<span class="fc" id="L18">    public Way(long source, long destination, long wayId, double weight) {</span>
+<span class="fc" id="L19">        this.source = source;</span>
+<span class="fc" id="L20">        this.destination = destination;</span>
+<span class="fc" id="L21">        this.wayId = wayId;</span>
+<span class="fc" id="L22">        this.weight = weight;</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * Gets the ID of the source node.
+     *
+     * @return The ID of the source node.
+     */
+    public long getSource() {
+<span class="fc" id="L31">        return this.source;</span>
+    }
+
+    /**
+     * Gets the ID of the destination node.
+     *
+     * @return The ID of the destination node.
+     */
+    public long getDestination() {
+<span class="fc" id="L40">        return this.destination;</span>
+    }
+
+    /**
+     * Gets the ID of the way.
+     *
+     * @return The ID of the way.
+     */
+    public long getWayId() {
+<span class="fc" id="L49">        return this.wayId;</span>
+    }
+
+    /**
+     * Gets the weight of the way.
+     *
+     * @return The weight of the way.
+     */
+    public double getWeight() {
+<span class="fc" id="L58">        return this.weight;</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

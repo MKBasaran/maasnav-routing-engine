@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DistanceCalculator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.utils</a> &gt; <span class="el_source">DistanceCalculator.java</span></div><h1>DistanceCalculator.java</h1><pre class="source lang-java linenums">package com.group8.phase1.utils;
+
+import static java.lang.Math.acos;
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
+import static java.lang.Math.toRadians;
+
+import com.group8.phase1.structures.map.Node;
+
+/**
+ * The {@code DistanceCalculator} enum provides methods to calculate the distance between 2 {@link Node} objects.
+ */
+<span class="fc" id="L13">public enum DistanceCalculator {</span>
+    ;
+
+    /**
+     * Calculates the distance between two {@link Node} objects in meters using the Haversine formula.
+     *
+     * @param  source  the source {@link Node} representing the starting point
+     * @param  destination the destination {@link Node} representing the end point
+     * @return {@link Double} containing the distance between the source and destination nodes in meters
+     */
+    public static double calculateInMeters(Node source, Node destination) {
+<span class="fc" id="L24">        double sourceLongitude = source.getLongitude();</span>
+<span class="fc" id="L25">        double sourceLatitude = source.getLatitude();</span>
+<span class="fc" id="L26">        double destinationLongitude = destination.getLongitude();</span>
+<span class="fc" id="L27">        double destinationLatitude = destination.getLatitude();</span>
+<span class="fc" id="L28">        return acos((sin(toRadians(sourceLatitude)) * sin(toRadians(destinationLatitude))) + (cos(toRadians(sourceLatitude)) * cos(toRadians(destinationLatitude))) * (cos(toRadians(destinationLongitude) - toRadians(sourceLongitude)))) * 6371 * 1000;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

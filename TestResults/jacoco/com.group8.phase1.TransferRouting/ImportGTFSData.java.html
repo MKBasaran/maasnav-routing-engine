@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImportGTFSData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.TransferRouting</a> &gt; <span class="el_source">ImportGTFSData.java</span></div><h1>ImportGTFSData.java</h1><pre class="source lang-java linenums">package com.group8.phase1.TransferRouting;
+
+import com.group8.phase1.database.ConnectionGrabber;
+
+import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Objects;
+
+<span class="nc" id="L13">public class ImportGTFSData {</span>
+    public static void main(String[] args) {
+<span class="nc" id="L15">        GTFSGraph graph = constructGraph();</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        for(Vertex vertex : graph.getVertices()){</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">            for(Edge edge: vertex.getEdges()){</span>
+<span class="nc" id="L18">                System.out.println(vertex.getName() + &quot; -&gt; &quot; + edge.getDestination().getName()+ &quot; &quot;+edge.getWeight() + &quot; -&gt; Next Departure: &quot; + edge.getDepartureTime());</span>
+<span class="nc" id="L19">            }</span>
+<span class="nc" id="L20">        }</span>
+<span class="nc" id="L21">    }</span>
+
+    public static GTFSGraph constructGraph() {
+<span class="fc" id="L24">        GTFSGraph graph = new GTFSGraph();</span>
+        try {
+<span class="fc" id="L26">            Connection conn = ConnectionGrabber.getInstance().getConnectionGTFS();</span>
+<span class="pc bpc" id="L27" title="1 of 2 branches missed.">            if (conn != null) {</span>
+<span class="fc" id="L28">                System.out.println(&quot;Connected to the database&quot;);</span>
+
+                // Load stops
+<span class="fc" id="L31">                Statement stmt = conn.createStatement();</span>
+<span class="fc" id="L32">                ResultSet rs = stmt.executeQuery(&quot;SELECT stop_id, stop_name, stop_lat, stop_lon FROM Stops&quot;);</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">                while (rs.next()) {</span>
+<span class="fc" id="L34">                    String stopId = rs.getString(&quot;stop_id&quot;);</span>
+<span class="fc" id="L35">                    String stopName = rs.getString(&quot;stop_name&quot;);</span>
+<span class="fc" id="L36">                    double lat = rs.getDouble(&quot;stop_lat&quot;);</span>
+<span class="fc" id="L37">                    double lon = rs.getDouble(&quot;stop_lon&quot;);</span>
+<span class="fc" id="L38">                    graph.addVertex(stopId, stopName, lat, lon);</span>
+<span class="fc" id="L39">                }</span>
+
+<span class="fc" id="L41">                LocalDate currentDate = LocalDate.now();</span>
+
+
+                // Define the formatter for the output format
+<span class="fc" id="L45">                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern(&quot;yyyyMMdd&quot;);</span>
+<span class="fc" id="L46">                String formattedDate = currentDate.format(outputFormatter);</span>
+
+                // Create a PreparedStatement
+<span class="fc" id="L49">                String query = &quot;&quot;&quot;</span>
+                        SELECT st.trip_id, st.arrival_time, st.departure_time, st.stop_id, st.stop_sequence FROM StopTimes st JOIN Trips t ON st.trip_id = t.trip_id JOIN CalendarDates cd ON t.service_id = cd.service_id
+                                                                       WHERE cd.date = strftime('%Y%m%d', 'now') AND st.departure_time&gt;'12:00:00' AND st.departure_time&lt;time('12:00:00',&quot;+4 hours&quot;)
+                                                                       ORDER BY st.trip_id ASC&quot;&quot;&quot;;
+<span class="fc" id="L53">                PreparedStatement pstmt = conn.prepareStatement(query);</span>
+              // pstmt.setString(1, formattedDate);
+
+                // Execute the query
+<span class="fc" id="L57">                rs = pstmt.executeQuery();</span>
+
+<span class="fc" id="L59">                String lastTripId = null;</span>
+<span class="fc" id="L60">                String lastStopId = null;</span>
+<span class="fc" id="L61">                String lastDeparture = null;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">                while (rs.next()) {</span>
+<span class="fc" id="L63">                    String stopId = rs.getString(&quot;stop_id&quot;);</span>
+<span class="fc" id="L64">                    String tripId = rs.getString(&quot;trip_id&quot;);</span>
+<span class="fc" id="L65">                    String arrivalTime = rs.getString(&quot;arrival_time&quot;);</span>
+<span class="fc" id="L66">                    String departureTime = rs.getString(&quot;departure_time&quot;);</span>
+
+<span class="fc" id="L68">                    SimpleDateFormat sdf = new SimpleDateFormat(&quot;HH:mm:ss&quot;);</span>
+<span class="fc" id="L69">                    Date arrivalTimeDate = sdf.parse(arrivalTime);</span>
+<span class="fc" id="L70">                    Date departureTimeDate = null;</span>
+
+<span class="fc bfc" id="L72" title="All 2 branches covered.">                    if (lastDeparture != null) {</span>
+<span class="fc" id="L73">                        departureTimeDate = sdf.parse(lastDeparture);</span>
+                    }
+
+<span class="fc bfc" id="L76" title="All 4 branches covered.">                    if (lastTripId != null &amp;&amp; !Objects.equals(tripId, lastTripId)) {</span>
+<span class="fc" id="L77">                        lastStopId = null;</span>
+<span class="fc" id="L78">                        lastDeparture = null;</span>
+                    }
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">                    if (lastStopId != null &amp;&amp; lastDeparture != null) {</span>
+<span class="fc" id="L81">                        long timeDifference = arrivalTimeDate.getTime() - departureTimeDate.getTime();</span>
+<span class="fc" id="L82">                        graph.addEdge(lastStopId,tripId, stopId,departureTime, (int) timeDifference/1000);</span>
+                       // System.out.println(tripId);
+                    }
+
+
+<span class="fc" id="L87">                    lastTripId = tripId;</span>
+<span class="fc" id="L88">                    lastStopId = stopId;</span>
+<span class="fc" id="L89">                    lastDeparture = departureTime;</span>
+<span class="fc" id="L90">                }</span>
+
+
+
+                // Load stops
+<span class="fc" id="L95">                 stmt = conn.createStatement();</span>
+<span class="fc" id="L96">                 rs = stmt.executeQuery(&quot;SELECT from_stop, to_stop, time_taken FROM PrecomputedWalkingEdges&quot;);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">                while (rs.next()) {</span>
+<span class="fc" id="L98">                    String fromStop = rs.getString(&quot;from_stop&quot;);</span>
+<span class="fc" id="L99">                    String toStop = rs.getString(&quot;to_stop&quot;);</span>
+<span class="fc" id="L100">                    double timeTaken = rs.getDouble(&quot;time_taken&quot;);</span>
+<span class="fc" id="L101">                    graph.addEdge(fromStop,&quot;walking&quot;,toStop,&quot;00:00:00&quot;, (int) timeTaken);</span>
+<span class="fc" id="L102">                    graph.addEdge(toStop,&quot;walking&quot;,fromStop,&quot;00:00:00&quot;, (int) timeTaken);</span>
+<span class="fc" id="L103">                }</span>
+            }
+<span class="nc" id="L105">        } catch (SQLException | ParseException e) {</span>
+<span class="nc" id="L106">            throw new RuntimeException(e);</span>
+<span class="fc" id="L107">        }</span>
+<span class="fc" id="L108">        return graph;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

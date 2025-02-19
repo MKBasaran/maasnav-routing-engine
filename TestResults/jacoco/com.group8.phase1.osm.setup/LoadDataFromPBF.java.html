@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoadDataFromPBF.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.osm.setup</a> &gt; <span class="el_source">LoadDataFromPBF.java</span></div><h1>LoadDataFromPBF.java</h1><pre class="source lang-java linenums">package com.group8.phase1.osm.setup;
+
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.initialdataloader.ProgressPanel;
+import com.group8.phase1.structures.map.Node;
+import com.group8.phase1.utils.DistanceCalculator;
+import com.wolt.osm.parallelpbf.ParallelBinaryParser;
+import com.wolt.osm.parallelpbf.entity.Way;
+
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+<span class="fc" id="L18">public enum LoadDataFromPBF {</span>
+    ;
+
+    static final int totalNumberOfNodes = 4102394;
+    static final int totalNumberOfWays = 492891;
+    private static final int BATCH_SIZE = 30000;
+<span class="fc" id="L24">    static int processedNodes = 0;</span>
+<span class="fc" id="L25">    static int processedWays = 0;</span>
+<span class="fc" id="L26">    static List&lt;Node&gt; batchNodes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L27">    static List&lt;com.group8.phase1.structures.map.Way&gt; batchWays = new ArrayList&lt;&gt;();</span>
+    static ProgressPanel progressViewerStatic;
+    private static Connection conn;
+    private static Map&lt;Long, Node&gt; nodeMap;
+
+    private static Connection connect() {
+<span class="fc" id="L33">        Connection conn = null;</span>
+<span class="fc" id="L34">        conn = ConnectionGrabber.getInstance().getConnectionOSM();</span>
+<span class="fc" id="L35">        return conn;</span>
+    }
+
+    public static void loadPBF(ProgressPanel progressViewer) {
+<span class="fc" id="L39">        progressViewerStatic = progressViewer;</span>
+<span class="fc" id="L40">        progressViewerStatic.setStatus(&quot;Loading OSM Map Data...&quot;);</span>
+<span class="fc" id="L41">        long startTime = System.currentTimeMillis();</span>
+<span class="fc" id="L42">        nodeMap = new HashMap&lt;&gt;();</span>
+
+<span class="fc" id="L44">        conn = connect();</span>
+        try {
+<span class="fc" id="L46">            conn.setAutoCommit(false);</span>
+<span class="nc" id="L47">        } catch (SQLException e) {</span>
+<span class="nc" id="L48">            System.out.println(e.getMessage());</span>
+<span class="fc" id="L49">        }</span>
+
+<span class="fc" id="L51">        InputStream input = Thread.currentThread().getContextClassLoader()</span>
+<span class="fc" id="L52">                .getResourceAsStream(&quot;Maastricht.pbf&quot;);</span>
+
+<span class="fc" id="L54">        ParallelBinaryParser parser = new ParallelBinaryParser(input, 1)</span>
+<span class="fc" id="L55">                .onNode(LoadDataFromPBF::processNode)</span>
+<span class="fc" id="L56">                .onWay(LoadDataFromPBF::processWay);</span>
+
+<span class="fc" id="L58">        parser.parse();</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (batchNodes.size() &gt; 0) {</span>
+<span class="fc" id="L60">            PopulateNodesTable.insert(batchNodes, conn);</span>
+<span class="fc" id="L61">            batchNodes.clear();</span>
+<span class="fc" id="L62">            updateProgress(progressViewerStatic);</span>
+<span class="fc" id="L63">            processedNodes = totalNumberOfNodes;</span>
+        }
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">        if (batchWays.size() &gt; 0) {</span>
+<span class="fc" id="L66">            PopulateGraphTable.insert(batchWays, conn);</span>
+<span class="fc" id="L67">            processedWays = totalNumberOfWays;</span>
+<span class="fc" id="L68">            updateProgress(progressViewerStatic);</span>
+<span class="fc" id="L69">            batchWays.clear();</span>
+        }
+
+<span class="fc" id="L72">        FilterGraphNodes.filter(conn);</span>
+
+        try {
+<span class="fc" id="L75">            conn.commit();</span>
+<span class="nc" id="L76">        } catch (SQLException e) {</span>
+<span class="nc" id="L77">            System.out.println(e.getMessage());</span>
+<span class="fc" id="L78">        }</span>
+
+<span class="fc" id="L80">        long endTime = System.currentTimeMillis();</span>
+<span class="fc" id="L81">        long duration = endTime - startTime;</span>
+<span class="fc" id="L82">        System.out.println(&quot;Time taken: &quot; + duration / 1000 + &quot; seconds&quot;);</span>
+<span class="fc" id="L83">        progressViewer.setProgress(1);</span>
+<span class="fc" id="L84">        progressViewer.setStatus(&quot;OSM Data Loaded Successfully!&quot;);</span>
+<span class="fc" id="L85">    }</span>
+
+    private static void processNode(com.wolt.osm.parallelpbf.entity.Node node) {
+<span class="fc" id="L88">        nodeMap.put(node.getId(), new Node(node.getId(), node.getLat(), node.getLon()));</span>
+<span class="fc" id="L89">        batchNodes.add(new Node(node.getId(), node.getLat(), node.getLon()));</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (batchNodes.size() == BATCH_SIZE) {</span>
+<span class="fc" id="L91">            PopulateNodesTable.insert(batchNodes, conn);</span>
+<span class="fc" id="L92">            batchNodes.clear();</span>
+<span class="fc" id="L93">            updateProgress(progressViewerStatic);</span>
+<span class="fc" id="L94">            processedNodes += BATCH_SIZE;</span>
+        }
+
+<span class="fc" id="L97">    }</span>
+
+    private static void processWay(Way way) {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (way.getTags().containsKey(&quot;highway&quot;)) {</span>
+
+<span class="fc" id="L102">            List&lt;Long&gt; wayNodes = way.getNodes();</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">            for (int i = 0; i &lt; wayNodes.size() - 1; i++) {</span>
+<span class="fc" id="L104">                long sourceId = wayNodes.get(i);</span>
+<span class="fc" id="L105">                long destinationId = wayNodes.get(i + 1);</span>
+
+<span class="fc" id="L107">                double dist = DistanceCalculator.calculateInMeters(nodeMap.get(sourceId), nodeMap.get(destinationId));</span>
+<span class="fc" id="L108">                batchWays.add(new com.group8.phase1.structures.map.Way(wayNodes.get(i), wayNodes.get(i + 1), way.getId(), dist));</span>
+
+<span class="fc bfc" id="L110" title="All 2 branches covered.">                if (batchWays.size() == BATCH_SIZE) {</span>
+<span class="fc" id="L111">                    PopulateGraphTable.insert(batchWays, conn);</span>
+
+<span class="fc" id="L113">                    processedWays += BATCH_SIZE;</span>
+<span class="fc" id="L114">                    updateProgress(progressViewerStatic);</span>
+<span class="fc" id="L115">                    batchWays.clear();</span>
+                }
+            }
+        }
+
+<span class="fc" id="L120">    }</span>
+
+    private static void updateProgress(ProgressPanel progressViewer) {
+<span class="fc" id="L123">        int processed = processedNodes + processedWays;</span>
+<span class="fc" id="L124">        int total = totalNumberOfWays + totalNumberOfNodes;</span>
+
+<span class="fc" id="L126">        double progress = ((double) (processedNodes + processedWays) / (double) (totalNumberOfNodes + totalNumberOfWays));</span>
+<span class="fc" id="L127">        progressViewer.setProgress(progress);</span>
+<span class="fc" id="L128">        progressViewer.setStatus(&quot;Database&quot;, &quot;Processed node/way &quot; + processed + &quot; out of &quot; + total);</span>
+
+<span class="fc" id="L130">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BusRouteHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.views.handlers</a> &gt; <span class="el_source">BusRouteHandler.java</span></div><h1>BusRouteHandler.java</h1><pre class="source lang-java linenums">package com.group8.phase1.views.handlers;
+
+import com.group8.phase1.structures.map.Node;
+import com.group8.phase1.utils.DateTimeUtil;
+import com.group8.phase1.TransferRouting.Dijkstra;
+import com.group8.phase1.TransferRouting.TravelNode;
+import com.group8.phase1.TransferRouting.TravelResults;
+import com.group8.phase1.initialdataloader.RoutingDataManager;
+import com.group8.phase1.map.BusRoutePainter;
+import com.group8.phase1.views.components.Sidebar;
+import org.jxmapviewer.viewer.GeoPosition;
+
+import java.io.Serializable;
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+/*
+    The BusRouteHandler class actually handles the display of the bus route with all of its functional components
+ */
+public class BusRouteHandler implements Serializable {
+    private final Sidebar sidebar;
+
+<span class="fc" id="L27">    public BusRouteHandler(Sidebar sidebar) {</span>
+<span class="fc" id="L28">        this.sidebar = sidebar;</span>
+<span class="fc" id="L29">    }</span>
+
+    public void visualizeBusRoute(Node fromPostalCode, Node toPostalCode) {
+<span class="fc" id="L32">        sidebar.getDistanceLabel().setVisible(false);</span>
+<span class="fc" id="L33">        long startTime = System.nanoTime();</span>
+
+<span class="fc" id="L35">        LocalTime currentTime = LocalTime.now();</span>
+
+<span class="fc" id="L37">        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;HH:mm:ss&quot;);</span>
+        //currentTime.format(formatter)
+<span class="fc" id="L39">        String formattedTime = &quot;12:00:00&quot;;</span>
+
+<span class="fc" id="L41">            List&lt;GeoPosition&gt; pathToStartStation = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L42">            List&lt;GeoPosition&gt; pathToEndStation = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L44">            List&lt;List&lt;GeoPosition&gt;&gt; walkingRoutes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L45">            List&lt;TravelNode&gt; busRoutes = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L47">            TravelResults path = Dijkstra.run(new double[]{fromPostalCode.getLatitude(), fromPostalCode.getLongitude()},new double[]{toPostalCode.getLatitude(), toPostalCode.getLongitude()},formattedTime);</span>
+      //  System.out.println(path.toString());
+<span class="fc bfc" id="L49" title="All 2 branches covered.">            for(int i=0;i&lt;path.travelNodes.size();i++){</span>
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">                    if(path.travelNodes.get(i).tripId.equals(&quot;Walking&quot;)){</span>
+
+<span class="fc" id="L53">                        List&lt;GeoPosition&gt; walkRoute = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L54" title="All 2 branches covered.">                        for(Long shape:path.travelNodes.get(i).walkingNodes){</span>
+<span class="fc" id="L55">                            walkRoute.add(new GeoPosition(RoutingDataManager.nodesMap.get(shape).getLatitude(),RoutingDataManager.nodesMap.get(shape).getLongitude()));</span>
+<span class="fc" id="L56">                        }</span>
+<span class="fc" id="L57">                        walkingRoutes.add(walkRoute);</span>
+<span class="fc" id="L58">                    }else{</span>
+<span class="fc" id="L59">                        busRoutes.add(path.travelNodes.get(i));</span>
+                    }
+
+            }
+<span class="fc" id="L63">        BusRoutePainter painter = new BusRoutePainter(pathToStartStation, pathToEndStation, busRoutes,walkingRoutes,fromPostalCode, toPostalCode);</span>
+<span class="fc" id="L64">     sidebar.getMapViewer().setCenterPosition(new GeoPosition(fromPostalCode.getLatitude(), fromPostalCode.getLongitude()));</span>
+<span class="fc" id="L65">    sidebar.getMapViewer().setOverlayPainter(painter);</span>
+<span class="fc" id="L66">    sidebar.getMapViewer().repaint();</span>
+
+<span class="fc" id="L68">        LocalTime departureTimeObject = LocalTime.parse(DateTimeUtil.correctDataTime(formattedTime));</span>
+<span class="fc" id="L69">        LocalTime arrivalTimeObject = LocalTime.parse(DateTimeUtil.correctDataTime(formattedTime)).plusSeconds(path.timeTaken);</span>
+
+<span class="fc" id="L71">        String startingTime = departureTimeObject.toString();</span>
+<span class="fc" id="L72">        String endTIME = arrivalTimeObject.toString();</span>
+<span class="fc" id="L73">        List&lt;Pair&gt; busLines = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L75">        String last=path.travelNodes.get(0).line;</span>
+<span class="fc" id="L76">            busLines.add(new Pair(last,path.travelNodes.get(0).color));</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for(TravelNode travelNode : path.travelNodes){</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">            if(!Objects.equals(travelNode.line, last)){</span>
+<span class="fc" id="L79">                busLines.add(new Pair(travelNode.line,travelNode.color));</span>
+            }
+<span class="fc" id="L81">            last = travelNode.line;</span>
+<span class="fc" id="L82">        }</span>
+
+<span class="fc" id="L84">        sidebar.getTimeLabel().setVisible(true);</span>
+<span class="fc" id="L85">        sidebar.getTimeLabel().setText(&quot;Time: &quot; + Duration.between(departureTimeObject, arrivalTimeObject).toMinutes() + &quot; minutes&quot;);</span>
+<span class="fc" id="L86">        sidebar.getBusRoutingViewer().updateData(fromPostalCode.getPostalCode(), startingTime, toPostalCode.getPostalCode(), endTIME, busLines);</span>
+<span class="fc" id="L87">        sidebar.getBusRoutingViewer().setVisible(true);</span>
+
+<span class="fc" id="L89">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

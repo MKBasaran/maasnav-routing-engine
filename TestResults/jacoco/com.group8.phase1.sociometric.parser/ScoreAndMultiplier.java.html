@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ScoreAndMultiplier.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.sociometric.parser</a> &gt; <span class="el_source">ScoreAndMultiplier.java</span></div><h1>ScoreAndMultiplier.java</h1><pre class="source lang-java linenums">package com.group8.phase1.sociometric.parser;
+
+import com.group8.phase1.database.ConnectionGrabber;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+<span class="fc" id="L16">public enum ScoreAndMultiplier{;</span>
+
+    private static List&lt;InsertStatement&gt; scoreStatements;
+    private static List&lt;InsertStatement&gt; multiplierStatements;
+
+    /**
+     * Inserts data into the database tables based on the provided CSV files.
+     */
+    public static void performInsert() {
+<span class="fc" id="L25">        String amenitiesFilePath = &quot;./GeoJSON/amenities.csv&quot;; // Replace with your file path</span>
+<span class="fc" id="L26">        String shopsFilePath = &quot;./GeoJSON/shops.csv&quot;;         // Replace with your file path</span>
+<span class="fc" id="L27">        String tourismFilePath = &quot;./GeoJSON/tourism.csv&quot;;</span>
+<span class="fc" id="L28">        Connection connection = ConnectionGrabber.getInstance().getConnectionJSON();</span>
+
+<span class="fc" id="L30">        Map&lt;String, Integer&gt; amenityPoints = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L31">        amenityPoints.put(&quot;Education&quot;, 5);</span>
+<span class="fc" id="L32">        amenityPoints.put(&quot;Health&quot;, 5);</span>
+<span class="fc" id="L33">        amenityPoints.put(&quot;Social Services&quot;, 4);</span>
+<span class="fc" id="L34">        amenityPoints.put(&quot;Utilities and Public Services&quot;, 4);</span>
+<span class="fc" id="L35">        amenityPoints.put(&quot;Transport and Infrastructure&quot;, 3);</span>
+<span class="fc" id="L36">        amenityPoints.put(&quot;Recreation and Culture&quot;, 3);</span>
+<span class="fc" id="L37">        amenityPoints.put(&quot;Food and Drink&quot;, 2);</span>
+<span class="fc" id="L38">        amenityPoints.put(&quot;Hygiene and Sanitation&quot;, 1);</span>
+<span class="fc" id="L39">        amenityPoints.put(&quot;Miscellaneous/Irrelevant&quot;, 1);</span>
+
+<span class="fc" id="L41">        Map&lt;String, Integer&gt; shopPoints = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L42">        shopPoints.put(&quot;Essential Retail&quot;, 5);</span>
+<span class="fc" id="L43">        shopPoints.put(&quot;Specialty Goods&quot;, 3);</span>
+<span class="fc" id="L44">        shopPoints.put(&quot;Fashion and Apparel&quot;, 2);</span>
+<span class="fc" id="L45">        shopPoints.put(&quot;Home and Garden&quot;, 2);</span>
+<span class="fc" id="L46">        shopPoints.put(&quot;Electronics and Appliances&quot;, 2);</span>
+<span class="fc" id="L47">        shopPoints.put(&quot;Health and Beauty&quot;, 2);</span>
+<span class="fc" id="L48">        shopPoints.put(&quot;Hobbies and Leisure&quot;, 1);</span>
+
+<span class="fc" id="L50">        Map&lt;String, Integer&gt; tourismPoints = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L51">        tourismPoints.put(&quot;Accommodation&quot;, 5);</span>
+<span class="fc" id="L52">        tourismPoints.put(&quot;Attractions&quot;, 4);</span>
+<span class="fc" id="L53">        tourismPoints.put(&quot;Information and Services&quot;, 3);</span>
+
+<span class="fc" id="L55">        scoreStatements = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L56">        multiplierStatements = new ArrayList&lt;&gt;();</span>
+
+        // Read and process the amenities file
+<span class="fc" id="L59">        readAndProcessFile(amenitiesFilePath, &quot;amenities&quot;, amenityPoints);</span>
+
+        // Read and process the shops file
+<span class="fc" id="L62">        readAndProcessFile(shopsFilePath, &quot;shops&quot;, shopPoints);</span>
+
+        // Read and process the tourism file
+<span class="fc" id="L65">        readAndProcessFile(tourismFilePath, &quot;tourism&quot;, tourismPoints);</span>
+
+<span class="fc" id="L67">        System.out.println(&quot;-- MULTIPLIER TABLE INSERT STATEMENTS --&quot;);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        for (InsertStatement statement : multiplierStatements) {</span>
+<span class="fc" id="L69">            System.out.println(statement.toSQL(&quot;multiplier&quot;));</span>
+            try {
+<span class="fc" id="L71">                Statement statement1 = connection.createStatement();</span>
+<span class="fc" id="L72">                statement1.executeUpdate(statement.toSQL(&quot;multiplier&quot;));</span>
+<span class="nc" id="L73">            } catch (SQLException e) {</span>
+<span class="nc" id="L74">                throw new RuntimeException(e);</span>
+<span class="fc" id="L75">            }</span>
+<span class="fc" id="L76">        }</span>
+        // Print the SQL statements
+<span class="fc" id="L78">        System.out.println(&quot;-- SCORE TABLE INSERT STATEMENTS --&quot;);</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (InsertStatement statement : scoreStatements) {</span>
+<span class="fc" id="L80">            System.out.println(statement.toSQL(&quot;score&quot;));</span>
+            try {
+<span class="fc" id="L82">                Statement statement1 = connection.createStatement();</span>
+<span class="fc" id="L83">                statement1.executeUpdate(statement.toSQL(&quot;score&quot;));</span>
+<span class="fc" id="L84">            } catch (SQLException e) {</span>
+<span class="fc" id="L85">                System.out.println(e);</span>
+<span class="fc" id="L86">            }</span>
+<span class="fc" id="L87">        }</span>
+<span class="fc" id="L88">    }</span>
+
+    /**
+     * Reads and processes a file, generating SQL statements based on the contents of the file.
+     *
+     * @param filePath   the path to the file to be read
+     * @param category   the category of the data in the file
+     * @param pointsMap  a mapping of types to their corresponding points
+     */
+    private static void readAndProcessFile(String filePath, String category, Map&lt;String, Integer&gt; pointsMap) {
+<span class="fc" id="L98">        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {</span>
+            String line;
+<span class="fc bfc" id="L100" title="All 2 branches covered.">            while ((line = reader.readLine()) != null) {</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">                if (line.trim().isEmpty()) continue;</span>
+
+<span class="fc" id="L103">                String[] parts = line.split(&quot;:&quot;);</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">                if (parts.length != 2) continue;</span>
+
+<span class="fc" id="L106">                String superType = parts[0].trim();</span>
+<span class="fc" id="L107">                String[] types = parts[1].split(&quot;,&quot;);</span>
+
+<span class="fc" id="L109">                int points = pointsMap.getOrDefault(superType, 0);</span>
+<span class="fc" id="L110">                multiplierStatements.add(new InsertStatement(superType, points));</span>
+                // Generate SQL statements for each type
+<span class="fc bfc" id="L112" title="All 2 branches covered.">                for (String type : types) {</span>
+<span class="fc" id="L113">                    type = type.trim();</span>
+<span class="fc" id="L114">                    int score = pointsMap.getOrDefault(type,0);</span>
+<span class="fc" id="L115">                    scoreStatements.add(new InsertStatement(type, superType, points));</span>
+                }
+<span class="fc" id="L117">            }</span>
+<span class="nc" id="L118">        } catch (IOException e) {</span>
+<span class="nc" id="L119">            e.printStackTrace();</span>
+<span class="fc" id="L120">        }</span>
+<span class="fc" id="L121">    }</span>
+
+    /**
+     * A class that represents an insert statement.
+     */
+    static class InsertStatement {
+        private String type;
+        private String superType;
+        private int score;
+        private int bonus;
+
+        /**
+         * Represents an insert statement.
+         */
+<span class="fc" id="L135">        public InsertStatement(String type, String superType, int score) {</span>
+<span class="fc" id="L136">            this.type = type;</span>
+<span class="fc" id="L137">            this.superType = superType;</span>
+<span class="fc" id="L138">            this.score = score;</span>
+<span class="fc" id="L139">        }</span>
+
+        // Constructor for multiplier table
+<span class="fc" id="L142">        public InsertStatement(String superType, int bonus) {</span>
+<span class="fc" id="L143">            this.superType = superType;</span>
+<span class="fc" id="L144">            this.bonus = bonus;</span>
+<span class="fc" id="L145">        }</span>
+
+        /**
+         * Converts an insert statement to SQL format based on the given table name.
+         *
+         * @param tableName the name of the table to insert into
+         * @return the SQL string representing the insert statement
+         */
+        public String toSQL(String tableName) {
+<span class="fc bfc" id="L154" title="All 2 branches covered.">            if (tableName.equals(&quot;score&quot;)) {</span>
+<span class="fc" id="L155">                return String.format(&quot;INSERT INTO %s (type, superType, score) VALUES ('%s', '%s', %d);&quot;, tableName, type, superType, score);</span>
+            } else {
+<span class="fc" id="L157">                return String.format(&quot;INSERT INTO %s (superType, bonus) VALUES ('%s', %d);&quot;, tableName, superType, bonus);</span>
+            }
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

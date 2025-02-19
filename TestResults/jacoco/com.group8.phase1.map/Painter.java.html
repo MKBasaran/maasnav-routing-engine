@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Painter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.map</a> &gt; <span class="el_source">Painter.java</span></div><h1>Painter.java</h1><pre class="source lang-java linenums">package com.group8.phase1.map;
+
+import com.group8.phase1.structures.map.Node;
+import com.group8.phase1.logger.LoggerService;
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.viewer.GeoPosition;
+
+import java.awt.*;
+import java.util.List;
+
+/**
+ * The {@code Painter} class implements the Painter interface for painting walking/biking routes on a map.
+ */
+public class Painter implements org.jxmapviewer.painter.Painter&lt;JXMapViewer&gt; {
+    private final List&lt;GeoPosition&gt; track;
+    private final Node startPostalCode;
+    private final Node destinationPostalCode;
+
+<span class="fc" id="L19">    private final LoggerService logger = LoggerService.getInstance();</span>
+
+    /**
+     * Constructs a {@code Painter} object with the specified track and postal code nodes.
+     *
+     * @param track                 the list of GeoPositions representing the route
+     * @param startPostalCode       the starting postal code node
+     * @param destinationPostalCode the destination postal code node
+     */
+<span class="fc" id="L28">    public Painter(List&lt;GeoPosition&gt; track, Node startPostalCode, Node destinationPostalCode) {</span>
+<span class="fc" id="L29">        this.track = track;</span>
+<span class="fc" id="L30">        this.startPostalCode = startPostalCode;</span>
+<span class="fc" id="L31">        this.destinationPostalCode = destinationPostalCode;</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Clears the track data.
+     */
+    public void clear() {
+<span class="nc" id="L38">        track.clear();</span>
+<span class="nc" id="L39">    }</span>
+
+    @Override
+    public void paint(Graphics2D g, JXMapViewer map, int w, int h) {
+<span class="fc" id="L43">        g = (Graphics2D) g.create();</span>
+
+<span class="fc" id="L45">        Rectangle rect = map.getViewportBounds();</span>
+<span class="fc" id="L46">        g.translate(-rect.x, -rect.y);</span>
+
+        // Paint the actual route using graph nodes
+<span class="fc" id="L49">        RoutePainterUtil.paintIndividualRoute(g, track.subList(1, track.size() - 1), map, &quot;Walking&quot;);</span>
+
+        // Paint the start and end segments ( from initial postal code to first node and from last node to the destination postal code )  of the route
+<span class="fc" id="L52">        RoutePainterUtil.paintStraightLine(g, track.get(0), track.get(1), new Color(0, 88, 248, 255), map);</span>
+<span class="fc" id="L53">        RoutePainterUtil.paintStraightLine(g, track.get(track.size() - 2), track.get(track.size() - 1), Color.red, map);</span>
+
+        // Paint the start and end points
+<span class="fc" id="L56">        RoutePainterUtil.paintStartOfRoute(g, track.get(0), map, startPostalCode.getPostalCode());</span>
+<span class="fc" id="L57">        RoutePainterUtil.paintEndOfRoute(g, track.get(track.size() - 1), map, destinationPostalCode.getPostalCode());</span>
+
+<span class="fc" id="L59">        logger.info(&quot;Successfully painted walking/biking route!&quot;);</span>
+
+
+
+
+<span class="fc" id="L64">        g.dispose();</span>
+<span class="fc" id="L65">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

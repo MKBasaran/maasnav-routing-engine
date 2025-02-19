@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoadRoutingGraph.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.osm</a> &gt; <span class="el_source">LoadRoutingGraph.java</span></div><h1>LoadRoutingGraph.java</h1><pre class="source lang-java linenums">package com.group8.phase1.osm;
+
+import com.group8.phase1.database.ConnectionGrabber;
+import com.group8.phase1.initialdataloader.ProgressPanel;
+import com.group8.phase1.logger.LoggerService;
+import com.group8.phase1.structures.map.Graph;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+<span class="fc" id="L13">public enum LoadRoutingGraph {</span>
+    ;
+    public static Graph graph;
+<span class="fc" id="L16">    static int processedEdges = 0;</span>
+<span class="fc" id="L17">    static int totalNumberOfEdges = 0;</span>
+    private static ProgressPanel progressViewer;
+
+
+    // Counts number of Edges ( ways/streets ) in OSM database.
+    public static int countEdges() {
+<span class="fc" id="L23">        LoggerService loggerService = LoggerService.getInstance();</span>
+<span class="fc" id="L24">        try (Connection conn = ConnectionGrabber.getInstance().getConnectionOSM()) {</span>
+<span class="fc" id="L25">            try (Statement stmt = conn.createStatement()) {</span>
+<span class="fc" id="L26">                String sql = &quot;SELECT COUNT(*) AS total FROM graph&quot;;</span>
+
+<span class="fc" id="L28">                try (ResultSet rs = stmt.executeQuery(sql)) {</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">                    if (rs.next()) {</span>
+<span class="fc" id="L30">                        loggerService.info(&quot;Counted &quot; + rs.getInt(&quot;total&quot;) + &quot; edges in OSM database!&quot;);</span>
+<span class="fc" id="L31">                        return rs.getInt(&quot;total&quot;);</span>
+                    }
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                }</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">            }</span>
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        } catch (SQLException e) {</span>
+<span class="nc" id="L36">            loggerService.error(&quot;Couldn't count number of Edges in OSM database! &quot; + e.getMessage());</span>
+<span class="nc" id="L37">        }</span>
+<span class="nc" id="L38">        return 0;</span>
+    }
+
+    public static Graph load(ProgressPanel progressViewerReference) {
+<span class="fc" id="L42">        totalNumberOfEdges = countEdges();</span>
+<span class="fc" id="L43">        progressViewer = progressViewerReference;</span>
+<span class="fc" id="L44">        return loadGraph();</span>
+    }
+
+    public static Graph loadGraph() {
+
+<span class="fc" id="L49">        graph = new Graph();</span>
+<span class="fc" id="L50">        String query = &quot;SELECT * FROM graph&quot;;</span>
+
+<span class="fc" id="L52">        try (Connection conn = ConnectionGrabber.getInstance().getConnectionOSM(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(query)) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">            while (rs.next()) {</span>
+<span class="fc" id="L54">                long startNodeId = rs.getLong(&quot;start_node_id&quot;);</span>
+<span class="fc" id="L55">                long endNodeId = rs.getLong(&quot;end_node_id&quot;);</span>
+<span class="fc" id="L56">                double distance = rs.getDouble(&quot;dist&quot;);</span>
+<span class="fc" id="L57">                graph.addEdge(startNodeId, endNodeId, distance);</span>
+
+<span class="fc" id="L59">                graph.addEdge(endNodeId, startNodeId, distance);</span>
+<span class="fc" id="L60">                processedEdges++;</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">                if (progressViewer != null) {</span>
+<span class="fc" id="L62">                    updateStatus();</span>
+                }
+<span class="fc" id="L64">            }</span>
+<span class="nc" id="L65">        } catch (SQLException e) {</span>
+<span class="nc" id="L66">            System.err.println(&quot;Error: &quot; + e.getMessage());</span>
+<span class="fc" id="L67">        }</span>
+<span class="fc" id="L68">        return graph;</span>
+    }
+
+    private static void updateStatus() {
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (processedEdges % 10000 == 0) {</span>
+<span class="fc" id="L73">            progressViewer.setProgress((double) processedEdges / totalNumberOfEdges);</span>
+<span class="fc" id="L74">            progressViewer.setStatus(&quot;Routing&quot;, &quot;Processing edge &quot; + processedEdges + &quot; out of &quot; + totalNumberOfEdges);</span>
+        }
+<span class="fc" id="L76">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

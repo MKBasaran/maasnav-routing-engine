@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>IndexPainter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Phase1</a> &gt; <a href="index.source.html" class="el_package">com.group8.phase1.map</a> &gt; <span class="el_source">IndexPainter.java</span></div><h1>IndexPainter.java</h1><pre class="source lang-java linenums">package com.group8.phase1.map;
+
+import com.group8.phase1.imageutil.Resize;
+import com.group8.phase1.sociometric.calculation.objects.AmenityNode;
+import com.group8.phase1.sociometric.calculation.objects.ShopNode;
+import com.group8.phase1.sociometric.calculation.objects.TourismNode;
+import com.group8.phase1.sociometric.calculation.objects.TransportNode;
+
+import org.jxmapviewer.JXMapViewer;
+import org.jxmapviewer.viewer.GeoPosition;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class IndexPainter implements org.jxmapviewer.painter.Painter&lt;JXMapViewer&gt;{
+    private static BufferedImage shopIcon;
+    private static BufferedImage amenityIcon;
+    private static BufferedImage tourismIcon;
+    private static BufferedImage stopsIcon;
+    private final ArrayList&lt;TourismNode&gt; tourismNodes;
+    private final ArrayList&lt;ShopNode&gt; shopNodes;
+    private final ArrayList&lt;AmenityNode&gt; amenityNodes;
+    private final HashMap&lt;Integer, TransportNode&gt; stops;
+    private final HashMap&lt;Integer, Integer&gt; routeToStops;
+
+<span class="fc" id="L33">    public IndexPainter(ArrayList&lt;AmenityNode&gt; amenityNodes, ArrayList&lt;ShopNode&gt; shopNodes, ArrayList&lt;TourismNode&gt; tourismNodes, HashMap&lt;Integer, TransportNode&gt; stops, HashMap&lt;Integer,Integer&gt; routeToStops){</span>
+<span class="fc" id="L34">        this.amenityNodes = amenityNodes;</span>
+<span class="fc" id="L35">        this.shopNodes = shopNodes;</span>
+<span class="fc" id="L36">        this.tourismNodes = tourismNodes;</span>
+<span class="fc" id="L37">        this.stops = stops;</span>
+<span class="fc" id="L38">        this.routeToStops = routeToStops;</span>
+<span class="fc" id="L39">    }</span>
+    public static void loadImages(){
+        try{
+<span class="fc" id="L42">            URL imageUrl = RoutePainterUtil.class.getResource(&quot;components/shopIcon.png&quot;);</span>
+<span class="fc" id="L43">            shopIcon = ImageIO.read(imageUrl);</span>
+<span class="fc" id="L44">            shopIcon = Resize.resize(shopIcon, 40, 40);</span>
+<span class="fc" id="L45">            URL imageUrl2 = RoutePainterUtil.class.getResource(&quot;components/amenitiesIcon.png&quot;);</span>
+<span class="fc" id="L46">            amenityIcon = ImageIO.read(imageUrl2);</span>
+<span class="fc" id="L47">            amenityIcon = Resize.resize(amenityIcon, 40, 40);</span>
+<span class="fc" id="L48">            URL imageUrl3 = RoutePainterUtil.class.getResource(&quot;components/tourismIcon.png&quot;);</span>
+<span class="fc" id="L49">            tourismIcon = ImageIO.read(imageUrl3);</span>
+<span class="fc" id="L50">            tourismIcon = Resize.resize(tourismIcon, 40, 40);</span>
+<span class="fc" id="L51">            URL imageUrl4 = RoutePainterUtil.class.getResource(&quot;components/stopsIcon.png&quot;);</span>
+<span class="fc" id="L52">            stopsIcon = ImageIO.read(imageUrl4);</span>
+<span class="fc" id="L53">            stopsIcon = Resize.resize(stopsIcon, 40, 40);</span>
+<span class="nc" id="L54">        }catch (IOException e){</span>
+<span class="nc" id="L55">            e.printStackTrace();</span>
+<span class="fc" id="L56">        }</span>
+<span class="fc" id="L57">    }</span>
+    public static void paintAmenitites(Graphics2D g, ArrayList&lt;AmenityNode&gt; amenityNodes, JXMapViewer map){
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if(amenityIcon == null){</span>
+<span class="fc" id="L60">            loadImages();</span>
+        }
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for (AmenityNode node : amenityNodes) {</span>
+<span class="fc" id="L63">            GeoPosition position = new GeoPosition(node.getLat(), node.getLon());</span>
+<span class="fc" id="L64">            Point2D point = map.getTileFactory().geoToPixel(position, map.getZoom());</span>
+<span class="fc" id="L65">            g.drawImage(amenityIcon, (int) point.getX() - amenityIcon.getWidth() / 2, (int) point.getY() - amenityIcon.getHeight() / 2, null);</span>
+<span class="fc" id="L66">        }</span>
+<span class="fc" id="L67">    }</span>
+    public static void paintTourism(Graphics2D g, ArrayList&lt;TourismNode&gt; tourismNodes, JXMapViewer map) {
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">        if (tourismIcon == null) {</span>
+<span class="nc" id="L70">            loadImages();</span>
+        }
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        for (TourismNode node : tourismNodes) {</span>
+<span class="fc" id="L73">            GeoPosition position = new GeoPosition(node.getLat(), node.getLon());</span>
+<span class="fc" id="L74">            Point2D point = map.getTileFactory().geoToPixel(position, map.getZoom());</span>
+<span class="fc" id="L75">            g.drawImage(tourismIcon, (int) point.getX() - tourismIcon.getWidth() / 2, (int) point.getY() - tourismIcon.getHeight() / 2, null);</span>
+<span class="fc" id="L76">        }</span>
+<span class="fc" id="L77">    }</span>
+    public static void paintShops(Graphics2D g, ArrayList&lt;ShopNode&gt; shopNodes, JXMapViewer map) {
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        if (shopIcon == null) {</span>
+<span class="nc" id="L80">            loadImages();</span>
+        }
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (ShopNode node : shopNodes) {</span>
+<span class="fc" id="L83">            GeoPosition position = new GeoPosition(node.getLat(), node.getLon());</span>
+<span class="fc" id="L84">            Point2D point = map.getTileFactory().geoToPixel(position, map.getZoom());</span>
+<span class="fc" id="L85">            g.drawImage(shopIcon, (int) point.getX() - shopIcon.getWidth() / 2, (int) point.getY() - shopIcon.getHeight() / 2, null);</span>
+<span class="fc" id="L86">        }</span>
+<span class="fc" id="L87">    }</span>
+    public static void paintStops(Graphics2D g, HashMap&lt;Integer, TransportNode&gt; stops, JXMapViewer map) {
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">        if (stopsIcon == null) {</span>
+<span class="nc" id="L90">            loadImages();</span>
+        }
+<span class="fc bfc" id="L92" title="All 2 branches covered.">        for (TransportNode node : stops.values()) {</span>
+<span class="fc" id="L93">            GeoPosition position = new GeoPosition(node.getStop_lat(), node.getStop_lon());</span>
+<span class="fc" id="L94">            Point2D point = map.getTileFactory().geoToPixel(position, map.getZoom());</span>
+<span class="fc" id="L95">            g.drawImage(stopsIcon, (int) point.getX() - stopsIcon.getWidth() / 2, (int) point.getY() - stopsIcon.getHeight() / 2, null);</span>
+<span class="fc" id="L96">        }</span>
+<span class="fc" id="L97">    }</span>
+    @Override
+    public void paint(Graphics2D g, JXMapViewer map, int i, int i1) {
+<span class="fc" id="L100">        g = (Graphics2D) g.create();</span>
+
+<span class="fc" id="L102">        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);</span>
+
+<span class="fc" id="L104">        Rectangle rect = map.getViewportBounds();</span>
+<span class="fc" id="L105">        g.translate(-rect.x, -rect.y);</span>
+
+<span class="fc" id="L107">        paintAmenitites(g, amenityNodes, map);</span>
+<span class="fc" id="L108">        paintTourism(g, tourismNodes, map);</span>
+<span class="fc" id="L109">        paintShops(g, shopNodes, map);</span>
+<span class="fc" id="L110">        paintStops(g, stops, map);</span>
+        //paintRoutes(g, stops, routeToStops, map);
+
+<span class="fc" id="L113">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,1173 @@
+recycling, Unknown, 50.841002, 5.734276
+recycling, Unknown, 50.842426, 5.728795
+post_box, Unknown, 50.838188, 5.733118
+library, Universiteitsbibliotheek, 50.844551, 5.690282
+police, Unknown, 50.841379, 5.687762
+place_of_worship, Unknown, 50.850967, 5.686608
+courthouse, Unknown, 50.848285, 5.670859
+fountain, Unknown, 50.848445, 5.671340
+university, Department of Knowledge Engineering, 50.847131, 5.687418
+post_box, Unknown, 50.834468, 5.654753
+resthouse, campagne, 50.838457, 5.665227
+resthouse, Unknown, 50.840408, 5.677638
+parking_entrance, Plein 1992, 50.845773, 5.700662
+parking, Unknown, 50.831268, 5.651645
+fuel, Shell, 50.835033, 5.653346
+post_box, Unknown, 50.832616, 5.724066
+bank, ING, 50.849978, 5.687616
+post_office, Unknown, 50.849117, 5.713004
+post_box, Unknown, 50.839522, 5.688301
+post_office, Unknown, 50.863423, 5.732843
+parking_entrance, Bonnefantenmuseum, 50.841995, 5.701866
+post_office, Unknown, 50.839469, 5.650320
+post_office, Unknown, 50.863623, 5.715521
+parking, Unknown, 50.847185, 5.668724
+post_office, Unknown, 50.877034, 5.688377
+fuel, Tinq, 50.879761, 5.673271
+post_box, Unknown, 50.843328, 5.702336
+post_box, Unknown, 50.847336, 5.702013
+parking, P1, 50.837461, 5.713609
+parking, Unknown, 50.845812, 5.659055
+atm, ING, 50.849160, 5.712998
+fuel, Swing, 50.816759, 5.726840
+information, Unknown, 50.836933, 5.717501
+atm, ING, 50.827561, 5.725899
+school, Basisschool Sint Pieter, 50.837151, 5.691167
+recycling, Unknown, 50.847002, 5.706681
+parking, Unknown, 50.842301, 5.741186
+post_box, Unknown, 50.840734, 5.722120
+atm, Unknown, 50.842397, 5.727494
+atm, ABN AMRO, 50.841229, 5.727831
+post_box, Unknown, 50.840684, 5.731528
+pub, Cafe ut Vloot, 50.840946, 5.722249
+pub, Unknown, 50.843649, 5.727424
+pub, Unknown, 50.843354, 5.727467
+pub, Ut Kölke, 50.842476, 5.727742
+pub, Unknown, 50.847186, 5.727974
+school, Unknown, 50.847682, 5.728775
+bank, ABN AMRO, 50.846529, 5.701729
+bank, Rabobank, 50.852297, 5.693510
+bicycle_parking, Unknown, 50.848098, 5.691953
+bicycle_parking, Unknown, 50.849191, 5.688917
+bicycle_parking, Unknown, 50.849756, 5.688279
+bicycle_parking, Unknown, 50.849653, 5.688717
+bicycle_parking, Unknown, 50.851851, 5.690044
+bicycle_parking, Unknown, 50.850406, 5.688915
+bicycle_parking, Unknown, 50.847171, 5.693575
+moped_parking, Unknown, 50.847426, 5.695049
+bicycle_parking, Unknown, 50.850493, 5.694125
+bicycle_parking, Unknown, 50.850650, 5.693567
+bicycle_parking, Unknown, 50.851230, 5.692923
+bicycle_parking, Unknown, 50.852070, 5.692632
+bicycle_parking, Unknown, 50.851528, 5.693884
+moped_parking, Unknown, 50.851252, 5.694039
+bicycle_parking, Unknown, 50.849001, 5.694616
+moped_parking, Unknown, 50.848943, 5.694674
+parking_entrance, Vrijthof, 50.848644, 5.688077
+bicycle_parking, Unknown, 50.847394, 5.694799
+recycling, Unknown, 50.847334, 5.694948
+parking, Unknown, 50.842499, 5.728527
+parking, Unknown, 50.843123, 5.728935
+parking, Unknown, 50.842737, 5.728845
+cinema, Lumière, 50.856680, 5.691102
+recycling, Unknown, 50.865054, 5.674623
+bicycle_parking, Unknown, 50.855305, 5.693035
+school, cnme, 50.851547, 5.679704
+fuel, Esso, 50.851205, 5.730776
+restaurant, De MiniGrill van Raymound, 50.841548, 5.729891
+restaurant, Sphinx Grillroom, 50.841065, 5.728673
+fast_food, Unknown, 50.840664, 5.730365
+fast_food, Unknown, 50.840664, 5.730451
+fuel, Tango, 50.843185, 5.711679
+parking, Plein 1992, 50.846048, 5.700430
+parking, Bassin, 50.853872, 5.693334
+parking, De Colonel, 50.847818, 5.706318
+bicycle_parking, Unknown, 50.849160, 5.712846
+post_box, Unknown, 50.845602, 5.658839
+post_box, Unknown, 50.851600, 5.724651
+parking, Unknown, 50.853428, 5.724624
+parking, Unknown, 50.834529, 5.713530
+vending_machine, Unknown, 50.848877, 5.677776
+vending_machine, Unknown, 50.850909, 5.679098
+vending_machine, Unknown, 50.852868, 5.682235
+vending_machine, Unknown, 50.852975, 5.682058
+vending_machine, Unknown, 50.853468, 5.682794
+cafe, MecCafé, 50.838247, 5.712876
+cafe, Riverside Lounge Maastricht, 50.850135, 5.694518
+parking, Unknown, 50.833717, 5.694727
+post_box, Unknown, 50.895602, 5.704145
+waste_basket, Unknown, 50.833869, 5.731157
+school, OBS De Perroen, 50.826556, 5.728351
+post_office, Bruna, 50.827393, 5.725873
+bicycle_parking, Unknown, 50.851209, 5.702566
+bicycle_parking, Unknown, 50.851243, 5.702727
+vending_machine, Unknown, 50.851243, 5.702550
+waste_basket, Unknown, 50.851256, 5.702542
+waste_basket, Unknown, 50.851339, 5.702445
+waste_basket, Unknown, 50.851147, 5.701098
+fast_food, Frituur Sansa, 50.849807, 5.703520
+bicycle_parking, Unknown, 50.849592, 5.702277
+bicycle_parking, Unknown, 50.849572, 5.701686
+post_box, Unknown, 50.849691, 5.701016
+fast_food, New York Pizza, 50.849727, 5.701356
+pub, De Poshoorn, 50.849387, 5.701227
+clock, Unknown, 50.849542, 5.701038
+restaurant, Wycker Cabinet, 50.849352, 5.699590
+waste_basket, Unknown, 50.849456, 5.699330
+waste_basket, Unknown, 50.849511, 5.699332
+bicycle_parking, Unknown, 50.849674, 5.697351
+cafe, Zondag, 50.849575, 5.698523
+waste_basket, Unknown, 50.849439, 5.697581
+waste_basket, Unknown, 50.849497, 5.697584
+restaurant, Cabaret Douze, 50.846990, 5.694298
+bench, Unknown, 50.847056, 5.694457
+waste_basket, Unknown, 50.847056, 5.694419
+bench, Unknown, 50.847185, 5.692991
+bench, Unknown, 50.847165, 5.693120
+bench, Unknown, 50.847277, 5.692927
+bench, Unknown, 50.847531, 5.692908
+cafe, Enfin, 50.846370, 5.692176
+post_box, Unknown, 50.847062, 5.693332
+restaurant, Forum, 50.846159, 5.692069
+waste_basket, Unknown, 50.845730, 5.692494
+restaurant, Café Sjiek, 50.845372, 5.692417
+school, OBS Binnenstad, 50.844935, 5.693025
+bench, Unknown, 50.845006, 5.693484
+parking_entrance, Unknown, 50.846606, 5.694827
+waste_basket, Unknown, 50.843980, 5.695252
+waste_basket, Unknown, 50.844112, 5.695094
+waste_basket, Unknown, 50.844256, 5.694592
+vending_machine, Unknown, 50.844296, 5.694807
+waste_basket, Unknown, 50.844281, 5.694898
+bench, Unknown, 50.844236, 5.694954
+bench, Unknown, 50.844098, 5.695120
+bench, Unknown, 50.843952, 5.695271
+recycling, Unknown, 50.842821, 5.695664
+waste_basket, Unknown, 50.842797, 5.695756
+school, Toneelacademie, 50.846480, 5.687670
+cafe, De Tribunal, 50.846461, 5.687538
+restaurant, Au Coin Des Bons Enfants, 50.846198, 5.687365
+vending_machine, Unknown, 50.845587, 5.687041
+bench, Unknown, 50.845480, 5.687087
+recycling, Unknown, 50.845561, 5.686876
+bench, Unknown, 50.851401, 5.690223
+bench, Unknown, 50.851325, 5.690223
+bicycle_parking, Unknown, 50.852853, 5.690209
+post_box, Unknown, 50.854401, 5.689884
+bicycle_parking, Unknown, 50.855193, 5.690861
+recycling, Unknown, 50.854605, 5.693761
+waste_basket, Unknown, 50.854649, 5.693750
+bench, Unknown, 50.855248, 5.693469
+waste_basket, Unknown, 50.855249, 5.693445
+bicycle_parking, Unknown, 50.838651, 5.715938
+vending_machine, Unknown, 50.839033, 5.716140
+vending_machine, Unknown, 50.838411, 5.714643
+bicycle_parking, Unknown, 50.839011, 5.714323
+vending_machine, Unknown, 50.839012, 5.714612
+bench, Unknown, 50.841050, 5.714628
+recycling, Unknown, 50.841876, 5.713856
+vending_machine, Unknown, 50.841884, 5.713471
+parking, SG Gerardusweg, 50.845198, 5.709380
+parking, Unknown, 50.840081, 5.704944
+fountain, Unknown, 50.844577, 5.695075
+bench, Unknown, 50.845252, 5.686983
+vending_machine, Unknown, 50.845040, 5.686755
+bicycle_parking, Unknown, 50.844840, 5.686814
+atm, SNS, 50.827578, 5.725798
+school, De Vlinderboom, 50.839899, 5.732841
+school, Basisschool de Regenboog, 50.850656, 5.721800
+school, Basisschool Scharn, 50.848144, 5.726112
+car_wash, Unknown, 50.843237, 5.720048
+waste_basket, Unknown, 50.839533, 5.724403
+vending_machine, Unknown, 50.844985, 5.720124
+waste_basket, Unknown, 50.844419, 5.683712
+vending_machine, Unknown, 50.844433, 5.683492
+bench, Unknown, 50.843450, 5.683424
+waste_basket, Unknown, 50.843488, 5.683481
+bench, Unknown, 50.843819, 5.681857
+bench, Unknown, 50.844098, 5.681069
+vending_machine, Unknown, 50.844392, 5.680083
+post_box, Unknown, 50.844627, 5.682149
+school, Bernard Lievegoed College, 50.842190, 5.720991
+parking, Mosae Forum, 50.851686, 5.693920
+car_rental, Europcar, 50.843176, 5.719683
+recycling, Unknown, 50.829191, 5.722531
+post_box, Unknown, 50.832479, 5.730887
+waste_basket, Unknown, 50.832083, 5.731619
+recycling, Unknown, 50.832048, 5.729227
+waste_basket, Unknown, 50.832131, 5.728661
+waste_basket, Unknown, 50.837648, 5.682299
+bar, Via Mucca, 50.846590, 5.692821
+restaurant, Plaka, 50.846867, 5.694221
+restaurant, thaychi, 50.846782, 5.692687
+pub, Cafe Frape, 50.848265, 5.694816
+restaurant, Sukhothay, 50.845709, 5.685400
+restaurant, 't Klaoske, 50.848004, 5.693191
+restaurant, L'Hermitage, 50.846325, 5.694058
+restaurant, Ilya, 50.846848, 5.692860
+restaurant, 't Pothuiske, 50.848872, 5.694289
+restaurant, Mes Amis, 50.846350, 5.687176
+restaurant, Reube Royale, 50.846165, 5.686563
+restaurant, Quattro Mori, 50.847358, 5.698708
+ice_cream, Luna Rossa, 50.847355, 5.699352
+restaurant, Les Marolles, 50.847969, 5.698148
+restaurant, Trattoria Senza Nome, 50.847556, 5.699293
+restaurant, TUUR, 50.850816, 5.700694
+atm, Unknown, 50.843023, 5.728576
+pharmacy, Mediq Straver, 50.843531, 5.725451
+fast_food, Pizzeria Oranje, 50.843807, 5.727422
+fast_food, 't Wachthuiske, 50.843495, 5.725919
+bench, Unknown, 50.820158, 5.736646
+post_box, Unknown, 50.852027, 5.691397
+parking, Unknown, 50.822526, 5.707092
+fast_food, Unknown, 50.852219, 5.692490
+restaurant, Unknown, 50.852215, 5.692431
+pub, John Mullins, 50.849554, 5.698024
+bench, Unknown, 50.846291, 5.693013
+bench, Unknown, 50.868041, 5.740083
+parking_entrance, Unknown, 50.855679, 5.698599
+recycling, Unknown, 50.855413, 5.653297
+atm, Unknown, 50.860709, 5.670608
+atm, Rabobank, 50.863260, 5.732288
+atm, Rabobank, 50.840921, 5.705595
+atm, Geldmaat, 50.831861, 5.703865
+vending_machine, Unknown, 50.845216, 5.681136
+parking_entrance, Vrijthof, 50.849786, 5.687905
+parking, Unknown, 50.869787, 5.706752
+bicycle_parking, Unknown, 50.847065, 5.669617
+fast_food, Unknown, 50.838798, 5.686544
+restaurant, Unknown, 50.838791, 5.687271
+cafe, Coffeelovers, 50.839997, 5.691640
+restaurant, Bijzonder, 50.838894, 5.687153
+pharmacy, Apotheek van Thoor, 50.839449, 5.647852
+fast_food, Grillroom Onur, 50.839171, 5.651173
+restaurant, Chinees Indonesisch Restaurant Oriënt, 50.839679, 5.649746
+fast_food, Snackbar Daalhof, 50.838910, 5.652321
+clinic, Reizigerskliniek Dr. P de Beer, 50.857580, 5.716547
+parking, Plein 1992, 50.845901, 5.700629
+fire_station, Brandweerpost Maastricht Zuid, 50.815139, 5.708433
+parking, Unknown, 50.820908, 5.700687
+recycling, Unknown, 50.820335, 5.714619
+school, Unknown, 50.831238, 5.705741
+veterinary, AniCura Maastricht, 50.831734, 5.706088
+pharmacy, Benu, 50.831780, 5.706832
+post_box, Unknown, 50.824048, 5.709637
+post_box, Unknown, 50.831951, 5.703680
+recycling, Unknown, 50.832422, 5.703905
+shelter, Unknown, 50.828153, 5.711887
+parking, Unknown, 50.826213, 5.710080
+parking, Unknown, 50.826064, 5.711498
+parking, Unknown, 50.826625, 5.709151
+parking, Unknown, 50.828065, 5.709218
+parking, Unknown, 50.846340, 5.652326
+waste_basket, Unknown, 50.849509, 5.677041
+parking, Unknown, 50.858622, 5.724706
+restaurant, Café Zuid, 50.845772, 5.700140
+school, Basisschool Wyck, 50.850206, 5.699251
+bank, Unknown, 50.845446, 5.658128
+pub, Oonder Us, 50.846725, 5.676025
+fast_food, Snack Point, 50.847924, 5.675708
+fast_food, Kwalitaria, 50.850877, 5.667181
+recycling, Unknown, 50.848182, 5.676485
+atm, Unknown, 50.850415, 5.667145
+bank, SNS, 50.850421, 5.667044
+post_box, Unknown, 50.850446, 5.667132
+recycling, Unknown, 50.851017, 5.667342
+fast_food, McDönerBox, 50.847667, 5.681025
+waste_basket, Unknown, 50.850353, 5.746929
+cafe, Douwe Egberts, 50.849503, 5.704615
+restaurant, Umami, 50.849794, 5.704142
+restaurant, Cucina 50, 50.849751, 5.702237
+restaurant, Flo, 50.849784, 5.703035
+restaurant, Bouchon D'en Face, 50.849566, 5.697864
+cafe, Bufkes, 50.849384, 5.698264
+fast_food, Pronto, 50.849410, 5.697969
+restaurant, 't Piepenhoes, 50.849465, 5.694101
+restaurant, Au Mouton Blanc, 50.849073, 5.692553
+pub, Cafe ut Brook, 50.841415, 5.722392
+childcare, Unknown, 50.839976, 5.726365
+cafe, Hierder Hepke, 50.845763, 5.727498
+fuel, Esso Express, 50.842203, 5.739744
+dentist, F.P. de Beer, 50.831811, 5.706827
+restaurant, Manjefiek, 50.826900, 5.729801
+restaurant, SOFA, 50.821822, 5.700245
+nursing_home, Unknown, 50.827077, 5.709599
+fuel, Unknown, 50.829635, 5.702296
+school, P.C. Basisschool Suringar, 50.837136, 5.721147
+place_of_worship, Providence, 50.836048, 5.729838
+fuel, Avia, 50.843091, 5.719710
+school, Joppenhof, 50.839726, 5.732933
+restaurant, Van der Valk, 50.842111, 5.719801
+school, Unknown, 50.834230, 5.719356
+parking, Maastricht UMC+, 50.833657, 5.713739
+university, UNS40 - Faculty of Psychology and Neuroscience, 50.836712, 5.716022
+university, UNS60, 50.833671, 5.715890
+university, Universiteit Maastricht, 50.835276, 5.716562
+university, Unknown, 50.834962, 5.711388
+parking, P5, 50.839731, 5.710455
+school, Unknown, 50.837675, 5.690945
+restaurant, Villeneuve, 50.838621, 5.687059
+restaurant, Prix de Rome, 50.837154, 5.671987
+restaurant, Unknown, 50.818683, 5.667360
+fuel, LUKOIL Express, 50.848705, 5.658715
+fuel, Total Express, 50.844585, 5.654116
+school, Bonnefanten College, 50.849031, 5.663270
+pharmacy, Apotheek Römkens, 50.849941, 5.658403
+fuel, Esso, 50.852840, 5.664876
+fast_food, New York Pizza, 50.850835, 5.667099
+restaurant, Bistro De Dousberg, 50.855886, 5.644670
+restaurant, Unknown, 50.858657, 5.643847
+cafe, De Tramhalte, 50.844299, 5.679313
+restaurant, Thai Ocha, 50.846608, 5.678472
+arts_centre, Unknown, 50.848458, 5.676882
+doctors, Medisch Centrum Caberg, 50.859680, 5.669197
+fast_food, Toko Jogya, 50.860311, 5.668957
+fuel, Lukoil, 50.859386, 5.660577
+cafe, Coffee break, 50.860743, 5.671202
+fuel, Tamoil, 50.853831, 5.665651
+restaurant, In de Tenne Kan, 50.849053, 5.691662
+restaurant, Tomato, 50.846546, 5.692825
+restaurant, De Dikke Dragonder, 50.848690, 5.689537
+pub, Abrahams Look, 50.847384, 5.681857
+restaurant, Van de Kaart, 50.847791, 5.692292
+restaurant, La Bonne Femme, 50.847199, 5.694425
+cafe, De Bisschopsmolen, 50.846386, 5.692699
+university, University College Maastricht, 50.844728, 5.687942
+ice_cream, Venezia, 50.850488, 5.691234
+restaurant, Old Dutch, 50.849128, 5.689345
+fast_food, Jack White’s, 50.851095, 5.692890
+restaurant, Brasserie Vrijthof 11, 50.849069, 5.689342
+fast_food, Kebab Point, 50.848801, 5.689864
+restaurant, Witloof, 50.846558, 5.694075
+restaurant, Petit Café Moriaan, 50.848693, 5.693980
+restaurant, Unknown, 50.849022, 5.689322
+restaurant, La Cubanita, 50.849017, 5.691916
+restaurant, D'n Ingel, 50.848978, 5.689308
+cafe, Take Five, 50.848173, 5.690259
+restaurant, Fameuse, 50.848934, 5.689295
+bar, The Loft, 50.845972, 5.687610
+fast_food, Topzz, 50.850346, 5.691445
+restaurant, Il Giardino, 50.847035, 5.693875
+restaurant, Van Bommel, 50.848696, 5.689820
+restaurant, In den Ouden Vogelstruys, 50.848853, 5.689273
+fast_food, McDonald's, 50.849978, 5.688935
+pub, Gabi’s Bar, 50.849035, 5.691790
+restaurant, De Twee Heren, 50.848691, 5.689710
+bar, Kaffee Naovenant, 50.850144, 5.688912
+fast_food, Domino's, 50.849127, 5.678368
+restaurant, Rozemarijn, 50.848144, 5.693476
+atm, Geldmaat, 50.851080, 5.692462
+cafe, Choca Mosa, 50.848719, 5.690706
+restaurant, Brandsøn, 50.848684, 5.694618
+brothel, ML Nightclub, 50.849844, 5.693799
+cafe, Darq, 50.849021, 5.693873
+fast_food, Snackpoint De Merret, 50.850866, 5.690282
+restaurant, Lunch & Zo / Pasta & Zo, 50.848889, 5.690948
+restaurant, Jovial, 50.849622, 5.689298
+fast_food, Panos, 50.849516, 5.684714
+restaurant, Brasserie van Buuren, 50.847625, 5.692625
+prep_school, Studiebegeleiding Jekerdal, 50.844527, 5.682129
+restaurant, Cafe Charlemagne, 50.847571, 5.692650
+parking, Bollenpark, 50.847798, 5.682003
+pub, Café de Pieter, 50.845663, 5.692333
+restaurant, La bottega di Gemma, 50.845939, 5.690289
+restaurant, Kaishu, 50.849954, 5.693013
+restaurant, De Lanteern, 50.847676, 5.692598
+restaurant, Spice of India, 50.849086, 5.691401
+restaurant, Unknown, 50.850749, 5.688741
+restaurant, Familia, 50.848762, 5.690869
+restaurant, La Vaca, 50.846942, 5.692829
+fast_food, Lucky Luc Snacks, 50.848893, 5.690818
+restaurant, Brasserie Monopole, 50.849553, 5.689308
+restaurant, De Comedie, 50.847938, 5.692552
+restaurant, Vrienden van het Vrijthof, 50.849509, 5.687487
+restaurant, De Bóbbel, 50.848047, 5.692583
+restaurant, Bocca Lupa, 50.849618, 5.687440
+cafe, De Perroen, 50.849670, 5.687422
+restaurant, Bokes, 50.848735, 5.690106
+restaurant, Ginger, 50.846332, 5.687097
+restaurant, Aux Pays Bas, 50.849357, 5.689328
+fast_food, Burgerfabriek, 50.850826, 5.691021
+pub, Kaffee ‘t Haantje, 50.850779, 5.690805
+restaurant, Pizzeria Napoli, 50.850771, 5.690744
+restaurant, 55, 50.848688, 5.690848
+restaurant, Tivoli, 50.848746, 5.690234
+ice_cream, Luna Rossa, 50.847175, 5.694186
+fast_food, Le Souk, 50.846474, 5.691846
+fast_food, With Love Burrito, 50.850977, 5.690293
+restaurant, Le Fernand, 50.846444, 5.692558
+cafe, Marks, 50.848992, 5.690968
+fast_food, De Buffel, 50.850519, 5.693724
+pub, De Knijnspiep, 50.850002, 5.692451
+fast_food, A La Paco, 50.850424, 5.693771
+restaurant, Antonis, 50.850377, 5.693783
+fast_food, Délifrance, 50.850697, 5.690302
+restaurant, Da Nonna, 50.849397, 5.684888
+cafe, Monkey Coffee, 50.851010, 5.690271
+restaurant, Grand Café Nieuw Bruin, 50.849468, 5.689317
+restaurant, Le Theatre / Revue, 50.849943, 5.688601
+restaurant, Gaucho’s, 50.849933, 5.688744
+bar, La Dolce Vita, 50.850108, 5.693868
+fast_food, Surfside Poke, 50.850930, 5.691983
+restaurant, FAB, 50.851040, 5.690291
+restaurant, Vino and Friends, 50.848009, 5.693746
+pub, Falstaff, 50.848848, 5.690535
+restaurant, Britannique, 50.849416, 5.689321
+pub, La Clé, 50.849941, 5.693924
+pub, Wall Stock, 50.849876, 5.693935
+restaurant, Lezzet Grill, 50.850923, 5.691864
+restaurant, Tokyoto, 50.849739, 5.694049
+restaurant, Eetcafé De Vreede, 50.850901, 5.691772
+restaurant, Da Geppetto, 50.850888, 5.691660
+fast_food, KFC, 50.850859, 5.691610
+restaurant, Ca Na Toneta, 50.850852, 5.691541
+restaurant, Bij Us, 50.850845, 5.691473
+cafe, Preps, 50.850537, 5.692780
+bar, Beez, 50.848979, 5.692182
+restaurant, Laus, 50.847757, 5.691993
+restaurant, Hawaiian Poke Bowl, 50.851132, 5.690228
+cafe, Livin' Room, 50.848575, 5.690756
+restaurant, Mandalin, 50.849118, 5.684507
+restaurant, Momus, 50.849277, 5.689336
+cafe, Cafe Paulus, 50.849761, 5.685736
+restaurant, D’n Awwe Stiene, 50.850514, 5.693412
+restaurant, La Bodega, 50.848721, 5.690034
+restaurant, Vrijthof 9, 50.849193, 5.689346
+restaurant, Fresh cooked, 50.849540, 5.681208
+restaurant, Café Cliniq, 50.848707, 5.689933
+theatre, Theater aan het Vrijthof, 50.850222, 5.687979
+university, University College Maastricht, 50.844453, 5.688471
+university, University Maastricht, School of Business and Economics, 50.845146, 5.684899
+theatre, Bonbonniere, 50.847914, 5.691709
+parking_entrance, Unknown, 50.847062, 5.693443
+fuel, BP, 50.831400, 5.721628
+fuel, Lukoil Express, 50.860190, 5.676944
+community_centre, Tragos, 50.857003, 5.676996
+college, Zuyd Hogeschool, 50.854144, 5.672133
+pub, JoJo's Café, 50.852360, 5.690520
+pub, Café 't Rozenhoedje, 50.852317, 5.690541
+pub, Café Cocotte, 50.852201, 5.690583
+theatre, Intro, 50.851489, 5.687035
+community_centre, The Treehouse, 50.855240, 5.693950
+fast_food, Subway, 50.851246, 5.692610
+cafe, Mickey Brown’s, 50.851241, 5.692511
+restaurant, La Chine, 50.852035, 5.690871
+restaurant, de la Bourse, 50.851913, 5.691382
+social_facility, De Beyart, 50.849679, 5.683719
+cafe, Cafe Local, 50.851866, 5.691488
+bar, Sway, 50.851916, 5.691558
+restaurant, Harbour Club Maastricht, 50.855347, 5.691758
+pub, Peter's Irish Pub, 50.852119, 5.691355
+cafe, Fixed Gear Coffee, 50.850901, 5.688052
+restaurant, Gastrobar Dock Five, 50.855355, 5.691562
+restaurant, De Klapperboom, 50.853950, 5.689820
+restaurant, Yong Kee, 50.853902, 5.689822
+restaurant, 'Allo 'Allo Bistro, 50.855358, 5.691447
+restaurant, Ut Lieuwke, 50.850711, 5.687173
+fast_food, Amigo, 50.849683, 5.682335
+townhall, Stadhuis Maastricht, 50.851352, 5.691374
+restaurant, Eetcafé Minckelers, 50.852040, 5.691050
+school, Basisschool De Maasköpkes, 50.876310, 5.688234
+library, Centre Céramique, 50.845991, 5.701080
+clinic, PsyQ, 50.847103, 5.710042
+pub, Stadsbrouwerij Maastricht, 50.849856, 5.697522
+restaurant, Beluga, 50.846109, 5.699085
+cafe, van Wijck, 50.849561, 5.699304
+fast_food, McDonald's, 50.849603, 5.700141
+fast_food, BABs Burritos, 50.849468, 5.703255
+restaurant, Studio, 50.848668, 5.699356
+cafe, Ipanema, 50.842480, 5.701339
+cafe, Bagels & Beans, 50.849379, 5.699219
+restaurant, Carnal, 50.849387, 5.699053
+restaurant, Burgerlijk, 50.849070, 5.698422
+restaurant, CINQ, 50.849231, 5.697623
+car_wash, USA, 50.842985, 5.712059
+nightclub, Complex Maastricht, 50.852257, 5.697665
+restaurant, Dreamz, 50.858247, 5.716302
+cafe, Lunchroom De Keyser, 50.850556, 5.714098
+dentist, Dental Clinics Scharnerweg, 50.848996, 5.719080
+restaurant, Farèn, 50.850107, 5.711652
+restaurant, New York Pizza, 50.848860, 5.715054
+library, Bibiotheek Heer, 50.844010, 5.725833
+school, Euro College, 50.847823, 5.713198
+restaurant, Unknown, 50.845190, 5.727507
+fast_food, Bancale 61 Pizzeria Napoletana, 50.848711, 5.716757
+restaurant, Griekse Grillroom Pizzeria Maastricht, 50.848724, 5.715848
+restaurant, La Trattoria, 50.848635, 5.715373
+school, Nutsschool Maastricht, 50.846877, 5.714206
+place_of_worship, Unknown, 50.898642, 5.699645
+fire_station, Brandweer Maastricht Kazerne Noord, 50.861190, 5.703689
+school, Basisschool Amby, 50.865437, 5.729436
+fuel, BP, 50.855934, 5.715422
+restaurant, Le Bon Vivant, 50.850834, 5.687101
+parking_entrance, Unknown, 50.846778, 5.699413
+cafe, Brasserie Bij Miranda en Jean-Marie, 50.843003, 5.728177
+pub, Unknown, 50.843729, 5.727467
+fast_food, Unknown, 50.845927, 5.727488
+fast_food, Unknown, 50.845889, 5.727141
+restaurant, Basilica, 50.848693, 5.689282
+restaurant, Il Bacaro, 50.848508, 5.689277
+restaurant, Il Fiore, 50.849982, 5.693903
+restaurant, Pieke Potloed, 50.849381, 5.690400
+restaurant, Harry's, 50.849617, 5.700796
+restaurant, Le Virage, 50.847010, 5.692600
+parking_entrance, Unknown, 50.827553, 5.726326
+parking_entrance, Unknown, 50.827528, 5.726320
+fast_food, Burger King, 50.850799, 5.690937
+bar, Café de Zwaan, 50.850834, 5.691382
+cafe, Eetcafé de Preuverij, 50.846073, 5.687066
+post_box, Unknown, 50.844750, 5.691857
+post_box, Unknown, 50.840021, 5.677703
+parking, Unknown, 50.844515, 5.675207
+post_box, Unknown, 50.848273, 5.676442
+post_box, Unknown, 50.848721, 5.672697
+drinking_water, Unknown, 50.835415, 5.713322
+drinking_water, Unknown, 50.840091, 5.703289
+drinking_water, Unknown, 50.847188, 5.694350
+post_box, Unknown, 50.856085, 5.670181
+bench, Unknown, 50.824138, 5.693900
+bench, Unknown, 50.820265, 5.679013
+bench, Unknown, 50.831826, 5.688676
+ice_cream, Unknown, 50.836838, 5.684279
+childcare, MIK, 50.837068, 5.707439
+childcare, De Kindertuin, 50.837319, 5.708187
+drinking_water, Unknown, 50.851297, 5.690217
+cafe, Unknown, 50.858311, 5.677463
+bench, Unknown, 50.845467, 5.695486
+bench, Unknown, 50.845118, 5.695505
+bench, Unknown, 50.831653, 5.743752
+waste_basket, Unknown, 50.831653, 5.743758
+bench, Unknown, 50.813294, 5.686381
+bicycle_parking, Unknown, 50.825910, 5.695145
+bureau_de_change, GWK Travelex, 50.849620, 5.705581
+waste_basket, Unknown, 50.839088, 5.650888
+bench, Unknown, 50.828652, 5.689848
+bench, Unknown, 50.849359, 5.686473
+bench, Unknown, 50.849393, 5.686468
+bench, Unknown, 50.849431, 5.686461
+bench, Unknown, 50.849466, 5.686455
+school, United World College, 50.856055, 5.723855
+restaurant, Tapijn, 50.843077, 5.687225
+restaurant, Kruisheren restaurant, 50.848786, 5.684028
+bar, Wine bar Rouge & Blanc, 50.848601, 5.683615
+bar, Unknown, 50.848559, 5.683873
+bench, Unknown, 50.863973, 5.730846
+waste_basket, Unknown, 50.863953, 5.730848
+bench, Unknown, 50.843647, 5.680396
+bench, Unknown, 50.843604, 5.680860
+bench, Unknown, 50.843629, 5.681109
+bench, Unknown, 50.843270, 5.681942
+clinic, Huisartsenpraktijk Heerderweg/ Smeets, 50.846893, 5.707697
+restaurant, MonteNova, 50.836862, 5.684181
+charging_station, Unknown, 50.855365, 5.688294
+cafe, Coffeelovers Dominicanen, 50.850129, 5.690192
+restaurant, De Gouverneur, 50.852427, 5.690492
+cafe, Koffie - bij Joost & Maartje, 50.846344, 5.691950
+drinking_water, Unknown, 50.840622, 5.701106
+cafe, Coffeelovers - Plein 1992, 50.846608, 5.699483
+cafe, Coffeelovers - de Annex, 50.845818, 5.700499
+fast_food, Bufkes, 50.846484, 5.700945
+cafe, Grand café Maastricht Soiron, 50.848335, 5.688858
+car_wash, Carwash Maastricht, 50.819395, 5.712070
+car_wash, Starwash, 50.859732, 5.683960
+fuel, Shell Express, 50.860818, 5.705002
+school, Bernard Lievegoedschool, 50.837097, 5.708030
+bicycle_parking, Unknown, 50.835166, 5.710649
+bar, Pathé Café, 50.855372, 5.689641
+parking_entrance, Unknown, 50.846608, 5.694882
+bench, Unknown, 50.901885, 5.700522
+atm, Geldmaat, 50.849973, 5.689162
+bench, Unknown, 50.856287, 5.728666
+charging_station, Unknown, 50.856819, 5.724404
+pharmacy, De Heeg, 50.827653, 5.726299
+post_box, cruyshaag 39, 50.830424, 5.721709
+post_office, IB Post, 50.873456, 5.711298
+cafe, Unknown, 50.837117, 5.716816
+bench, Unknown, 50.837853, 5.717411
+bench, Unknown, 50.837729, 5.717732
+clinic, Trombosedienst, 50.836758, 5.715026
+food_court, Mensa Academica, 50.836611, 5.716176
+bank, SNS, 50.842817, 5.728293
+parking, Parkeergarage de Leim, 50.842790, 5.729244
+recycling, Unknown, 50.842832, 5.721579
+post_box, Unknown, 50.842732, 5.721542
+recycling, Unknown, 50.839812, 5.719010
+bench, Unknown, 50.840263, 5.719006
+waste_basket, Unknown, 50.840331, 5.719009
+bench, Unknown, 50.841088, 5.719046
+waste_basket, Unknown, 50.841061, 5.719046
+recycling, Unknown, 50.853783, 5.687637
+waste_basket, Unknown, 50.841894, 5.709281
+bicycle_parking, Unknown, 50.841839, 5.709301
+waste_basket, Unknown, 50.841699, 5.708802
+waste_basket, Unknown, 50.841440, 5.708474
+bench, Unknown, 50.841634, 5.711100
+waste_basket, Unknown, 50.841618, 5.711061
+bench, Unknown, 50.841360, 5.711299
+bench, Unknown, 50.841692, 5.711256
+waste_basket, Unknown, 50.841681, 5.711215
+post_box, Unknown, 50.848891, 5.705085
+bicycle_parking, Unknown, 50.834403, 5.654490
+fast_food, Snackbar Belfort, 50.845651, 5.659254
+restaurant, Pizzeria Crossa, 50.845753, 5.659504
+cafe, Piece Of Cake, 50.853824, 5.689780
+cafe, Café't Pötterke, 50.850554, 5.693712
+drinking_water, Unknown, 50.849672, 5.688879
+drinking_water, Unknown, 50.849315, 5.693980
+drinking_water, Unknown, 50.843874, 5.691347
+drinking_water, Unknown, 50.833892, 5.716126
+restaurant, Tabkeaw, 50.847685, 5.698311
+restaurant, Le Courage, 50.847905, 5.698475
+restaurant, Kobe, 50.847389, 5.698280
+restaurant, Pakhoes, 50.847509, 5.698056
+restaurant, Restaurant "O", 50.848265, 5.698043
+restaurant, Eetcafé Céramique, 50.848205, 5.698043
+post_box, Unknown, 50.849651, 5.701108
+parking, Unknown, 50.867991, 5.710303
+parking, Unknown, 50.854063, 5.694368
+fast_food, Gembira, 50.849386, 5.699779
+charging_station, Unknown, 50.867843, 5.710011
+parking_entrance, Unknown, 50.867517, 5.710031
+bicycle_parking, Unknown, 50.835613, 5.685538
+taxi, Unknown, 50.852100, 5.690076
+pharmacy, Apotheek America, 50.852608, 5.713100
+waste_basket, Unknown, 50.848760, 5.717633
+recycling, Unknown, 50.834740, 5.654795
+car_rental, AVIS, 50.874892, 5.713272
+restaurant, Oak34, 50.852038, 5.690959
+restaurant, Eetcafe Jour de fête, 50.852033, 5.690784
+bar, D'n Dolle Dries, 50.852031, 5.690719
+atm, Geldmaat, 50.850534, 5.688798
+fast_food, Patty 'n Bun, 50.845024, 5.691903
+restaurant, Taverne d'n Tabbernakel, 50.898720, 5.699507
+restaurant, Brigidahoeve, 50.898399, 5.699120
+atm, Unknown, 50.849131, 5.694172
+charging_station, Unknown, 50.856002, 5.653336
+restaurant, Chez Jacques, 50.847861, 5.698497
+recycling, Unknown, 50.852628, 5.711928
+post_box, Unknown, 50.823476, 5.724590
+post_box, Unknown, 50.827537, 5.725773
+bank, ING, 50.831918, 5.703812
+car_rental, Bo-rent, 50.828222, 5.713245
+bench, Unknown, 50.844452, 5.683717
+place_of_worship, Unknown, 50.845470, 5.685270
+waste_basket, Unknown, 50.849002, 5.679844
+waste_basket, Unknown, 50.849044, 5.680045
+parking, Unknown, 50.848878, 5.683702
+bench, Unknown, 50.843960, 5.685511
+bench, Unknown, 50.843956, 5.684299
+vending_machine, Unknown, 50.849432, 5.679141
+atm, Unknown, 50.847545, 5.680514
+post_box, Unknown, 50.852809, 5.685225
+bench, Unknown, 50.843009, 5.661712
+theatre, De Muziekgieterij, 50.857018, 5.690747
+restaurant, Les 3 Seaux, 50.855503, 5.690775
+hospital, Medish Centrum Maastricht Annadal, 50.848258, 5.668739
+bank, ING, 50.849666, 5.700974
+parking_entrance, De Colonel, 50.847772, 5.706337
+pharmacy, DA Drogisterij / Apotheek St. Pieter, 50.840000, 5.690806
+cafe, Chocolate Company, 50.847948, 5.692833
+bench, Unknown, 50.850921, 5.712231
+bench, Unknown, 50.851068, 5.712188
+bench, Unknown, 50.851238, 5.712136
+bench, Unknown, 50.851643, 5.712580
+bench, Unknown, 50.851520, 5.712648
+bench, Unknown, 50.851382, 5.712726
+bench, Unknown, 50.851241, 5.712850
+bench, Unknown, 50.851151, 5.712899
+bench, Unknown, 50.851055, 5.712952
+waste_basket, Unknown, 50.855766, 5.729109
+waste_basket, Unknown, 50.856202, 5.725756
+waste_basket, Unknown, 50.856742, 5.731012
+charging_station, Unknown, 50.855432, 5.729646
+fast_food, Friture Reitz, 50.850777, 5.690622
+pub, Cafe In De Karkol, 50.848807, 5.694100
+restaurant, Oodles of Noodles, 50.846293, 5.686884
+fast_food, Daisuki Sushi, 50.843317, 5.679146
+school, Basisschool De Geluksvogel, 50.865206, 5.709736
+restaurant, Fu Wah, 50.860180, 5.670745
+fuel, Texaco, 50.866427, 5.704449
+restaurant, Tout à Fait, 50.846387, 5.694097
+charging_station, Unknown, 50.845756, 5.720015
+charging_station, Unknown, 50.844098, 5.725726
+fountain, Unknown, 50.855761, 5.691485
+charging_station, Unknown, 50.845716, 5.690550
+charging_station, Unknown, 50.840490, 5.687960
+waste_basket, Unknown, 50.856481, 5.729809
+waste_basket, Unknown, 50.856737, 5.729436
+recycling, Unknown, 50.846351, 5.652024
+school, Kindcentrum Dynamiek, 50.845865, 5.652719
+school, Basisschool J.F. Kennedy, 50.844709, 5.657640
+recycling, Unknown, 50.843194, 5.678541
+recycling, Unknown, 50.843182, 5.678368
+bicycle_parking, Fietsenstalling Station, 50.849667, 5.704145
+charging_station, Unknown, 50.847536, 5.699581
+parking_entrance, Unknown, 50.839303, 5.707952
+charging_station, Unknown, 50.839449, 5.708038
+recycling, Unknown, 50.854889, 5.683262
+waste_basket, Unknown, 50.844847, 5.687880
+waste_basket, Unknown, 50.853158, 5.691239
+waste_basket, Unknown, 50.853160, 5.691218
+bench, Unknown, 50.844828, 5.687987
+waste_basket, Unknown, 50.844216, 5.688826
+waste_basket, Unknown, 50.844192, 5.688679
+waste_basket, Unknown, 50.844316, 5.688782
+waste_basket, Unknown, 50.844292, 5.688636
+restaurant, Blend 7, 50.845473, 5.690427
+bench, Unknown, 50.844061, 5.688941
+bench, Unknown, 50.844026, 5.688555
+bench, Unknown, 50.844056, 5.688187
+bench, Unknown, 50.844099, 5.687739
+bench, Unknown, 50.844239, 5.686584
+bench, Unknown, 50.854395, 5.693073
+bench, Unknown, 50.853978, 5.691622
+bench, Unknown, 50.855121, 5.688924
+bench, Unknown, 50.855118, 5.689085
+bench, Unknown, 50.855012, 5.689074
+bench, Unknown, 50.855018, 5.688917
+bench, Unknown, 50.853337, 5.691561
+waste_basket, Unknown, 50.851820, 5.688075
+waste_basket, Unknown, 50.854091, 5.691529
+post_box, Unknown, 50.837093, 5.713128
+waste_basket, Unknown, 50.836324, 5.716666
+waste_basket, Unknown, 50.836329, 5.716454
+bench, Unknown, 50.835376, 5.712187
+bench, Unknown, 50.835376, 5.712116
+bench, Unknown, 50.835443, 5.712309
+bench, Unknown, 50.835443, 5.712474
+bench, Unknown, 50.835444, 5.712227
+bench, Unknown, 50.835443, 5.712391
+bench, Unknown, 50.835444, 5.712144
+bench, Unknown, 50.835444, 5.712062
+waste_basket, Unknown, 50.834982, 5.712366
+bench, Unknown, 50.834982, 5.712419
+waste_basket, Unknown, 50.834982, 5.712533
+bench, Unknown, 50.834983, 5.712321
+bench, Unknown, 50.834982, 5.712489
+bench, Unknown, 50.835657, 5.713320
+bench, Unknown, 50.835596, 5.713320
+bench, Unknown, 50.835536, 5.713320
+bench, Unknown, 50.835476, 5.713320
+waste_basket, Unknown, 50.835992, 5.713135
+waste_basket, Unknown, 50.836119, 5.713141
+bench, Unknown, 50.836020, 5.713139
+bench, Unknown, 50.836165, 5.713140
+fast_food, The Döner Company, 50.850270, 5.704926
+restaurant, Le Bon Choix, 50.850163, 5.698381
+bar, Fretz, 50.848882, 5.690693
+cafe, Grand-Café Centre-Ville, 50.851863, 5.693602
+restaurant, Amadeus, 50.850248, 5.689500
+cafe, De Groote Sociëteit, 50.849751, 5.687377
+restaurant, La Piazza, 50.850933, 5.691927
+fast_food, Sushi Centre, 50.851094, 5.692815
+restaurant, Rumors, 50.846684, 5.692828
+bar, Café Duke, 50.846622, 5.692821
+fast_food, Isis Maastricht, 50.849174, 5.676787
+bicycle_parking, Unknown, 50.856722, 5.718998
+fast_food, Friedt, 50.849541, 5.685032
+restaurant, Lumière, 50.856665, 5.691362
+restaurant, STAN, 50.856677, 5.689395
+charging_station, Unknown, 50.852926, 5.690015
+bar, Beez, 50.852439, 5.689862
+charging_station, Unknown, 50.839235, 5.713053
+atm, Unknown, 50.838461, 5.711836
+drinking_water, Unknown, 50.838445, 5.712324
+bench, Unknown, 50.838785, 5.712032
+bicycle_parking, Unknown, 50.839245, 5.711858
+vending_machine, Q-Park, 50.856184, 5.688734
+restaurant, Mangerie, 50.847235, 5.698111
+restaurant, Mediterraneo, 50.848086, 5.698355
+vending_machine, Unknown, 50.848241, 5.698238
+casino, Fair Play, 50.849739, 5.702494
+bar, Unknown, 50.850665, 5.698914
+charging_station, Unknown, 50.837916, 5.709610
+post_box, post nl, 50.863957, 5.687341
+bicycle_parking, Unknown, 50.838413, 5.709249
+waste_basket, Unknown, 50.849898, 5.687178
+waste_basket, Unknown, 50.849934, 5.694578
+bench, Unknown, 50.849903, 5.694588
+photo_booth, Unknown, 50.849964, 5.705449
+cafe, Bistro Hoffmanni, 50.822165, 5.688977
+fountain, Unknown, 50.839447, 5.648924
+bar, 't Proeflokaal, 50.854858, 5.646098
+bicycle_rental, Unknown, 50.854959, 5.645773
+food_court, Foodcourt Maastricht, 50.854800, 5.646243
+water_point, Unknown, 50.874979, 5.681018
+sanitary_dump_station, Unknown, 50.874958, 5.681030
+cafe, Frituur Bastion, 50.851794, 5.671818
+restaurant, Cato by cato, 50.846272, 5.692313
+parking_entrance, Bassin, 50.853798, 5.693040
+place_of_worship, Kloosterkerk Zusters Onder de Bogen, 50.848560, 5.685541
+place_of_worship, Mérodekapel, 50.847471, 5.693397
+car_rental, Enterprise, 50.845608, 5.706139
+restaurant, bistro Croquant, 50.846091, 5.690084
+place_of_worship, Lourdesgrot en kapel, 50.828978, 5.694234
+atm, Unknown, 50.851467, 5.689956
+community_centre, Landbouwbelang, 50.855471, 5.694606
+doctors, Huisartsen Maastricht, 50.849149, 5.679525
+restaurant, De Branding, 50.846199, 5.676061
+restaurant, Harvey • Kitchen & Bar, 50.847353, 5.678856
+cafe, Kaldi, 50.849078, 5.691490
+bench, Unknown, 50.843954, 5.692361
+toilets, Museum Vrijthof, 50.848318, 5.688810
+toilets, Unknown, 50.842745, 5.701480
+bench, Unknown, 50.844044, 5.688804
+fountain, Unknown, 50.844152, 5.693733
+bench, Unknown, 50.816269, 5.686317
+bench, Unknown, 50.823876, 5.676233
+bench, Unknown, 50.839925, 5.679011
+bench, Unknown, 50.840355, 5.679723
+bench, Unknown, 50.840632, 5.681040
+bench, Unknown, 50.836323, 5.684439
+bench, Unknown, 50.813609, 5.688917
+bench, Unknown, 50.813706, 5.688849
+bench, Unknown, 50.814507, 5.689767
+bench, Unknown, 50.814238, 5.688866
+bench, Unknown, 50.814057, 5.688980
+waste_basket, Unknown, 50.847661, 5.681330
+charging_station, Tesla Destination Charger Kruisherenhotel, 50.848855, 5.683820
+fast_food, TiramiSu, 50.850791, 5.688225
+toilets, Unknown, 50.850114, 5.689838
+charging_station, Unknown, 50.848720, 5.704273
+charging_station, Unknown, 50.851998, 5.701700
+bench, Unknown, 50.830616, 5.703797
+bench, Unknown, 50.830701, 5.703903
+bench, Unknown, 50.823225, 5.677595
+fountain, Unknown, 50.847835, 5.687548
+bench, Unknown, 50.849431, 5.686822
+drinking_water, Unknown, 50.856050, 5.690884
+shower, Unknown, 50.856051, 5.690850
+bench, Unknown, 50.856617, 5.691056
+bicycle_parking, Unknown, 50.856703, 5.689857
+post_box, Unknown, 50.880420, 5.719360
+bench, Unknown, 50.847327, 5.697907
+restaurant, Café Servaas, 50.849031, 5.697621
+drinking_water, Unknown, 50.831155, 5.685147
+toilets, Unknown, 50.835121, 5.685378
+bench, Unknown, 50.826359, 5.686166
+restaurant, 't Drifke, 50.837637, 5.694665
+community_centre, Huiskamer, 50.853911, 5.691310
+nightclub, Cavo, 50.848899, 5.690805
+bench, Unknown, 50.845746, 5.690591
+bench, Unknown, 50.845621, 5.690639
+bench, Unknown, 50.845143, 5.695497
+bench, Unknown, 50.895475, 5.715479
+restaurant, Marres Kitchen, 50.851777, 5.685752
+restaurant, Rantrée, 50.854875, 5.645029
+restaurant, NOVO, 50.855657, 5.687006
+restaurant, Vers, 50.850833, 5.688475
+restaurant, Saigon Cuisine, 50.852242, 5.690624
+drinking_water, Unknown, 50.871208, 5.717570
+bench, Unknown, 50.836213, 5.677708
+bench, Unknown, 50.838779, 5.678428
+restaurant, Bikke, 50.847274, 5.699553
+cafe, Wonderwoud, 50.853543, 5.690184
+bar, Bold Rooftopbar, 50.855933, 5.689338
+bench, Unknown, 50.854545, 5.680126
+school, Kindcentrum Manjefiek, 50.863685, 5.653996
+recycling, Unknown, 50.863197, 5.655067
+recycling, Unknown, 50.863876, 5.654855
+hospital, Annadal Kliniek, 50.847919, 5.668827
+cafe, Unknown, 50.850167, 5.705106
+doctors, De Hofhoek, 50.839551, 5.647713
+bench, Unknown, 50.837633, 5.682094
+waste_basket, Unknown, 50.837819, 5.683017
+bar, Capital, 50.852031, 5.690671
+restaurant, Clichee, 50.846929, 5.692685
+bench, Unknown, 50.835464, 5.684375
+toilets, Unknown, 50.836422, 5.683755
+bench, Unknown, 50.833599, 5.682147
+bar, Mr. Smith, 50.848629, 5.698303
+theatre, De Binnentuin, 50.857310, 5.691260
+bench, Unknown, 50.824304, 5.696667
+toilets, Unknown, 50.849714, 5.688880
+library, Library of Things, 50.851311, 5.711657
+bench, Unknown, 50.821447, 5.702575
+bench, Unknown, 50.818125, 5.681823
+bench, Unknown, 50.822769, 5.692571
+bench, Natuurmonumenten, 50.826569, 5.686874
+binoculars, Unknown, 50.826663, 5.686324
+binoculars, Unknown, 50.826368, 5.686096
+bench, Unknown, 50.831267, 5.685139
+bench, Unknown, 50.845754, 5.695356
+bench, Unknown, 50.845786, 5.695349
+clock, Unknown, 50.847341, 5.693176
+fountain, Unknown, 50.848702, 5.688689
+restaurant, Loving Hut, 50.848989, 5.717430
+bench, Unknown, 50.815938, 5.679597
+bench, Unknown, 50.823974, 5.665227
+bench, Unknown, 50.826841, 5.664549
+bench, Unknown, 50.835601, 5.676435
+waste_basket, Unknown, 50.826330, 5.691928
+bench, Unknown, 50.827740, 5.692400
+bench, Unknown, 50.827852, 5.692177
+bench, Unknown, 50.821920, 5.664010
+bench, Unknown, 50.818327, 5.667131
+bench, Unknown, 50.818397, 5.667137
+charging_station, Unknown, 50.860589, 5.651159
+restaurant, Restaurant Petit Bonheur, 50.846497, 5.690196
+bench, Unknown, 50.889775, 5.700836
+bench, Unknown, 50.891985, 5.701635
+bench, Unknown, 50.897472, 5.702211
+bench, Unknown, 50.897952, 5.702290
+fast_food, Sushi Friture Wolder, 50.834495, 5.654115
+restaurant, Pizzeria PianoB, 50.846140, 5.686525
+charging_station, Unknown, 50.851879, 5.674677
+charging_station, Unknown, 50.841700, 5.691039
+fountain, Unknown, 50.852354, 5.683828
+bench, Unknown, 50.850914, 5.694297
+bench, Unknown, 50.850804, 5.694320
+bench, Unknown, 50.850581, 5.694368
+bench, Unknown, 50.850471, 5.694391
+bench, Unknown, 50.846656, 5.695124
+bench, Unknown, 50.846692, 5.695112
+bench, Unknown, 50.846722, 5.695101
+recycling, Unknown, 50.853727, 5.684611
+bench, Unknown, 50.844820, 5.687915
+bench, Unknown, 50.844837, 5.688060
+bench, Unknown, 50.844844, 5.688130
+waste_basket, Unknown, 50.844935, 5.688589
+drinking_water, Unknown, 50.849592, 5.705195
+waste_basket, Unknown, 50.838665, 5.646509
+waste_basket, Unknown, 50.839968, 5.648123
+waste_basket, Unknown, 50.842072, 5.648763
+waste_basket, Unknown, 50.842566, 5.651649
+waste_basket, Unknown, 50.844579, 5.653360
+waste_basket, Unknown, 50.846005, 5.651712
+charging_station, Unknown, 50.839193, 5.648172
+restaurant, Flavourz by Servais, 50.849190, 5.704855
+recycling, Unknown, 50.845633, 5.658484
+waste_basket, Unknown, 50.843997, 5.647885
+public_bookcase, Unknown, 50.845810, 5.708734
+bicycle_parking, Unknown, 50.856442, 5.690874
+cafe, De Greune Leuper, 50.848515, 5.711771
+cafe, Bistrot On Top, 50.847927, 5.709821
+drinking_water, Unknown, 50.845707, 5.714296
+bench, Unknown, 50.852626, 5.705495
+bench, Unknown, 50.852948, 5.705341
+recycling, Unknown, 50.869994, 5.701414
+recycling, Unknown, 50.869930, 5.701378
+recycling, Unknown, 50.869878, 5.701340
+recycling, Unknown, 50.869816, 5.701312
+recycling, Unknown, 50.869757, 5.701270
+recycling, Unknown, 50.869708, 5.701236
+recycling, Unknown, 50.869870, 5.701649
+recycling, Unknown, 50.869809, 5.701612
+recycling, Unknown, 50.869754, 5.701578
+recycling, Unknown, 50.869696, 5.701543
+recycling, Unknown, 50.869644, 5.701510
+recycling, Unknown, 50.869573, 5.701477
+recycling, Unknown, 50.838282, 5.709021
+charging_station, Unknown, 50.839056, 5.694111
+fast_food, Subway, 50.850797, 5.667027
+university, Maastricht University, Faculty of Arts and Social Sciences, 50.849911, 5.685603
+fountain, Sint-Antoniusfontein, 50.852700, 5.690228
+bench, Unknown, 50.838110, 5.717556
+college, Hotel Management School Maastricht, 50.868430, 5.709840
+bench, Unknown, 50.880056, 5.691527
+bench, Unknown, 50.895042, 5.695461
+bench, Unknown, 50.846828, 5.679257
+toilets, Unknown, 50.825793, 5.694637
+waste_basket, Unknown, 50.833960, 5.684705
+waste_basket, Unknown, 50.833981, 5.684694
+binoculars, Unknown, 50.830646, 5.683503
+clinic, Stadspoli Oost, 50.850680, 5.731023
+charging_station, Maastricht Supercharger, 50.816409, 5.725316
+recycling, Unknown, 50.826171, 5.725052
+vending_machine, Unknown, 50.849934, 5.705465
+vending_machine, Unknown, 50.849949, 5.705457
+luggage_locker, Unknown, 50.849744, 5.705557
+toilets, Unknown, 50.850234, 5.705409
+vending_machine, Unknown, 50.850221, 5.706565
+vending_machine, Unknown, 50.850427, 5.705092
+vending_machine, Unknown, 50.850426, 5.705067
+bicycle_rental, Swapfiets, 50.847947, 5.705388
+university, Faculty of Science and Engineering, 50.839588, 5.715119
+bicycle_parking, Unknown, 50.852044, 5.691156
+waste_basket, Unknown, 50.849282, 5.693523
+waste_basket, Unknown, 50.849354, 5.693510
+waste_basket, Unknown, 50.849899, 5.691565
+waste_basket, Unknown, 50.849890, 5.692214
+waste_basket, Unknown, 50.849706, 5.692581
+waste_basket, Unknown, 50.849778, 5.692381
+waste_basket, Unknown, 50.849814, 5.692058
+waste_basket, Unknown, 50.849329, 5.692997
+waste_basket, Unknown, 50.849252, 5.693006
+waste_basket, Unknown, 50.849300, 5.694056
+waste_basket, Unknown, 50.849391, 5.694042
+waste_basket, Unknown, 50.849426, 5.698210
+waste_basket, Unknown, 50.849510, 5.698214
+bench, Unknown, 50.849704, 5.701911
+waste_basket, Unknown, 50.849703, 5.701898
+bench, Unknown, 50.849608, 5.701595
+waste_basket, Unknown, 50.849609, 5.701620
+waste_basket, Unknown, 50.849507, 5.701630
+bench, Unknown, 50.849506, 5.701605
+waste_basket, Unknown, 50.849649, 5.701051
+waste_basket, Unknown, 50.849498, 5.700884
+parking_entrance, Unknown, 50.846950, 5.695070
+waste_basket, Unknown, 50.847009, 5.694937
+waste_basket, Unknown, 50.846709, 5.695104
+bench, Unknown, 50.844512, 5.695951
+bench, Unknown, 50.844306, 5.695718
+bench, Unknown, 50.844289, 5.695718
+waste_basket, Unknown, 50.844438, 5.695966
+recycling, Unknown, 50.843945, 5.695419
+waste_basket, Unknown, 50.845013, 5.696542
+waste_basket, Unknown, 50.843991, 5.695973
+waste_basket, Unknown, 50.844486, 5.696479
+waste_basket, Unknown, 50.844384, 5.695716
+bench, Unknown, 50.844440, 5.695721
+bench, Unknown, 50.844455, 5.695722
+waste_basket, Unknown, 50.844201, 5.695730
+bench, Unknown, 50.844133, 5.695739
+bench, Unknown, 50.843892, 5.693457
+bench, Unknown, 50.843863, 5.693491
+charging_station, Unknown, 50.843860, 5.694674
+waste_basket, Unknown, 50.843970, 5.693319
+waste_basket, Unknown, 50.843877, 5.691507
+waste_basket, Unknown, 50.843891, 5.692053
+bench, Unknown, 50.844056, 5.692280
+waste_basket, Unknown, 50.845812, 5.687846
+bench, Unknown, 50.847520, 5.687556
+parking_space, Unknown, 50.847354, 5.687886
+bicycle_parking, Unknown, 50.847192, 5.687795
+bicycle_parking, Unknown, 50.847123, 5.687761
+bicycle_parking, Unknown, 50.847059, 5.687732
+bicycle_parking, Unknown, 50.849432, 5.686526
+waste_basket, Unknown, 50.849476, 5.686450
+waste_basket, Unknown, 50.843685, 5.684234
+bench, Unknown, 50.843955, 5.685484
+waste_basket, Unknown, 50.843790, 5.684115
+waste_basket, Unknown, 50.844325, 5.683724
+bench, Unknown, 50.843801, 5.687558
+bench, Unknown, 50.843803, 5.687538
+waste_basket, Unknown, 50.843799, 5.687581
+waste_basket, Unknown, 50.849551, 5.692705
+waste_basket, Unknown, 50.851160, 5.691109
+waste_basket, Unknown, 50.851152, 5.691144
+waste_basket, Unknown, 50.851223, 5.691074
+waste_basket, Unknown, 50.851356, 5.691026
+waste_basket, Unknown, 50.851435, 5.691001
+waste_basket, Unknown, 50.851456, 5.691024
+waste_basket, Unknown, 50.851161, 5.691281
+waste_basket, Unknown, 50.851199, 5.691567
+waste_basket, Unknown, 50.851279, 5.691645
+waste_basket, Unknown, 50.851463, 5.691586
+waste_basket, Unknown, 50.851499, 5.691468
+waste_basket, Unknown, 50.851464, 5.691172
+bicycle_parking, Unknown, 50.849010, 5.682618
+bicycle_parking, Unknown, 50.849012, 5.683058
+waste_basket, Unknown, 50.851221, 5.692973
+parking_space, Unknown, 50.856749, 5.674180
+parking_entrance, Unknown, 50.847970, 5.681999
+clinic, Stadspoli West, 50.859337, 5.667530
+bench, Unknown, 50.845278, 5.699206
+bench, Unknown, 50.846992, 5.679776
+charging_station, Unknown, 50.835710, 5.686295
+bench, Unknown, 50.820256, 5.683172
+bench, Unknown, 50.824537, 5.687695
+bicycle_parking, Unknown, 50.846858, 5.694749
+bicycle_parking, Unknown, 50.846098, 5.699892
+bicycle_parking, Unknown, 50.846444, 5.700401
+bicycle_parking, Unknown, 50.846381, 5.701666
+charging_station, Unknown, 50.840312, 5.645642
+charging_station, Unknown, 50.840965, 5.646957
+charging_station, Unknown, 50.842285, 5.647642
+charging_station, Unknown, 50.850296, 5.667578
+charging_station, Unknown, 50.850276, 5.667614
+charging_station, Unknown, 50.839890, 5.651004
+waste_basket, Unknown, 50.839816, 5.648840
+waste_basket, Unknown, 50.848116, 5.657024
+recycling, Unknown, 50.865634, 5.656710
+recycling, Unknown, 50.864110, 5.648498
+recycling, Unknown, 50.862494, 5.660193
+charging_station, Unknown, 50.866261, 5.654566
+bicycle_parking, Unknown, 50.864477, 5.656163
+bicycle_parking, Unknown, 50.863568, 5.656186
+charging_station, Unknown, 50.865082, 5.650810
+charging_station, Unknown, 50.864357, 5.656101
+waste_basket, Unknown, 50.864438, 5.656202
+post_box, Unknown, 50.863916, 5.655989
+parking_entrance, Bonnefantenmuseum, 50.840671, 5.701382
+bench, Unknown, 50.813796, 5.684851
+charging_station, KIA, 50.829884, 5.712771
+restaurant, Futago, 50.843518, 5.725851
+marketplace, De Biomarkt, 50.847007, 5.699145
+bench, Unknown, 50.842774, 5.715516
+waste_basket, Unknown, 50.842354, 5.714937
+bench, Unknown, 50.842337, 5.714908
+bench, Unknown, 50.842312, 5.714884
+parking_entrance, Unknown, 50.841522, 5.696604
+waste_basket, Unknown, 50.842638, 5.696868
+vending_machine, Unknown, 50.842322, 5.697230
+parking_entrance, Unknown, 50.842323, 5.697582
+vending_machine, Unknown, 50.841597, 5.696607
+parking_entrance, Unknown, 50.842527, 5.697977
+vending_machine, Unknown, 50.843338, 5.697264
+parking_entrance, Unknown, 50.843310, 5.697458
+bench, Unknown, 50.840262, 5.696060
+bicycle_parking, Unknown, 50.842434, 5.703060
+parking_entrance, Unknown, 50.842792, 5.695795
+vending_machine, Unknown, 50.842773, 5.695709
+waste_basket, Unknown, 50.849747, 5.672152
+bench, Unknown, 50.849731, 5.671884
+waste_basket, Unknown, 50.849966, 5.671786
+bicycle_parking, Unknown, 50.845101, 5.681143
+bench, Unknown, 50.844071, 5.681178
+bench, Unknown, 50.844075, 5.681138
+bench, Unknown, 50.844086, 5.681100
+restaurant, Pêt Thai, 50.852985, 5.690368
+restaurant, Levantini, 50.853205, 5.690280
+restaurant, Café Louis, 50.853865, 5.690217
+post_office, PostNL Pakketpunt, 50.852891, 5.690358
+restaurant, The Salad Bar, 50.854011, 5.690164
+cafe, Confetti, 50.853546, 5.689869
+hunting_stand, Unknown, 50.821830, 5.741600
+hunting_stand, Unknown, 50.827837, 5.744441
+hunting_stand, Unknown, 50.827664, 5.744371
+hunting_stand, Unknown, 50.821667, 5.743594
+hunting_stand, Unknown, 50.853874, 5.750248
+hunting_stand, Unknown, 50.866300, 5.761453
+cafe, Sweet Coffee, 50.849541, 5.694133
+fast_food, Musti Kebab, 50.850026, 5.704787
+bicycle_parking, Unknown, 50.856703, 5.682004
+parking_entrance, Bassin, 50.853601, 5.692010
+parking_entrance, Bassin, 50.853202, 5.692208
+restaurant, Pizzeria Da Kiko, 50.852277, 5.690563
+cafe, Grenzeloos, 50.852600, 5.689948
+waste_basket, Unknown, 50.853841, 5.690882
+waste_basket, Unknown, 50.854143, 5.691559
+waste_basket, Unknown, 50.853399, 5.693149
+parking_entrance, Bassin, 50.853772, 5.693104
+waste_basket, Unknown, 50.853839, 5.690657
+parking_entrance, Bassin, 50.853095, 5.692571
+drinking_water, Unknown, 50.856561, 5.690227
+bench, Unknown, 50.855472, 5.693408
+waste_basket, Unknown, 50.855483, 5.693402
+waste_basket, Unknown, 50.855675, 5.693272
+bench, Unknown, 50.855670, 5.693276
+bench, Unknown, 50.855305, 5.693288
+waste_basket, Unknown, 50.855319, 5.693269
+place_of_worship, Unknown, 50.863942, 5.725655
+place_of_worship, Unknown, 50.848311, 5.685522
+waste_basket, Unknown, 50.855271, 5.692987
+restaurant, NOON Maastricht, 50.851739, 5.697633
+bench, Unknown, 50.845687, 5.714320
+bench, Unknown, 50.845670, 5.714364
+bench, Unknown, 50.820834, 5.661751
+bench, Unknown, 50.822991, 5.661504
+vending_machine, Unknown, 50.862391, 5.689337
+vending_machine, Unknown, 50.861340, 5.689883
+bench, Unknown, 50.824421, 5.699574
+bench, Unknown, 50.824444, 5.699669
+bench, Unknown, 50.822954, 5.693396
+waste_basket, Unknown, 50.825863, 5.696705
+waste_basket, Unknown, 50.825929, 5.696707
+waste_basket, Unknown, 50.825993, 5.696712
+bench, Unknown, 50.825900, 5.696772
+bench, Unknown, 50.825897, 5.696708
+bench, Unknown, 50.825962, 5.696710
+restaurant, King George, 50.863238, 5.732759
+bench, Unknown, 50.849330, 5.689008
+bench, Unknown, 50.849436, 5.688945
